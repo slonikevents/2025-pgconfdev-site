@@ -1,0 +1,58 @@
+full_name: PostgreSQL Development Conference
+year: '2025'
+city: Montreal
+country: Canada
+date_hr: May&nbsp;13-16
+
+conference_over: false
+registration_open: false
+deadline_over: false
+
+cfp_deadline: 'Monday, January 15'
+cfp_deadline_tz: PST
+cfp_response: '2024-01-31'
+cfp_state: past
+cfp_url: https://www.pgevents.ca/events/pgconfdev2024/callforpapers/
+
+normal_price: $400 CAD
+student_price: $70 CAD
+event_soldout: false
+waitlist_activated: false
+
+cfs_open: true
+cfs_signup_url: https://www.pgevents.ca/events/sponsor/signup/pgconfdev2024/
+
+schedule_public: false
+social_event_public: false
+feedback_public: false
+five_wk_cancel_date: '2024-04-23'
+five_wk_cancel_refund: the full cost
+three_wk_cancel_date: '2024-05-07'
+three_wk_cancel_refund: 50%
+two_wk_cancel_date: '2024-05-14'
+two_wk_cancel_refund: 25%
+lttwo_wk_cancel_date: '2024-05-14'
+admin_fee: $30 CAD
+linkbase:  https://2025.pgconf.dev/
+mediabase: https://2025.pgconf.dev/
+newsurl: https://www.pgevents.ca/feeds/conf/pgconfdev2025/
+guidelineurl: https://www.postgresql.org/community/recognition/#conferences
+scheduleurl: https://www.pgevents.ca/events/pgconfdev2025/schedule/
+sessionsurl: https://www.pgevents.ca/events/pgconfdev2025/sessions/
+feedbackurl: https://www.pgevents.ca/events/pgconfdev2025/feedback/
+regurl: https://www.pgevents.ca/events/pgconfdev2025/register/
+venue:
+  name: Plaza Centre-Ville
+  image: montreal.jpg
+
+# Cancellation terms
+cancellation:
+  dates:
+    - on_or_before: 2024-04-23
+      description: 100%
+    - on_or_before: 2024-05-07
+      description: 50%
+    - on_or_before: 2024-05-14
+      description: 25%
+  finaldate: 2024-05-15
+  admin_fee: $30 CAD

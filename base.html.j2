@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en-CA"><meta charset="utf-8">
+
+{# Metadata #}
+<meta name="author" content="Slonik Events Canada">
+<meta name="description" content="{{ full_name }} {{ year }}">
+<meta name="viewport" content="width=device-width">
+<title>{{ title }} - PGConf.dev {{ year }}</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link rel="apple-touch-icon" sizes="180x180" href="{{ "static/icon/apple-touch-icon.png" | link }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ "static/icon/favicon-16x16.png" | link }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ "static/icon/favicon-32x32.png" | link }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize/modern-normalize.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700">
+<link rel="stylesheet" href="{{ "static/main.css" | link }}">
+
+{# Facebook #}
+{% block ogptitle %}<meta property="og:title" content="{{ full_name }} {{ year }}">{% endblock %}
+{% block ogptype %}<meta property="og:type" content="website">{% endblock %}
+{% block ogpurl %}<meta property="og:url" content="https://{{ year }}.pgconf.dev/">{% endblock %}
+{% block ogpdescription %}<meta property="og:description" content="{{ full_name }}, an annual event for developers of PostgreSQL.">{% endblock %}
+{% block ogpimage %}
+  <meta property="og:image" content="{{ "static/logo/og.png" | link }}">
+  <meta property="og:image:secure_url" content="{{ "static/logo/og.png" | link }}">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="800">
+  <meta property="og:image:height" content="400">
+  <meta property="og:image:alt" content="{{ full_name }} {{ year }}">
+{% endblock %}
+
+{# Twitter #}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@pgconfdev">
+
+{# Mastodon #}
+<link href="https://mastodon.social/@pgconfdev" rel="me">
+
+{% block head %}{% endblock %}
+
+<header>
+  <nav>
+    <a class="logo" href="{{ "/" | link }}">
+      <img src="{{ "static/logo/header.png" | link }}" alt="PGConf.dev">
+    </a>
+
+    <label for="toggle"><i class="fa-solid fa-bars"></i></label>
+    <input id="toggle" type="checkbox">
+
+    <ul>
+      <li><a href="{{ "contact.html" | link }}">Contact</a>
+
+      {# <li><a href="{{ regurl }}" rel="nofollow" title="Your attendance">
+          <i class="fa fa-user nosmall"></i>
+          <span class="nobig">Your attendance</span>
+        </a> #}
+    </div>
+  </nav>
+</header>
+
+<main>{% block main %}{% endblock %}</main>
+
+{# <aside>
+  <h4><a href="{{ "sponsor-levels.html" | link }}">Sponsorship</a></h4>
+  <p>Support the PostgreSQL developers community!
+  <p>For great exposure to the global PostgreSQL community, see our
+    <a href="{{ "sponsor-levels.html" | link }}">sponsorship opportunities</a>.
+
+  <h4><a href="{{ "sponsors.html" | link }}">Gold Sponsors</a></h4>
+  {% for sponsor in gold %}
+    <a href="{{ sponsor.url }}" target="_blank">
+      <img src="{{ ("static/logo/" + sponsor.image) | link }}" alt="{{ sponsor.name }}">
+    </a>
+  {% endfor %}
+
+  <h4><a href="{{ "sponsors.html" | link }}">Silver Sponsors</a></h4>
+  {% for sponsor in silver %}
+    <a href="{{ sponsor.url }}" target="_blank">
+      <img src="{{ ("static/logo/" + sponsor.image) | link }}" alt="{{ sponsor.name }}">
+    </a>
+  {% endfor %}
+
+  <p>Want your logo here? Check out all our
+    <a href="{{ "sponsors.html#levels" | link }}">sponsorship opportunities</a>.
+</aside> #}
+
+<footer>
+  <h4>{{ full_name }} {{ date_hr }}&nbsp;{{ year }} {{ city }} {{ country }}</h4>
+
+  <nav>
+    <ul>
+      <li><a href="{{ "contact.html" | link }}">Contact</a>
+    </ul>
+  </nav>
+</footer>

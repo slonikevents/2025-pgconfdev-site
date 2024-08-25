@@ -1,0 +1,52 @@
+body {
+  /* Image credit: Steve Singer */
+  background-attachment: fixed;
+  background-image: url("{{ "montreal.jpg" | link }}");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body > main {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+}
+
+body > main .logo {
+  text-align: center;
+}
+
+body > main .logo img {
+  width: 80%;
+  padding-top: 1rem;
+}
+
+body > main h2 {
+  text-align: center;
+  text-transform: none;
+}
+
+.social {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.social a {
+  color: inherit;
+}
+
+.social a:hover {
+  text-decoration: none;
+}
+
+#newsContainer .newsTitle {
+  font-weight: 700;
+  font-size: 1.3em;
+  text-align: center;
+}
+
+#newsContainer .newsDate {
+  font-size: 0.8em;
+  margin-bottom: 4px;
+  text-align: center;
+}

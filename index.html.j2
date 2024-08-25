@@ -1,0 +1,50 @@
+{% set title = "Main Page" %} 
+{% extends "base.html.j2" %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ "static/index.css" | link }}">
+
+  {# <script src="{{ "static/news.js" | link }}"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      update_frontpage_news('{{ newsurl }}json/');
+    });
+  </script> #}
+{% endblock %}
+
+{% block main %}
+  <div class="logo">
+    <img src="{{ "static/logo/index.png" | link }}" alt="PGConf.dev">
+  </div>
+
+  <h1>{{ full_name }} {{ year }}</h1>
+  <h2>{{ date_hr }} - {{ city }}, {{ country }}</h2>
+
+  <p class="social">
+    <a href="https://twitter.com/pgconfdev">
+      <i class="fa-brands fa-x-twitter"></i>
+    </a>
+
+    &nbsp;
+
+    <a href="https://mastodon.social/@pgconfdev" rel="me">
+      <i class="fa-brands fa-mastodon"></i>
+    </a>
+  </p>
+
+  <p class="lead">
+    {{ full_name }} {{ year }} (PGConf.dev {{ year }}) is where users,
+    developers, and community organizers come together to focus on
+    <a href="https://www.postgresql.org">PostgreSQL</a> development and
+    community growth.
+
+  <p>Meet PostgreSQL contributors, learn about upcoming features, and discuss
+    development problems with PostgreSQL enthusiasts.
+
+  <p>PGConf.dev {{ year }} will be held in {{ city }}, {{ country }}, on
+    {{ date_hr }} at the {{ venue.name }}.
+
+  {# <section id="newsContainer">
+    <h2>Latest news</h2>
+  </section> #}
+{%endblock%}
