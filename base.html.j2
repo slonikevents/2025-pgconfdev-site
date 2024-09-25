@@ -62,6 +62,12 @@
 
 <main>{% block main %}{% endblock %}</main>
 
+<style>
+  body > main {
+    grid-area: main / main / side / side;
+  }
+</style>
+
 {# <aside>
   <h4><a href="{{ "sponsor-levels.html" | link }}">Sponsorship</a></h4>
   <p>Support the PostgreSQL developers community!
