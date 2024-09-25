@@ -47,9 +47,15 @@ a:hover {
 
 body {
   display: grid;
-  /* grid-template: "header" "main" "side" "footer"; */
-  grid-template: "header" "main" "footer";
-  row-gap: 1rem;
+  grid-template:
+    "header"
+    "." 1rem
+    "main"
+    /* "." 1rem */
+    /* "side" */
+    "." minmax(1rem, 1fr)
+    "footer";
+  min-height: 100vh;
 }
 
 @media (min-width: 1200px) {
@@ -57,14 +63,17 @@ body {
     column-gap: 3rem;
     grid-template:
       "header header header"
+      ".      .      ." 1rem
       ".      main   ."
-      ".      main   ."
+      ".      .      ." minmax(1rem, 1fr)
       "footer footer footer" /
       1fr     700px  1fr;
 
       /* "header header header header" */
+      /* ".      .      .      ." 1rem */
       /* ".      main   side   ." */
       /* ".      main   .      ." */
+      /* ".      .      .      ." minmax(1rem, 1fr) */
       /* "footer footer footer footer" / */
       /* 1fr     700px  250px  1fr; */
   }
