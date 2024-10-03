@@ -17,6 +17,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700">
 <link rel="stylesheet" href="{{ "static/main.css" | link }}">
 
+{# Hide the sponsor sidebar #}
+<style>
+  body > main { grid-area: main / main / side / side; }
+</style>
+
 {# Facebook #}
 {% block ogptitle %}<meta property="og:title" content="{{ full_name }} {{ year }}">{% endblock %}
 {% block ogptype %}<meta property="og:type" content="website">{% endblock %}
@@ -56,17 +61,11 @@
           <i class="fa fa-user nosmall"></i>
           <span class="nobig">Your attendance</span>
         </a> #}
-    </div>
+    </ul>
   </nav>
 </header>
 
 <main>{% block main %}{% endblock %}</main>
-
-<style>
-  body > main {
-    grid-area: main / main / side / side;
-  }
-</style>
 
 {# <aside>
   <h4><a href="{{ "sponsor-levels.html" | link }}">Sponsorship</a></h4>
