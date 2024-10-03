@@ -101,6 +101,7 @@ body > main img {
 }
 
 body > main p {
+  -webkit-hyphens: auto;
   hyphens: auto;
   text-align: justify;
 }
@@ -144,6 +145,7 @@ body > header, body > footer {
 
 body > header {
   grid-area: header;
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
 }
