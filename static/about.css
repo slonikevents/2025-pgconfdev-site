@@ -1,0 +1,27 @@
+.team {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+figure.person {
+  border-radius: 4px;
+  flex-basis: 200px;
+  margin: 0;
+  outline: 1px solid #eeeeee;
+  overflow: hidden;
+}
+
+figure.person > img {
+  display: block;
+  width: 100%;
+}
+
+figure.person > figcaption {
+  font-family: var(--header-font);
+  letter-spacing: 0.03125em;
+  margin: 1rem;
+  text-transform: uppercase;
+}

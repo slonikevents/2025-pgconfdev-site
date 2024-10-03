@@ -1,0 +1,110 @@
+{% set title = "About the Conference" %}
+{% extends "base.html.j2" %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ "static/about.css" | link }}">
+{% endblock %}
+
+{% block main %}
+  <h1>About</h1>
+
+  <p class="lead">
+    The PostgreSQL Development Conference, aka “<abbr>PGConf.dev</abbr>”, is
+    where users, developers, and community organizers come together to focus on
+    <a href="https://www.postgresql.org" target="_blank">PostgreSQL</a>
+    development and community growth.
+
+  <p>PGConf.dev is the successor to
+    <a href="https://www.pgcon.org/" target="_blank">PGCon</a>, and focuses on
+    creating a fun and constructive environment for PostgreSQL contributors to
+    meet, collaborate, and learn from each other.
+
+  <p>PGConf.dev is made possible by the generous support of our sponsors, the
+    amazing content from our speakers, the volunteers who help to organize and
+    run the event, and the participation of the PostgreSQL contributor
+    community.
+
+  <p>Follow us on <a href="https://twitter.com/pgconfdev" target="_blank">
+      <i class="fa-brands fa-x-twitter"></i>
+    </a> or <a href="https://mastodon.social/@pgconfdev" rel="me" target="_blank">
+      <i class="fa-brands fa-mastodon"></i>
+    </a> for up date news about the event.
+
+  <h2>Organization Team</h2>
+
+  <p>PGConf.dev {{ year }} is organized in cooperation with
+    <a href="https://www.pgevents.ca/" target="_blank">Slonik Events Canada</a>
+    by the following people.
+
+  <div class="team">
+    <figure class="person">
+      <img src="static/person/Kaiting%20Chen.jpeg" alt="Kaiting Chen">
+      <figcaption>Kaiting Chen</figcaption>
+    </figure>
+
+    <figure class="person">
+      <img src="static/person/Robert%20Haas.jpeg" alt="Robert Haas">
+      <figcaption>Robert Haas <br> <small>EDB</small></figcaption>
+    </figure>
+
+    <figure class="person">
+      <img src="static/person/Jonathan%20Katz.jpeg" alt="Jonathan Katz">
+      <figcaption>Jonathan Katz <br> <small>AWS</small></figcaption>
+    </figure>
+
+    <figure class="person">
+      <img src="static/person/Paul%20Ramsey.jpeg" alt="Paul Ramsey">
+      <figcaption>Paul Ramsey <br> <small>Crunchy Data</small></figcaption>
+    </figure>
+
+    <figure class="person">
+      <img src="static/person/Steve%20Singer.jpeg" alt="Steve Singer">
+      <figcaption>Steve Singer <br> <small>Nav Technologies</small></figcaption>
+    </figure>
+  </div>
+
+  <h2>Volunteering</h2>
+
+  <p>Please <a href="{{ "contact.html" | link }}">contact us</a> if you'd like
+    to help organize, or volunteer at, the conference. Volunteering is a great
+    way to get more involved in the community, and we'd be happy to have you.
+
+  <h2>Policies</h2>
+
+  <ul>
+    <li>This conference is a
+      <a href="https://www.postgresql.org/about/policies/conferences/" target="_blank">PostgreSQL Community event</a>.
+    </li>
+
+    <li>All attendees will be required to follow the
+      <a href="https://www.postgresql.org/about/policies/coc/" target="_blank">PostgreSQL Code of Conduct</a>.
+    </li>
+  </ul>
+
+  <h2>Privacy</h2>
+
+  <p>This site is hosted on
+    <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#data-collection" target="_blank">GitHub Pages</a>.
+    Please refer to the
+    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank">GitHub Privacy Statement</a>
+    for more information. Our emails don’t use any form of tracking.
+
+  <p><del>After the event, all personal data entered during registration will be
+    purged, with only the data required for financial traceability remaining.
+    All registration data is maintained by Slonik Events Canada and not by the
+    conference organizers or volunteers.</del>
+
+  <h2>Financial Disclosure</h2>
+
+  <p>PGConf.dev is financially supported by our generous sponsors and is
+    underwritten by
+    <a href="https://www.pgevents.ca/" target="_blank">Slonik Events Canada</a>,
+    a Canadian non-profit organization incorporated expressly to organize this
+    conference. All proceeds belong to Slonik Events Canada and will be used in
+    accordance with its
+    <a href="https://www.pgevents.ca/media/local/pdf/slonik-events-bylaws-2023.pdf" target="_blank">by-laws</a>
+    to support the PostgreSQL community.
+
+  <p>Organizers and volunteers receive no remuneration except free attendance to
+    the conference.
+{%endblock%}
