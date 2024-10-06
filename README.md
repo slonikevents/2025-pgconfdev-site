@@ -13,8 +13,8 @@ as the tooling required to render it. All tasks are executed through [Invoke].
 1. Clone the repository and `cd` into it:
 
    ```bash
-   git clone git@github.com:ktchen14/static-site.git
-   cd static-site
+   git clone git@github.com:slonikevents/2025-pgconfdev-site.git
+   cd 2025-pgconfdev-site
    ```
 
 2. If you have [direnv](https://direnv.net), then you just need to authorize the
@@ -106,7 +106,7 @@ Pages]" workflow in GitHub Actions listens for changes on this branch.
    * Use `<div>`s and `<span>`s sparingly. Before you use one, ensure that you
      don't want a better [HTML element].
 
-[Deploy to GitHub Pages]: https://github.com/ktchen14/static-site/actions/workflows/main.yaml
+[Deploy to GitHub Pages]: https://github.com/slonikevents/2025-pgconfdev-site/actions/workflows/main.yaml
 [Google HTML/CSS Style Guide]: https://google.github.io/styleguide/htmlcssguide.html
 [HTML element]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element
 [Invoke]: https://www.pyinvoke.org/
