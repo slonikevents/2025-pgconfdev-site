@@ -1,0 +1,155 @@
+{% set title = "Call for Proposals" %}
+{% extends "base.html.j2" %}
+
+{% block main %}
+  <h1>Call for Proposals</h1>
+<abbr>PGConf.dev</abbr>
+  <p class="lead">
+    PGConf.dev is now accepting proposals for 50 minute talks [link], 25 minute
+    talks [link], and alternative content [link]. This is an opportunity to
+    share your contributions and learnings with others in the PostgreSQL
+    community.
+
+  <ul>
+    <li>Are you working on a new feature or initiative?</li>
+    <li>Have you analyzed a community process or artifact?</li>
+    <li>Did you take on a project, face setbacks, and can share lessons learned?</li>
+    <li>Did you solve a tough problem in another open source community and can share insights?</li>
+  </ul>
+
+  <p>Placeholder for important CFP dates
+
+  <h2>Submission Notes</h2>
+
+  <p>When submitting a 50 or 25 minute talk please indicate if you are
+    proposing it as a 25 minute talk, a 50 minute talk, or either. Alternative
+    content proposals may only be proposed to that track.
+
+  <p>50 minute talk creators will receive complimentary registration and 25
+    minute talk creators receive half-price registration. Alternative content
+    creators will receive subsidized registration on a case-by-case basis.
+
+  <h2>25 Minute Talks</h2>
+
+  <p>25 minute talks may highlight a particular contribution you made or
+    summarize an investigation or thought experiment.
+
+    <p>We'd like to use these slots to:
+    <ul>
+      <li>Celebrate and bring awareness to community initiatives.</li>
+      <li>Enable and improve community members' productivity and happiness.</li>
+      <li>Inspire discussion with short-form analysis and commentary.</li>
+    </ul>
+
+  <p>Here are some examples of topics we would love to see proposed:
+
+    <ul>
+      <li>Present the use case and demo a feature you developed last release.</li>
+      <li>Share a summary of and update on a new community initiative.</li>
+      <li>Features added to a community resource like the CommitFest app and how people might use them.</li>
+      <li>How your open source community solved a systemic problem.</li>
+      <li>Top non-code contribution needs and how to enable and encourage them</li>
+    </ul>
+
+  <p>Here are even
+    <a href="{{ "25minmore.html" | link }}">more ideas</a>
+    for 25 minute talks
+
+  <h2>50 Minute Talks</h2>
+
+  <p>50 minute talks should have a story arc. These may introduce new research,
+    share hard-won learnings, showcase proof-of-concept solutions, present
+    fresh analysis of an issue and propose solutions, or educate the
+    community on an issue it is unaware of or doesn't fully understand.
+
+    <p>These likely fall into one of three buckets:
+      <ul>
+        <li>You identified a problem, you investigated solutions or developed
+          hypotheses, you tested those hypotheses or implemented those
+          solutions, you got some results.</li>
+        <li>You spent time analyzing a particular issue or phenomenon and have
+        your analysis to share.</li>
+        <li>You understand a topic that is not obvious to everyone and can
+          educate us on it.</li>
+      </ul>
+
+    <p>Some of the high level categories:
+      <ul>
+        <li>Failed projects and what you learned from them (what architectural issues did you face, what was unsolvable, what could we do about it)</li>
+        <li>POCs of new features or performance improvements</li>
+        <li>Database academic research</li>
+        <li>Case studies of how you resolved a tricky problem or transitioned to a new paradigm</li>
+        <li>Long-form surveys and analysis of Postgres issues</li>
+        <li>Systemic architectural issues in Postgres and how they could be addressed</li>
+        <li>Systemic community issues and new perspectives on how to solve them</li>
+        <li>Educational content on how to do something or how it is done elsewhere</li>
+      </ul>
+
+    <p>Here are some specific examples of 50-minute talks we would love to see proposed:
+      <ul>
+        <li>Ideas for improving Postgres' buffer replacement algorithm.</li>
+        <li>Every performance bottleneck you found this year and how you found them.</li>
+        <li>Postgres analytical query feature gaps and barriers to adding them.</li>
+        <li>Analysis of top Postgres Stack Overflow complaints and how we could address them.</li>
+        <li>How to use every Postgres developer extension.</li>
+      </ul>
+
+      <p>Note that technical presentations about architectural limitations
+        should be more polished than what you might present at an unconference
+        session. For example, you should have prepared examples and found
+        appropriate links and references, considered solutions, etc
+
+        <p>Here are even
+          <a href="{{ "50minmore.html" | link }}">more ideas</a>
+          for 50 minute talks
+
+    <h2>Alternative Content Proposals</h2>
+
+    <p>Alternative Content Proposals are activities and content that don't fit
+      neatly in a 25 or 50 minute talk format. Think panels, interactive
+      content, training, summits, microconferences, outreach events, and
+      special interest sessions. This is an opportunity for community building.
+
+      <p>Your proposal should include a detailed description of the content,
+        bios for all co-creators, a list of materials and resources needed, and
+        some ideas for how you will attract attendees.
+
+    <p>Some examples of alternative content we may find interesting:
+
+      <ul>
+        <li>Panel discussion on a community-building topic like mental health</li>
+        <li>Student outreach breakfast</li>
+        <li>Extension Ecosystem Summit</li>
+        <li>Community organizing microconference</li>
+        <li>AMA with Postgres contributors on overcoming setbacks</li>
+        <li>Live coding session</li>
+        <li>Silent auction for charity</li>
+        <li>Postgres run/walk</li>
+        <li>Postgres Women coffee break</li>
+      </ul>
+
+      <p>The number of alternative content proposals we accept will be based on
+        their format, resource requirements, and parallelizability.
+
+    <h2>Resources</h2>
+
+    <p>Program committee about and contact [link].
+    <p>Speaker FAQs [link].
+    <p>Other ways to get involved with the conference [link].
+    <p>Submission Tips
+      <ul>
+        <li>Proposed talks about your company's product are unlikely to be
+          accepted unless they discuss issues encountered and how Postgres
+          could be modified to make it easier to extend and support.</li>
+        <li>Be sure to focus your bio on what makes you uniquely positioned to
+          deliver the content you are proposing.</li>
+        <li>Check out last year's schedule for the great content that was accepted
+          then [link].</li>
+        <li>Proposed content with a goal of creating consensus around a topic
+          like a summit or microconference is more likely to be accepted if it
+          is co-proposed by individuals from multiple companies.</li>
+      </ul>
+
+
+
+{%endblock%}

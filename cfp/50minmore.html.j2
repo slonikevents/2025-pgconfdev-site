@@ -1,0 +1,52 @@
+{% set title = "50-Minute Talk Ideas" %}
+{% extends "base.html.j2" %}
+
+{% block main %}
+  <h1>More Ideas for 50-Minute Talks</h1>
+<abbr>PGConf.dev</abbr>
+  <p class="lead">
+    Here are even more ideas for 50-minute Talks
+
+    <ul>
+      <li>Basic statistics for Postgres developers: how to use math to
+        develop better heuristics and test methodology</li>
+      <li>you bucketed every email on pgsql-bugs and have a list of which ones are active</li>
+      <li>you went through every patch on the CF app and have some learnings</li>
+      <li>what are the regulated industries' biggest feature gaps with Postgres</li>
+        and how could we address them</li>
+      <li>A breakdown of a database feature Postgres doesn't have and why and</li>
+        what it would take to have it</li>
+      <li>what are the biggest issues that make postgres not cloud friendly</li>
+      <li>what stands between Postgres and multi-master</li>
+      <li>a comprehensive survey of all migration barriers</li>
+      <li>you talked to dozens of college students using Postgres for the first</li>
+        time and this is what would make it easier for them</li>
+      <li>all the extension hooks you wish Postgres had and why</li>
+      <li>either cutting edge or existing database algorithms that we haven't</li>
+        implemented in Postgres and what it would take and what the benefit</li>
+        would be.</li>
+      <li>how to explain postgres architectural limitations to users</li>
+      <li>an analysis of communication styles and feedback on the mailing lists</li>
+        and what you have found helpful or unhelpful and why</li>
+      <li>how you pick Postgres projects to work on, what has worked and what</li>
+        hasn't</li>
+      <li>what you've learned as a Postgres content creator</li>
+      <li>how your open source project managed to move to gitlab and how</li>
+        developers adjusted to the new workflow</li>
+      <li>how your project implemented vectorized execution and how you solved</li>
+        all the technical problems that came about as you went</li>
+      <li>your development setup and how you are productive</li>
+      <li>benchmarking and performance work. how to design a benchmark, how to</li>
+        approach it</li>
+      <li>how to approach feature work and making committable patches</li>
+      <li>survey of all the ways Postgres falls over at scale</li>
+      <li>how a particular sub-system works and what the bottlenecks are and</li>
+        what could be done to improve it</li>
+      <li>linux kernel concepts for the Postgres developer</li>
+      <li>C language features for Postgres developers that they might not often use</li>
+      <li>Tooling you implemented to make investigating data corruption issues</li>
+        a breeze</li>
+      <li>Ten ways we could modify Postgres to remove backup and restore footguns</li>
+    </ul>
+
+{%endblock%}

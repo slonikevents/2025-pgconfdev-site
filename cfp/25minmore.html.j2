@@ -1,0 +1,22 @@
+{% set title = "25-Minute Talk Ideas" %}
+{% extends "base.html.j2" %}
+
+{% block main %}
+  <h1>More Ideas for 25-Minute Talks</h1>
+<abbr>PGConf.dev</abbr>
+  <p class="lead">
+    Here are even more ideas for 25-minute Talks
+
+    <ul>
+      <li>you wrote an extension you think would be useful for other Postgres
+      contributors and want to show us how to use it</li>
+      <li>you made a PoC bug tracker for Postgres and want to demo it</li>
+      <li>you analyzed commits over time and can say whether or not more work is
+        committed during commitfests or not
+      <li>how to use RR to debug an issue in Postgres</li>
+      <li>patching Postgres to work on an obscure OS</li>
+      <li>showcase tooling you developed to make it easier to solve a class of problem</li>
+      <li>the most requested Postgres features by application developers/DBAs/cloud providers</li>
+    </ul>
+
+{%endblock%}
