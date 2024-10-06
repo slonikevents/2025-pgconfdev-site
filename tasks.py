@@ -5,7 +5,7 @@ from invoke import task
 def render(c, relative_to=None):
     """Render the static site (into `site`)"""
 
-    from jinja2 import Environment, FileSystemLoader
+    from jinja2 import Environment, FileSystemLoader, pass_context
     from pathlib import Path
     import inspect
     import os.path
@@ -29,7 +29,8 @@ def render(c, relative_to=None):
     # Delete each untracked file in the output root
     subprocess.check_call(("git", "clean", "-fqx", "site"))
 
-    def link(target):
+    @pass_context
+    def link(context, target):
         """
         Return the *target* path in accordance to the root path *relative_to*.
 
@@ -72,7 +73,7 @@ def render(c, relative_to=None):
 
         if relative_to is not None:
             return os.path.join(relative_to, target.relative_to("/"))
-        return os.path.relpath(target, origin)
+        return os.path.relpath(target, os.path.dirname("/" + context.name))
 
     # Create the Jinja2 environment and context
     environment = Environment(loader=FileSystemLoader("."))
