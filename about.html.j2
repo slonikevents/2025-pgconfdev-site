@@ -2,7 +2,22 @@
 {% extends "base.html.j2" %}
 
 {% block head %}
-  <link rel="stylesheet" href="{{ "static/about.css" | link }}">
+  <style>
+    .person {
+      border-radius: var(--border-radius);
+      border: var(--border-width) solid var(--mute-border-color);
+      max-width: 200px;
+      overflow: hidden;
+    }
+
+    .person > figcaption {
+      font-family: var(--header-font);
+      letter-spacing: 0.03125em;
+      padding-inline: 1rem;
+      text-align: left;
+      text-transform: uppercase;
+    }
+  </style>
 {% endblock %}
 
 {% block main %}
@@ -24,11 +39,11 @@
     run the event, and the participation of the PostgreSQL contributor
     community.
 
-  <p>Follow us on <a href="https://twitter.com/pgconfdev" target="_blank">
-      <i class="fa-brands fa-x-twitter"></i>
-    </a> or <a href="https://mastodon.social/@pgconfdev" rel="me" target="_blank">
-      <i class="fa-brands fa-mastodon"></i>
-    </a> for up date news about the event.
+  <p>Follow us on
+    <a href="https://twitter.com/pgconfdev" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+    or
+    <a href="https://mastodon.social/@pgconfdev" rel="me" target="_blank"><i class="fa-brands fa-mastodon"></i></a>
+    for up date news about the event.
 
   <h2>Organization Team</h2>
 
@@ -36,7 +51,7 @@
     <a href="https://www.pgevents.ca/" target="_blank">Slonik Events Canada</a>
     by the following people.
 
-  <div class="team">
+  <div class="flex">
     <figure class="person">
       <img src="static/person/Kaiting%20Chen.jpeg" alt="Kaiting Chen">
       <figcaption>Kaiting Chen</figcaption>

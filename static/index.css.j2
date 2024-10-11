@@ -12,6 +12,18 @@ body > main {
   color: #ffffff;
 }
 
+body > main :not(a) {
+  color: #ffffff;
+}
+
+body > main a {
+  color: #017fc0;
+}
+
+body > main a:is(:active, :hover, :focus) {
+  color: #029ae8;
+}
+
 body > main .logo {
   text-align: center;
 }

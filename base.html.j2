@@ -1,11 +1,5 @@
 <!DOCTYPE html><html lang="en-CA"><meta charset="utf-8">
 
-{# Metadata #}
-<meta name="author" content="Slonik Events Canada">
-<meta name="description" content="{{ full_name }} {{ year }}">
-<meta name="viewport" content="width=device-width">
-<title>{{ title }} - PGConf.dev {{ year }}</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -15,7 +9,17 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize/modern-normalize.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700">
+<link rel="stylesheet" href="{{ "static/base.css" | link }}">
 <link rel="stylesheet" href="{{ "static/main.css" | link }}">
+
+<!-- https://stackoverflow.com/questions/14389566/stop-css-transition-from-firing-on-page-load -->
+<script> </script>
+
+{# Metadata #}
+<meta name="author" content="Slonik Events Canada">
+<meta name="description" content="{{ full_name }} {{ year }}">
+<meta name="viewport" content="width=device-width">
+<title>{{ title }} - PGConf.dev {{ year }}</title>
 
 {# Hide the sponsor sidebar #}
 <style>
@@ -96,9 +100,9 @@
   <h4>{{ full_name }} {{ date_hr }}&nbsp;{{ year }} {{ city }} {{ country }}</h4>
 
   <nav>
-    <ul>
+    <menu>
       <li><a href="{{ "venue.html" | link }}">Venue</a>
-      <li><a href="{{ "contact.html" | link }}">Contact</a>      
-    </ul>
+      <li><a href="{{ "contact.html" | link }}">Contact</a>
+    </menu>
   </nav>
 </footer>

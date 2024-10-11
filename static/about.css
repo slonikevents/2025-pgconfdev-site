@@ -1,27 +1,14 @@
-.team {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  margin: 2rem 0;
-}
-
-figure.person {
-  border-radius: 4px;
-  flex-basis: 200px;
-  margin: 0;
-  outline: 1px solid #eeeeee;
+.person {
+  border-radius: var(--border-radius);
+  border: var(--border-width) solid var(--mute-border-color);
+  max-width: 200px;
   overflow: hidden;
 }
 
-figure.person > img {
-  display: block;
-  width: 100%;
-}
-
-figure.person > figcaption {
+.person > figcaption {
   font-family: var(--header-font);
   letter-spacing: 0.03125em;
-  margin: 1rem;
+  padding-inline: 1rem;
+  text-align: left;
   text-transform: uppercase;
 }

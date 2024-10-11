@@ -1,34 +1,8 @@
 /*********************************** Global ***********************************/
 
 :root {
-  --normal-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --header-font: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-body {
-  font-family: var(--normal-font);
-  line-height: 1.4;
-}
-
-h1, h2, h3, h4 {
-  font-family: var(--header-font);
-  font-weight: 700;
-  letter-spacing: 0.03125em;
-  text-transform: uppercase;
-}
-
-h1 { font-size: 2.125em; }
-h2 { font-size: 1.875em; }
-h3 { font-size: 1.5em; }
-h4 { font-size: 1.25em; }
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
+  --header-font: Montserrat, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, Helvetica, Arial, "Helvetica Neue", sans-serif;
 }
 
 @media (max-width: 1200px) {
@@ -88,16 +62,8 @@ body > main {
   max-width: 700px;
 }
 
-body > main a {
-  color: #337ab7;
-}
-
 body > main h1 {
   text-align: center;
-}
-
-body > main img {
-  max-width: 100%;
 }
 
 body > main p {
@@ -109,7 +75,6 @@ body > main p {
 p.lead {
   font-size: 1.25em;
   font-weight: 300;
-  margin-bottom: 20px;
 }
 
 /************************************ Side ************************************/
@@ -134,11 +99,17 @@ body > aside img {
 
 /******************************* Header/Footer ********************************/
 
-body > header, body > footer {
+body > :is(header, footer) {
   background-color: #033c6b;
   color: #fafafa;
   font-family: var(--header-font);
   font-size: 0.875rem;
+}
+
+body > :is(header, footer) :is(h1, h2, h3, h4, h5, h6),
+body > :is(header, footer) a,
+body > :is(header, footer) a:is(:active, :hover, :focus) {
+  color: inherit;
 }
 
 /*********************************** Header ***********************************/
@@ -151,28 +122,32 @@ body > header {
 }
 
 body > header > nav {
-  display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  justify-content: space-between;
+  gap: 0 1rem;
   letter-spacing: 0.5px;
   line-height: 2rem;
-  margin: 0 auto;
+  margin-inline: auto;
   max-width: 1200px;
-}
-
-body > header > nav .logo {
-  padding: 0.6rem 1rem;
+  text-transform: uppercase;
 }
 
 body > header > nav .logo > img {
+  display: block;
   height: 2rem;
-  vertical-align: bottom;
+}
+
+body > header a {
+  display: block;
+  outline-offset: 0;
+  padding: 0.67rem 1rem;
+  transition-property: background-color, color;
 }
 
 label[for="toggle"] {
   cursor: pointer;
-  font-size: 1.5rem;
-  padding: 0.6rem 1rem;
+  font-size: 150%;
+  padding: 0.67rem 1rem;
 }
 
 #toggle {
@@ -184,23 +159,16 @@ label[for="toggle"] {
 }
 
 body > header > nav ul {
-  list-style: none;
-  margin: 0 1rem;
-  padding: 0;
+  align-items: stretch;
+  flex-flow: column nowrap;
+  gap: 0;
   width: 100%;
 }
 
-body > header > nav ul a {
-  display: block;
-  padding: 0.6rem 1rem;
-  text-transform: uppercase;
-}
-
-body > header > nav ul a:hover {
+body > header > nav ul a:is(:active, :hover, :focus) {
   background-color: rgba(255, 255, 255, 0.7);
   color: #033c6b;
   text-decoration: none;
-  transition: 0.3s all ease-in-out;
 }
 
 @media (min-width: 1200px) {
@@ -209,15 +177,12 @@ body > header > nav ul a:hover {
   }
 
   #toggle:not(:checked) + ul {
-    display: revert;
+    display: flex;
   }
 
   body > header > nav ul {
+    flex-flow: row wrap;
     width: auto;
-  }
-
-  body > header > nav li {
-    display: inline-block;
   }
 }
 
@@ -225,22 +190,20 @@ body > header > nav ul a:hover {
 
 body > footer {
   grid-area: footer;
+  padding: 1rem;
   text-align: center;
 }
 
-body > footer > nav ul {
-  list-style: none;
-  margin: 1.5rem 0;
-  padding: 0;
+body > footer > nav {
+  column-gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-@media (min-width: 1200px) {
-  body > footer > nav {
-    display: flex;
-    justify-content: center;
-  }
+body > footer > nav menu {
+  width: auto;
+}
 
-  body > footer > nav ul {
-    margin: 0 4rem 1.5rem;
-  }
+body > footer > nav li {
+  margin-block-end: 0.25rem;
 }
