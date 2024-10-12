@@ -1,4 +1,4 @@
-{% set title = "Main Page" %} 
+{% set title = "Main Page" %}
 {% extends "base.html.j2" %}
 
 {% block head %}
@@ -27,6 +27,9 @@
 
     <a href="https://mastodon.social/@pgconfdev" rel="me"><i class="fa-brands fa-mastodon"></i></a>
   </p>
+
+  <p style="text-align: center;">
+    <a href="{{ "cfp.html" | link }}" role="button">Call For Proposals</a>
 
   <p class="lead">
     {{ full_name }} {{ year }} (PGConf.dev {{ year }}) is where users,

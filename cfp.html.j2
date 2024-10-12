@@ -1,0 +1,198 @@
+{% set title = "Call for Proposals" %}
+{% extends "base.html.j2" %}
+
+{% block head %}
+  <style>
+    html {
+      scroll-padding-top: 3rem;
+    }
+  </style>
+{% endblock %}
+
+{% block main %}
+  <h1>Call for Proposals</h1>
+
+  <p class="lead">
+    PGConf.dev {{ year }} is now accepting proposals for
+    <a href="#25-minute-talks">25 minute talks</a>,
+    <a href="#50-minute-talks">50 minute talks</a>, and
+    <a href="#alternative-content">alternative content</a>.
+    This is an opportunity to share your experiences with the PostgreSQL
+    community!
+
+  <p style="text-align: center;">
+    <a href="{{ "https://www.pgevents.ca/events/pgconfdev2025/callforpapers/" | link }}" role="button">Submit Your Proposal</a>
+
+  <hr>
+
+  <section class="grid">
+    <div>
+      <p><strong>Wondering what you should propose?</strong> Here are some questions to get you started:
+
+      <ul>
+        <li>Have you been working on a new feature or initiative?</li>
+        <li>Have you analyzed or improved a community process or resource?</li>
+        <li>Did you take on a project, face setbacks, and learn lessons?</li>
+        <li>Did you solve a tough problem in another open source community?</li>
+      </ul>
+    </div>
+
+    <aside>
+      <header>
+        <h6>
+          <span style="float: right;"><i class="fa-solid fa-calendar"></i></span>
+          Important Dates
+        </h6>
+      </header>
+      <ul style="list-style-type: none; padding-inline-start: 0;">
+        <li>
+          <strong>October 15th, 2024</strong>
+          <p style="margin-left: 1rem;">CFP Opens
+        <li>
+          <strong>January 1st, 2025</strong>
+          <p style="margin-left: 1rem;">CFP Closes (Proposals Due)
+
+        <li>
+          <strong>January 20th, 2025</strong>
+          <p style="margin-left: 1rem;">CFP Responses Sent
+        <li>
+          <strong>May 13th, 2025</strong>
+          <p style="margin-left: 1rem;">Conference Begins
+      </ul>
+    </aside>
+  </section>
+
+  <hr>
+
+  <h2 id="25-minute-talks">25 Minute Talks</h2>
+
+  <p>25 minute talks may highlight a particular contribution or summarize an
+    investigation or thought experiment.
+
+  <p>We'd like to use these slots to:
+  <ul>
+    <li>Celebrate and bring awareness to community initiatives
+    <li>Enable and improve community members' productivity and happiness
+    <li>Inspire discussion with short-form analysis and commentary
+  </ul>
+
+  <p>Here are some examples of topics we would love to see proposed:
+  <ul>
+    <li>Demo and explain a PostgreSQL feature you developed
+    <li>Share a new community initiative you started
+    <li>Explain new features you added to a community resource (like the <a href="https://commitfest.postgresql.org" target="_blank">Commitfest app</a>)
+    <li>Share how your open source community solved a systemic problem
+    <li>Talk about PostgreSQL's top non-code contribution needs
+    <li>Show how to use <a href="https://rr-project.org" target="_blank"><kbd>rr</kbd></a> to debug an issue in PostgreSQL
+  </ul>
+
+  <hr>
+
+  <h2 id="50-minute-talks">50 Minute Talks</h2>
+
+  <p>50 minute talks should have a story arc. These may introduce new research,
+    share hard-won learnings, showcase proof-of-concept solutions, present
+    fresh analysis of an issue, or educate the community on a non-obvious issue.
+
+  <p>Some of the high level categories:
+  <ul>
+    <li>Failed PostgreSQL projects and what you learned from them
+    <li>Proof-of-concept features and performance improvements
+    <li>Academic database research
+    <li>Long-form surveys and analyses of PostgreSQL problems
+    <li>Architectural issues in PostgreSQL and how to fix them
+    <li>New perspectives on systemic community concerns
+    <li>Educational content and how-tos
+    <li>Missing features and user needs
+  </ul>
+
+  <p>Here are some specific examples of 50-minute talks we would love to see proposed:
+  <ul>
+    <li>Ideas for improving PostgreSQL's buffer replacement algorithm
+    <li>Every performance bottleneck you've found this year and how you found them
+    <li>Improving PostgreSQL's analytic workload support
+    <li>Analysis of top complaints against PostgreSQL on Stack Overflow and how to fix them
+    <li>How to use every PostgreSQL developer extension
+    <li>Operating system concepts for the PostgreSQL developer
+  </ul>
+
+  <hr>
+
+  <h2 id="alternative-content">Alternative Content</h2>
+
+  <p>Alternative Content encompasses activities and content that don't fit
+    neatly in a 25 or 50 minute talk format, e.g. panels, interactive content,
+    trainings, summits, microconferences, outreach events, and special interest
+    sessions. This is an opportunity for community building.
+
+  <p>Your proposal should include a detailed description of the content, a list
+    of materials and resources needed, and a description of the target
+    audience.
+
+  <p>Some examples of alternative content that we may find interesting:
+  <ul>
+    <li>Panel discussion on a community-building topic like mental health
+    <li>Student outreach breakfast
+    <li>Extension Ecosystem Summit
+    <li>Community organizing microconference
+    <li><abbr title="Ask Me Anything">AMA</abbr> with PostgreSQL contributors
+      on overcoming setbacks
+    <li>Live coding session
+    <li>Silent auction for charity
+    <li>PostgreSQL run/walk
+    <li>PostgreSQL Women coffee break
+  </ul>
+
+  <p>The number of alternative content proposals we accept will be based on
+    their format, resource requirements, and scheduling constraints.
+
+  <hr>
+
+  <h2>Submission Notes</h2>
+
+  <p>A talk may be proposed as both a 50 minute talk and 25 minute talk. You
+    should explain, in the body of the proposal, which length you prefer.
+    Alternative content may only be proposed to the alternative content track.
+
+  <p>While you may propose content with multiple speakers, 50 minute talks
+    receive, at most, two complimentary registrations. 25 minute talks receive
+    one complimentary registration. And alternative content creators will
+    receive subsidized registration on a case-by-case basis.
+
+  <h3>Tips</h3>
+
+  <ul>
+    <li>Proposed talks about your company's product are unlikely to be accepted
+      unless they discuss issues encountered and how PostgreSQL could be
+      modified to make it easier to extend and support.
+    <li>Be sure to focus your bio on what makes you uniquely positioned to
+      deliver the content you are proposing.
+    <li>Proposed content with a goal of creating consensus around a topic
+      like a summit or microconference is more likely to be accepted if it
+      is co-proposed by individuals from multiple companies.
+    <li>Check out the PGConf.dev 2024
+      <a href="https://www.pgevents.ca/events/pgconfdev2024/schedule/" target="_blank">schedule</a>
+      to see what we accepted and for more inspiration.
+  </ul>
+
+  <hr>
+
+  <h2>Program Committee</h2>
+  <p>Please contact
+    <a href="mailto:program@pgconf.dev">program@pgconf.dev</a>
+    with any questions about the CFP.
+
+  <ul>
+    <li>Amit Kapila (Fujitsu)</li>
+    <li>Jonathan Katz (Amazon)</li>
+    <li>Melanie Plageman (Microsoft)</li>
+    <li>Noah Misch (Google)</li>
+    <li>Paul Ramsey (Crunchy Data)</li>
+  </ul>
+
+  <hr>
+
+  <p style="text-align: center;">
+    <a href="{{ "https://www.pgevents.ca/events/pgconfdev2025/callforpapers/" | link }}" role="button">Submit Your Proposal</a>
+
+{%endblock%}
