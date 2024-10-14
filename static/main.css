@@ -114,6 +114,10 @@ body > :is(header, footer) a:is(:active, :hover, :focus) {
 
 /*********************************** Header ***********************************/
 
+:root {
+  scroll-padding-top: 4.34rem;
+}
+
 body > header {
   grid-area: header;
   position: -webkit-sticky;
