@@ -2,7 +2,22 @@
 {% extends "base.html.j2" %}
 
 {% block head %}
-  <style></style>
+  <style>
+    dd {
+      margin-inline-start: 1.5rem;
+    }
+
+    .side-by-side {
+      grid-template-columns: none;
+    }
+
+    @media (min-width: 768px) {
+      .side-by-side {
+        align-items: start;
+        grid-template-columns: 1fr auto;
+      }
+    }
+  </style>
 {% endblock %}
 
 {% block main %}
@@ -16,12 +31,10 @@
     This is an opportunity to share your experiences with the PostgreSQL
     community!
 
-  <p style="text-align: center;">
+  <p style="margin-block: 2rem; text-align: center;">
     <a href="{{ "https://www.pgevents.ca/events/pgconfdev2025/callforpapers/" | link }}" role="button">Submit Your Proposal</a>
 
-  <hr>
-
-  <section class="grid">
+  <section class="side-by-side grid">
     <div>
       <p><strong>Wondering what you should propose?</strong> Here are some questions to get you started:
 
@@ -40,20 +53,19 @@
           Important Dates
         </h6>
       </header>
-      <ul style="list-style-type: none; padding-inline-start: 0;">
-        <li>
-          <strong>October 15th, 2024</strong>
-          <p style="margin-left: 1rem;">CFP Opens
-        <li>
-          <strong>January 1st, 2025</strong>
-          <p style="margin-left: 1rem;">CFP Closes (Proposals Due)
 
-        <li>
-          <strong>January 20th, 2025</strong>
-          <p style="margin-left: 1rem;">CFP Responses Sent
-        <li>
-          <strong>May 13th, 2025</strong>
-          <p style="margin-left: 1rem;">Conference Begins
+      <dl>
+        <dt><time datetime="2024-10-15">October 15th, 2024</time>
+        <dd>CFP Opens
+
+        <dt><time datetime="2025-01-01">January 1st, 2025</time>
+        <dd>CFP Closes (Proposals Due)
+
+        <dt><time datetime="2025-01-20">January 20th, 2025</time>
+        <dd>CFP Responses Sent
+
+        <dt><time datetime="2025-05-13">May 13th, 2025</time>
+        <dd>Conference Begins
       </ul>
     </aside>
   </section>
@@ -186,9 +198,6 @@
     <li>Paul Ramsey (Crunchy Data)</li>
   </ul>
 
-  <hr>
-
-  <p style="text-align: center;">
+  <p style="margin-block-start: 2rem; text-align: center;">
     <a href="{{ "https://www.pgevents.ca/events/pgconfdev2025/callforpapers/" | link }}" role="button">Submit Your Proposal</a>
-
 {%endblock%}
