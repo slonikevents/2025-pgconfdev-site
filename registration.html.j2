@@ -1,0 +1,136 @@
+{% set title = "Registration" %}
+{% extends "base.html.j2" %}
+
+{% block head %}
+  <style>
+    dd {
+      margin-inline-start: 1.5rem;
+    }
+
+    .side-by-side {
+      grid-template-columns: none;
+    }
+
+    @media (min-width: 768px) {
+      .side-by-side {
+        align-items: start;
+        grid-template-columns: 1fr auto;
+      }
+    }
+  </style>
+{% endblock %}
+
+{% block main %}
+  <h1>Registration</h1>
+<div>
+  <p class="lead">
+    PGConf.dev is an annual event where users, developers, and community organizers come together to focus on PostgreSQL development and community growth.
+
+This event is a strategic gathering of the PostgreSQL community that takes place before development begins.
+
+</p>
+
+
+    <div>
+    <table>
+    <thead>
+        <tr>
+            <th>Ticket</th>
+            <th>Price</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>Regular</td>
+        <td>$500 CAD</td>
+        <td>Normal conference attendance</td>
+        </tr>
+        <tr>
+            <td>Student</td>
+            <td>$75 CAD</td>
+            <td>For anyone enrolled in a higher level education program with a valid
+        and current Student ID or proof of enrollment.</td>
+        </tr>
+        <tr>
+            <td>Speaker</td>
+            <td>$0</td>
+            <td>Confirmed speakers get free registration</td>
+        </tr>
+
+    </tbody>
+    </table>
+
+    <p>A 5% GST and 9.9975% QST tax applies on top of the above ticket prices<p>
+      <p style="margin-block: 2rem; text-align: center;">
+    <a href="https://www.pgevents.ca/events/pgconfdev2025/register//" role="button">Register</a>
+    </div>
+
+    <hr>
+
+  <h2 id="cancellation">Cancellation</h2>
+<p>
+  If you need to cancel your registration after you have paid, please
+ <a href="mailto:contact@pgconf.dev">contact@pgconf.dev</a> for manual handling.  The
+  refund we can offer depends on when
+  you cancel so please cancel as soon as you know you won't be able to make
+  it to the event. The available refund levels are:
+</p>
+<table class="cancellation">
+  <thead>
+    <tr>
+      <th>Cancel on or before</th>
+      <th>Refund</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>        
+        <td>2025-04-08</td>
+        <td>100%<td>
+    </tr>
+    <tr>        
+        <td>2025-04-22</td>
+        <td>50%<td>
+    </tr>
+    <tr>        
+        <td>2025-04-29</td>
+        <td>25%<td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  Cancellations on or after 2025-04-30, as well as any for which
+  a visa invitation letter has been provided, cannot be refunded.
+</p>
+<p>
+  All cancellations incur a $30(plus tax) administration fee.
+</p>
+
+<hr>
+
+<h2 id="student">Students</h2>
+<p>
+  We accept more or less all full-time, as well as part-time, enrolments
+  which can be proven with a valid and current student identification, or
+  some similar proof of enrolment. If you are unsure if you qualify for a
+  student ticket, <a href="mailto:contact@pgconf.dev">contact@pgconf.dev</a> and we will
+  give a definitive answer.
+</p>
+<p>We will contact you after your register and ask you to provide proof of your student status.
+The number of tickets reserved for students is limited, we recommend students register early.
+Students who register after the student tickets have been sold out will need to buy a full price regular registration
+</p>
+
+<h3>Your Data</h3>
+<p>
+  When registering for the conference, we will ask for personal information
+  such as name and address, but also your dietary requirements.  For
+  information on how this data is stored and processed, see the
+  <a href="https://www.pgevents.ca/about/privacypolicy/">PG Events Canada
+    Privacy Policy</a>.
+</p>
+<span class="anchor" id="iban"></span>
+
+
+</div>
+{%endblock%}
