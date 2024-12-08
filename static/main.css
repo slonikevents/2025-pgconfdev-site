@@ -44,12 +44,21 @@ body {
     align-items: start;
     grid-template:
       "header  header  header  header  header"
-      ".       .       .       .       ."       1rem
-      ".       main    .       side    ."
+      ".       .       .       .       end"       1rem
+      ".       main    .       side    end"
       ".       .       .       .       ."       minmax(1rem, 1fr)
       "footer  footer  footer  footer  footer"  /
       1fr      auto    3rem    auto    1fr;
   }
+}
+
+/********************************* end **********************************/
+
+body > end  {
+  border-radius: 16px;
+  color: #616161;
+  justify-self: center;
+  padding: 1rem;
 }
 
 /********************************* Main/Side **********************************/
@@ -102,6 +111,25 @@ body > aside img {
   vertical-align: middle;
   width: 225px;
 }
+
+
+/************************************ end ************************************/
+
+body > end {
+  background-color: #eeeeee;
+  grid-area: end;
+  max-width: 250px;
+}
+
+body > end img {
+  border: none;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  vertical-align: middle;
+  width: 225px;
+}
+
+
 
 /******************************* Header/Footer ********************************/
 
