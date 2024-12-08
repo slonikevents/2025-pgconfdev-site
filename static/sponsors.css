@@ -1,0 +1,19 @@
+.sponsor {
+    border-radius: var(--border-radius);
+    border: var(--border-width) solid var(--mute-border-color);
+    max-width: 200px;
+    overflow: hidden;
+  }
+  
+  .sponsor > figcaption {
+    font-family: var(--header-font);
+    letter-spacing: 0.03125em;
+    padding-inline: 1rem;
+    text-align: left;
+    text-transform: uppercase;
+  } 
+  .sponsor-bronze {      
+    max-width: 200px;
+    overflow: hidden;
+  }
+  
