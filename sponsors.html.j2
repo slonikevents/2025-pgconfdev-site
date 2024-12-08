@@ -1,0 +1,56 @@
+{% set title = "Sponsors" %}
+
+{% extends "base.html.j2" %}
+
+{% block head %}
+  <style>
+    dd {
+      margin-inline-start: 1.5rem;
+    }
+
+    .side-by-side {
+      grid-template-columns: none;
+    }
+
+    @media (min-width: 768px) {
+      .side-by-side {
+        align-items: start;
+        grid-template-columns: 1fr auto;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="{{ "static/sponsors.css" | link }}">
+{% endblock %}
+
+{% block main %}
+  <h1>Gold Sponsors</h1>
+    <div class="flex">
+    {% for sponsor in gold %}
+    <figure class="sponsor">
+        <img src="static/logo/{{ sponsor.image }}" alt="{{ sponsor.name }}" >
+        <div>
+        {{ sponsor.description }}
+        </div>
+    </figure>
+    {% endfor %}
+    </div>
+<h1>Silver Sponsors</h1>
+  <div class="flex">
+    {% for sponsor in silver %}
+    <figure class="sponsor">
+        <img src="static/logo/{{ sponsor.image }}" alt="{{ sponsor.name }}" >
+        <div>
+        {{ sponsor.description }}
+        </div>
+    </figure>
+    {% endfor %}
+    </div>
+<h1>Bronze Sponsors</h1>
+  <div class="flex">
+    {% for sponsor in bronze %}
+    <figure class="sponsor-bronze">
+        <img src="static/logo/{{ sponsor.image }}" alt="{{ sponsor.name }}" >
+    </figure>
+    {% endfor %}
+    </div>
+{%endblock%}

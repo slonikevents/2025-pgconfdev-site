@@ -59,10 +59,13 @@
     <input id="toggle" type="checkbox">
 
     <ul>
+
       <li><a href="{{ "venue.html" | link }}">Venue</a>
       <li><a href="{{ "registration.html" | link }}">Registration</a>
       <li><a href="{{ "cfp.html" | link }}">Call For Papers</a>
+      <li><a href="{{ "sponsors.html" | link }}"> Sponsors</a>
       <li><a href="{{ "sponsor-levels.html" | link }}"> Sponsorship Opportunities</a>
+      <li><a href="{{ "about.html" | link }}">About</a>
       <li><a href="{{ "contact.html" | link }}">Contact</a>
 
       {# <li><a href="{{ regurl }}" rel="nofollow" title="Your attendance">
@@ -74,8 +77,8 @@
 </header>
 
 <main>{% block main %}{% endblock %}</main>
-
-{# <aside>
+{# 
+ <aside>
   <h4><a href="{{ "sponsor-levels.html" | link }}">Sponsorship</a></h4>
   <p>Support the PostgreSQL developers community!
   <p>For great exposure to the global PostgreSQL community, see our
@@ -97,7 +100,8 @@
 
   <p>Want your logo here? Check out all our
     <a href="{{ "sponsors.html#levels" | link }}">sponsorship opportunities</a>.
-</aside> #}
+</aside>
+#}
 
 <footer>
   <h4>{{ full_name }} {{ date_hr }}&nbsp;{{ year }} {{ city }} {{ country }}</h4>
@@ -108,6 +112,8 @@
       <li><a href="{{ "cfp.html" | link }}">Call For Papers</a>
       <li><a href="{{ "registration.html" | link }}">Registration</a>
       <li><a href="{{ "sponsor-levels.html" | link }}">Sponsorship Opportunities</a>
+      <li><a href="{{ "sponsors.html" | link }}">Sponsors</a>
+      <li><a href="{{ "about.html" | link }}">About</a>
       <li><a href="{{ "contact.html" | link }}">Contact</a>
     </menu>
   </nav>
