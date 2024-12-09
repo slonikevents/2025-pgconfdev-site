@@ -52,6 +52,15 @@ body {
   }
 }
 
+/********************************* end **********************************/
+
+body > end  {
+  border-radius: 16px;
+  color: #616161;
+  justify-self: center;
+  padding: 1rem;
+}
+
 /********************************* Main/Side **********************************/
 
 body > main, body > aside {
@@ -102,6 +111,25 @@ body > aside img {
   vertical-align: middle;
   width: 225px;
 }
+
+
+/************************************ end ************************************/
+
+body > end {
+  background-color: #eeeeee;
+  grid-area: end;
+  max-width: 250px;
+}
+
+body > end img {
+  border: none;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  vertical-align: middle;
+  width: 225px;
+}
+
+
 
 /******************************* Header/Footer ********************************/
 
