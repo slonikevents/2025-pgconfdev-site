@@ -56,3 +56,7 @@ cancellation:
       description: 25%
   finaldate: 2024-05-15
   admin_fee: $30 CAD
+bronze:
+  - name: Xatabase, Inc.
+    url: https://xata.io/    
+    image: xata.png
