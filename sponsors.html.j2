@@ -11,8 +11,10 @@
   <div class="flex">
     {% for sponsor in gold %}
     <figure class="sponsor">
-      <img src="static/logo/{{ sponsor.image }}" alt="{{ sponsor.name }}" >
-      <div>{{ sponsor.description }}</div>
+        <a href="{{ sponsor.url }}" target="_blank">
+            <img src="static/logo/{{ sponsor.image }}" alt="{{ sponsor.name }}" >
+        </a>
+        <div>{{ sponsor.description }}</div>
     </figure>
     {% endfor %}
   </div>
@@ -21,7 +23,9 @@
   <div class="flex">
     {% for sponsor in silver %}
     <figure class="sponsor">
-      <img src="static/logo/{{ sponsor.image }}" alt="{{ sponsor.name }}" >
+        <a href="{{ sponsor.url }}" target="_blank">
+            <img src="static/logo/{{ sponsor.image }}" alt="{{ sponsor.name }}" >
+        </a>
       <div>{{ sponsor.description }}</div>
     </figure>
     {% endfor %}
@@ -31,7 +35,9 @@
   <div class="flex">
     {% for sponsor in bronze %}
     <figure class="sponsor-bronze">
-      <img src="static/logo/{{ sponsor.image }}" alt="{{ sponsor.name }}" >
+        <a href="{{ sponsor.url }}" target="_blank">
+            <img src="static/logo/{{ sponsor.image }}" alt="{{ sponsor.name }}" >
+        </a>
     </figure>
     {% endfor %}
   </div>
