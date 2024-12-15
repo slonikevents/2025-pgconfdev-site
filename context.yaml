@@ -8,11 +8,11 @@ conference_over: false
 registration_open: false
 deadline_over: false
 
-cfp_deadline: 'Monday, January 15'
+cfp_deadline: 'Monday, January 6'
 cfp_deadline_tz: PST
-cfp_response: '2024-01-31'
-cfp_state: past
-cfp_url: https://www.pgevents.ca/events/pgconfdev2024/callforpapers/
+cfp_response: '2025-01-31'
+cfp_state: open
+cfp_url: https://www.pgevents.ca/events/pgconfdev2025/callforpapers/
 
 normal_price: $400 CAD
 student_price: $70 CAD
