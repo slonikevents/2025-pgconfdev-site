@@ -56,6 +56,11 @@ cancellation:
       description: 25%
   finaldate: 2024-05-15
   admin_fee: $30 CAD
+gold:
+  - name: Microsoft
+    url: https://techcommunity.microsoft.com/blog/adforpostgresql/what%E2%80%99s-new-with-postgres-at-microsoft-2024-edition/4140085
+    image: microsoft.png
+    description: At Microsoft, our Postgres team is focused on contributing to the advancement of Postgres—by contributing to new PostgreSQL releases, by providing the Azure Database for PostgreSQL managed service, and by innovating on Citus, Patroni, PgBouncer, pgcopydb, & more.
 bronze:
   - name: Xatabase, Inc.
     url: https://xata.io/    
