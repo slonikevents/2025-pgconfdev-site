@@ -3,6 +3,7 @@
   border: var(--border-width) solid var(--mute-border-color);
   max-width: 200px;
   overflow: hidden;
+  padding: 1rem;
 }
 
 .sponsor > figcaption {
