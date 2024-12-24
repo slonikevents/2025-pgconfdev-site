@@ -63,8 +63,12 @@ gold:
     description: At Microsoft, our Postgres team is focused on contributing to the advancement of Postgres—by contributing to new PostgreSQL releases, by providing the Azure Database for PostgreSQL managed service, and by innovating on Citus, Patroni, PgBouncer, pgcopydb, & more.
   - name: EDB
     url: https://www.enterprisedb.com/?gclid=CjwKCAiAuOieBhAIEiwAgjCvcvivLwolQmARCb1Zf6jID7WS7tC15PUH901ZSs_5PQD55Yl83r6ksBoCAkwQAvD_BwE
-    image: edb_tagline_color_grey.png
+    image: edb_landscape_color_grey.png
     description: As the leading contributor to PostgreSQL, EDB is committed to building the next generation of Postgres for operators, developers, data engineers, and AI builders. EDB provides a modern Postgres data platform for transactional, analytical, and new AI workloads powered by an enhanced Postgres engine.
+silver:
+  - name: Percona
+    url: https://www.percona.com/
+    image: percona.png
 bronze:
   - name: Xatabase, Inc.
     url: https://xata.io/    
