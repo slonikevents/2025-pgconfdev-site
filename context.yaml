@@ -73,3 +73,7 @@ bronze:
   - name: Xatabase, Inc.
     url: https://xata.io/    
     image: xata.png
+  - name: PGX, Inc.
+    url:  https://pgexperts.com
+    image: pgx.png
+
