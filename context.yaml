@@ -76,4 +76,6 @@ bronze:
   - name: PGX, Inc.
     url:  https://pgexperts.com
     image: pgx.png
-
+  - name: ubicloud
+    url:  https://www.ubicloud.com/
+    image: ubicloud.svg
