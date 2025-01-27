@@ -78,4 +78,4 @@ bronze:
     image: pgx.png
   - name: ubicloud
     url:  https://www.ubicloud.com/
-    image: ubicloud.svg
+    image: ubicloud.png
