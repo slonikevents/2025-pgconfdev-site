@@ -69,6 +69,9 @@ silver:
   - name: Percona
     url: https://www.percona.com/
     image: percona.png
+  - name: pganalyze
+    url: https://pganalyze.com
+    image: pganalyze.png
 bronze:
   - name: Xatabase, Inc.
     url: https://xata.io/    
