@@ -1,0 +1,12 @@
+{% set title = "Schedule" %}
+{% extends "base.html.j2" %}
+
+{% block main %}
+  <h1>Confirmed Sessions</h1>
+
+  <ul>
+    {% for item in schedule %}
+      <li><a href="{{ item.link }}" target="_blank">{{ item.name | e }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

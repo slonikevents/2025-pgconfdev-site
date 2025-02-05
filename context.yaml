@@ -86,3 +86,89 @@ bronze:
   - name: ubicloud
     url:  https://www.ubicloud.com/
     image: ubicloud.png
+
+schedule:
+- name: My Journey in PostgreSQL bug fixing
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/228/
+- name: Multidimensional search strategies for composite B-Tree indexes
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/229/
+- name: Application Development Challenges with Postgres
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/240/
+- name: Detection and resolution of conflicts in logical replication
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/245/
+- name: "Committer Review: An Exercise in Paranoia"
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/254/
+- name: "Exploring the benefits of learned indexes in PostgreSQL: Theory and Implementation"
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/256/
+- name: Advanced testing with Injection Points
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/260/
+- name: Advanced Patch Feedback Session
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/265/
+- name: What is new in C and POSIX?
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/271/
+- name: "Experimenting with a Global Index in PostgreSQL: Design, Implementation, and Challenges"
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/276/
+- name: The Present and Future of VACUUM in PostgreSQL
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/281/
+- name: Foreign Key Joins
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/287/
+- name: "Revisiting XTM: A Practical Case Study Highlighting Its Needs"
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/293/
+- name: Fast-path locking improvements in PG18
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/311/
+- name: Student Breakfast
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/313/
+- name: Developer Meeting
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/314/
+- name: Slonik Events Canada Annual General Meeting
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/317/
+- name: What can Postgres learn from DuckDB?
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/318/
+- name: Adventures in Extension Packaging
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/331/
+- name: "Fraught Feedback: Trying and Failing to Implement Adaptive Behavior in Postgres"
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/343/
+- name: Crafting exploits for historical CVEs
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/345/
+- name: Switching between query plans in real time
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/346/
+- name: Unconference
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348/
+- name: Problems with logical decoding — an end-user’s perspective
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/353/
+- name: Improving scalability; Reducing overhead in shared memory
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/359/
+- name: ChatGPT Ain’t Got $%@& On Me! Next Generation Automated Database Tuning
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/363/
+- name: Reproducible Postgres
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/364/
+- name: PostgreSQL container groups, aka cgroups down the road.
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/372/
+- name: What does moving to Pull Requests look like? The nginx story
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/379/
+- name: Debugging Data Corruption in PostgreSQL
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/384/
+- name: "postgresql.org: The hidden parts"
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/388/
+- name: Postgres Community Summit
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404/
+- name: The trouble with extensions
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/410/
+- name: Re-engineering Postgres for Millions of Tenants
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/414/
+- name: Postgres Women Breakfast
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/424/
+- name: Everything You Need to Know About Diversity in 25 Minutes
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/426/
+- name: What went wrong with AIO
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/430/
+- name: Scaling Postgres to the next level at OpenAI
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/433/
+- name: Investigating Multithreaded PostgreSQL
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/436/
+- name: What 10 Postgres Major Contributors Did to Become a Hacker
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/440/
+- name: Tracking plan shapes over time with Plan IDs, and a new pg_stat_plans
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/444/
+- name: Vector search is now boring, but PostgreSQL has ways to go
+  link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/446/
