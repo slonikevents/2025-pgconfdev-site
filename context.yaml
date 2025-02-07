@@ -76,6 +76,12 @@ silver:
   - name: pganalyze
     url: https://pganalyze.com
     image: pganalyze.png
+  - name: Fujitsu Enterprise Postgres
+    url: https://www.postgresql.fastware.com/
+    image: fujitsu.png
+  - name: Crunchy Data
+    url: https://www.crunchydata.com/
+    image: crunchydata.png
 bronze:
   - name: Xatabase, Inc.
     url: https://xata.io/    
