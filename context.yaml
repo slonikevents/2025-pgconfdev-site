@@ -68,7 +68,7 @@ gold:
   - name: Amazon Web Services
     url: https://aws.amazon.com
     image: aws.png
-
+    description: Amazon Web Services (AWS) is the world's most comprehensive cloud platform, offering hundreds of key services, spanning 18 geographic regions around the globe. With many solutions built for and around PostgreSQL, we strive to be a leading employer and contributor within the PostgreSQL community.
 silver:
   - name: Percona
     url: https://www.percona.com/
