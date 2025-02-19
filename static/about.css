@@ -12,3 +12,12 @@
   text-align: left;
   text-transform: uppercase;
 }
+
+
+.person > bio {
+  font-family: var(--header-font);
+  letter-spacing: 0.03125em;
+  padding-inline: 1rem;
+  text-align: left;
+  text-transform: uppercase;
+}
