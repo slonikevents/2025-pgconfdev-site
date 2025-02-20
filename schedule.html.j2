@@ -4,9 +4,30 @@
 {% block main %}
   <h1>Confirmed Sessions</h1>
 
+  <h2><time datetime="2025-05-13">Tuesday, May 13th</time></h2>
+  <ul>
+    <li><a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/314-developer-meeting-invite-only/" target="_blank">Developer Meeting (Invite Only)</a>
+      (<time datetime="08:30">08:30</time> - <time datetime="12:30">12:30</time>)
+
+    <li><a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/241-extension-ecosystem-summit/" target="_blank">Extension Ecosystem Summit</a>
+      (<time datetime="08:30">08:30</time> - <time datetime="12:30">12:30</time>)
+
+    <li><a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404-postgres-community-summit/" target="_blank">Community Summit</a>
+      (<time datetime="13:30">13:30</time> - <time datetime="17:30">17:30</time>)
+
+    <li><a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/265-advanced-patch-feedback-session-invite-only/" target="_blank">Advanced Patch Feedback Session</a>
+      (<time datetime="13:30">13:30</time> - <time datetime="17:30">17:30</time>)
+  </ul>
+
+  <h2><time datetime="2025-05-14">Wednesday, May 14th</time> - <time datetime="2025-05-15">Thursday, May 15th</time></h2>
   <ul>
     {% for item in schedule %}
-      <li><a href="{{ item.link }}" target="_blank">{{ item.name | e }}</a></li>
+      <li><a href="{{ item.link }}" target="_blank">{{ item.name | e }}</a>
     {% endfor %}
+  </ul>
+
+  <h2><time datetime="2025-05-16">Friday, May 16th</time></h2>
+  <ul>
+    <li><a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348-unconference/" target="_blank">Unconference</a> (<time datetime="09:00">09:00</time> - <time datetime="17:30">17:30</time>)
   </ul>
 {% endblock %}
