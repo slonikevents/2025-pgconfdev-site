@@ -22,6 +22,45 @@
   style="grid-area: {{ origin }} / {{ origin }} / {{ stop }} / {{ stop }};"
 {%- endmacro %}
 
+{#
+  Called to emit a labeled period in the "time" column. For example, this call:
+
+    time("08:00", "09:30")
+
+  Will emit:
+
+    <li class="time" {{ slot("time-0800", "time-0900") }}>
+      <time>08:00</time>&ndash;<time>09:30</time>
+    </li>
+
+  The emitted label uses the first and second argument verbatim. The time slot
+  that the labeled period is emitted against is determined as:
+
+    1. The first argument is rounded down to the nearest half hour. This is the
+       starting time slot.
+
+    2. One minute is subtracted from the second argument. Then, it's rounded
+       down to the nearest half hour. This is the ending time slot.
+
+  This behavior is intended to handle the common situation wherein a time slot
+  begins on, or shortly after, an even half hour and ends on, or shortly before,
+  an even half hour.
+#}
+{% macro time(origin, stop) -%}
+  {% set hour, minute = origin.split(":") | map("int") -%}
+  {% set minute = 0 if minute < 30 else 30 -%}
+  {% set origin_slot = "time-%02d%02d" | format(hour, minute) -%}
+
+  {% set hour, minute = stop.split(":") | map("int") -%}
+  {% set hour = hour if minute > 0 else hour - 1 -%}
+  {% set minute = 0 if minute <= 30 else 30 -%}
+  {% set stop_slot = "time-%02d%02d" | format(hour, minute) -%}
+
+  <li class="time" {{ slot(origin_slot, stop_slot) }}>
+    <time>{{ origin }}</time>&ndash;<time>{{ stop }}</time>
+  </li>
+{%- endmacro %}
+
 {# Hide the sponsor sidebar on the schedule page #}
 {% block side %}{% endblock %}
 
@@ -30,43 +69,15 @@
 
   <h2><time datetime="2025-05-13">Tuesday, May 13th</time></h2>
   <ul class="schedule">
-    <div class="time" {{ slot("time-0800") }}>
-      <time>08:00</time>&ndash;<time>08:30</time>
-    </div>
+    <h4 {{ slot("a-head") }}>Room 1</h4>
+    <h4 {{ slot("b-head", "d-head") }}>Rooms 3&ndash;7</h4>
 
-    <div class="time" {{ slot("time-0830", "time-1200") }}>
-      <time>08:30</time>&ndash;<time>12:30</time>
-    </div>
-
-    <div class="time" {{ slot("time-1230", "time-1300") }}>
-      <time>12:30</time>&ndash;<time>13:30</time>
-    </div>
-
-    <div class="time" {{ slot("time-1330") }}>
-      <time>13:30</time>&ndash;<time>14:00</time>
-    </div>
-
-    <div class="time" {{ slot("time-1400", "time-1500") }}>
-      <time>14:00</time>&ndash;<time>15:30</time>
-    </div>
-
-    <div class="time" {{ slot("time-1530") }}>
-      <time>15:30</time>&ndash;<time>16:00</time>
-    </div>
-
-    <div class="time" {{ slot("time-1600", "time-1700") }}>
-      <time>16:00</time>&ndash;<time>17:30</time>
-    </div>
-
-    <div class="time" {{ slot("time-1730", "time-1800") }}>
-      <time>17:30</time>&ndash;<time>18:30</time>
-    </div>
-
-    <h4 {{ slot("a-header") }}>Room 1</h4>
-    <h4 {{ slot("b-header", "d-header") }}>Rooms 3&ndash;7</h4>
+    {{ time("08:00", "08:30") }}
 
     <li class="social" {{ slot("a-0800", "d-0800") }}>
       Light Refreshments
+
+    {{ time("08:30", "12:30") }}
 
     <li class="workshop" {{ slot("a-0830", "a-1200") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/314/" target="_blank">
@@ -78,14 +89,20 @@
         Extension Ecosystem Summit
       </a>
 
+    {{ time("12:30", "13:30") }}
+
     <li class="social" {{ slot("a-1230", "d-1300") }}>
       Lunch
+
+    {{ time("13:30", "14:00") }}
 
     <li {{ slot("a-1330", "c-1330") }}>
       Afternoon Session Intros
 
     <li {{ slot("d-1330", "d-1530") }}>
       Security Team Meeting (Invite Only)
+
+    {{ time("14:00", "15:30") }}
 
     <li class="workshop" {{ slot("a-1400", "a-1500") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/265/" target="_blank">
@@ -102,8 +119,12 @@
         Community Summit: Microconference 2
       </a>
 
+    {{ time("15:30", "16:00") }}
+
     <li class="social" {{ slot("a-1530", "c-1530") }}>
       Coffee
+
+    {{ time("16:00", "17:30") }}
 
     <li class="workshop" {{ slot("a-1600", "a-1700") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/265/" target="_blank">
@@ -125,76 +146,20 @@
         Community Summit: Microconference 5
       </a>
 
+    {{ time("17:30", "18:30") }}
+
     <li {{ slot("a-1730", "d-1800") }}>
       Meet up with Dinner Groups/Running
   </ul>
 
   <h2><time datetime="2025-05-14">Wednesday, May 14th</time></h2>
   <ul class="schedule">
-    <div class="time" {{ slot("time-0800", "time-0830") }}>
-      <time>08:00</time>&ndash;<time>09:00</time>
-    </div>
+    <h4 {{ slot("a-head") }}>Plenary</h4>
+    <h4 {{ slot("b-head") }}>Breakout 1</h4>
+    <h4 {{ slot("c-head") }}>Breakout 2</h4>
+    <h4 {{ slot("d-head") }}>Meeting Room</h4>
 
-    <div class="time" {{ slot("time-0900") }}>
-      <time>09:00</time>&ndash;<time>09:30</time>
-    </div>
-
-    <div class="time" {{ slot("time-0930") }}>
-      <time>09:30</time>&ndash;<time>10:00</time>
-    </div>
-
-    <div class="time" {{ slot("time-1000", "time-1030") }}>
-      <time>10:00</time>&ndash;<time>11:00</time>
-    </div>
-
-    <div class="time" {{ slot("time-1100") }}>
-      <time>11:00</time>&ndash;<time>11:30</time>
-    </div>
-
-    <div class="time" {{ slot("time-1130", "time-1200") }}>
-      <time>11:30</time>&ndash;<time>12:30</time>
-    </div>
-
-    <div class="time" {{ slot("time-1230") }}>
-      <time>12:30</time>&ndash;<time>13:00</time>
-    </div>
-
-    <div class="time" {{ slot("time-1300", "time-1330") }}>
-      <time>13:00</time>&ndash;<time>14:00</time>
-    </div>
-
-    <div class="time" {{ slot("time-1400", "time-1430") }}>
-      <time>14:00</time>&ndash;<time>15:00</time>
-    </div>
-
-    <div class="time" {{ slot("time-1500", "time-1530") }}>
-      <time>15:00</time>&ndash;<time>16:00</time>
-    </div>
-
-    <div class="time" {{ slot("time-1600") }}>
-      <time>16:00</time>&ndash;<time>16:30</time>
-    </div>
-
-    <div class="time" {{ slot("time-1630") }}>
-      <time>16:30</time>&ndash;<time>17:00</time>
-    </div>
-
-    <div class="time" {{ slot("time-1700") }}>
-      <time>17:00</time>&ndash;<time>17:30</time>
-    </div>
-
-    <div class="time" {{ slot("time-1730") }}>
-      <time>17:30</time>&ndash;<time>18:00</time>
-    </div>
-
-    <div class="time" {{ slot("time-1800", "time-1830") }}>
-      <time>18:00</time>&ndash;<time>01:00</time>
-    </div>
-
-    <h4 {{ slot("a-header") }}>Plenary</h4>
-    <h4 {{ slot("b-header") }}>Breakout 1</h4>
-    <h4 {{ slot("c-header") }}>Breakout 2</h4>
-    <h4 {{ slot("d-header") }}>Meeting Room</h4>
+    {{ time("08:00", "09:00") }}
 
     <li class="social" {{ slot("a-0800", "c-0830") }}>
       Breakfast
@@ -204,11 +169,17 @@
         Student Breakfast
       </a>
 
+    {{ time("09:00", "09:30") }}
+
     <li {{ slot("a-0900") }}>
       Opening
 
+    {{ time("09:30", "10:00") }}
+
     <li {{ slot("a-0930") }}>
       Keynote
+
+    {{ time("10:00", "11:00") }}
 
     <li class="talk" {{ slot("a-1000", "a-1030") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/436/" target="_blank">
@@ -228,8 +199,12 @@
         <small>(GARY W EVANS, Nishchay Kothari)</small>
       </a>
 
+    {{ time("11:00", "11:30") }}
+
     <li class="social" {{ slot("a-1100", "d-1100") }}>
       Coffee
+
+    {{ time("11:30", "12:30") }}
 
     <li class="talk" {{ slot("a-1130", "a-1200") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/271/" target="_blank">
@@ -249,6 +224,8 @@
         <small>(Yuya Watari)</small>
       </a>
 
+    {{ time("12:30", "13:00") }}
+
     <li class="talk" {{ slot("a-1230") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/301/" target="_blank">
         Compiling Postgres to WASM with PGlite<br>
@@ -267,11 +244,15 @@
         <small>(Masahiko Sawada)</small>
       </a>
 
+    {{ time("13:00", "14:00") }}
+
     <li class="social" {{ slot("a-1300", "c-1330") }}>
       Lunch
 
     <li {{ slot("d-1300", "d-1430") }}>
       PGCA
+
+    {{ time("14:00", "15:00") }}
 
     <li class="talk" {{ slot("a-1400", "a-1430") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/254/" target="_blank">
@@ -291,6 +272,8 @@
         <small>(William Zhang)</small>
       </a>
 
+    {{ time("15:00", "16:00") }}
+
     <li class="talk" {{ slot("a-1500", "a-1530") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/433/" target="_blank">
         Scaling Postgres to the next level at OpenAI<br>
@@ -309,8 +292,12 @@
         <small>(Rahila Syed)</small>
       </a>
 
+    {{ time("16:00", "16:30") }}
+
     <li class="social" {{ slot("a-1600", "d-1600") }}>
       Coffee
+
+    {{ time("16:30", "17:00") }}
 
     <li class="talk" {{ slot("a-1630") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/444/" target="_blank">
@@ -336,6 +323,8 @@
         <small>(Andrey Borodin)</small>
       </a>
 
+    {{ time("17:00", "17:30") }}
+
     <li class="talk" {{ slot("a-1700") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/440/" target="_blank">
         What 10 Postgres Major Contributors Did to Become a Hacker<br>
@@ -354,31 +343,35 @@
         <small>(Tomas Vondra)</small>
       </a>
 
-    <li class="social" {{ slot("a-1800", "d-1800") }}>
+    {{ time("17:30", "18:00") }}
+
+    {# Manually label this one #}
+    <li class="time" {{ slot("time-1800", "time-1830") }}>
+      <time>18:00</time>&ndash;<time>01:00</time>
+    </li>
+
+    <li class="social" {{ slot("a-1800", "d-1830") }}>
       🎉 <span style="text-decoration: underline;">PARTY</span> 🎉
   </ul>
 
   <h2><time datetime="2025-05-15">Thursday, May 15th</time></h2>
   <ul class="schedule">
-    {% for h in range(8, 19) -%}
-    {% for m in [0, 30] -%}
-      <div {{ slot("time-%02d%02d" | format(h, m)) }}>
-        {{ "%02d:%02d" | format(h, m) }}
-      </div>
-    {%- endfor %}{%- endfor %}
+    <h4 {{ slot("a-head") }}>Plenary</h4>
+    <h4 {{ slot("b-head") }}>Breakout 1</h4>
+    <h4 {{ slot("c-head") }}>Breakout 2</h4>
+    <h4 {{ slot("d-head") }}>Meeting Room</h4>
 
-    <h4 {{ slot("a-header") }}>Plenary</h4>
-    <h4 {{ slot("b-header") }}>Breakout 1</h4>
-    <h4 {{ slot("c-header") }}>Breakout 2</h4>
-    <h4 {{ slot("d-header") }}>Meeting Room</h4>
+    {{ time("08:30", "09:30") }}
 
-    <li class="social" {{ slot("a-0800", "c-0830") }}>
+    <li class="social" {{ slot("a-0830", "c-0900") }}>
       Breakfast
 
-    <li {{ slot("d-0800", "d-0830") }}>
+    <li {{ slot("d-0830", "d-0900") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/424/" target="_blank">
         Postgres Women Breakfast
       </a>
+
+    {{ time("09:30", "10:30") }}
 
     <li class="talk" {{ slot("a-0930", "a-1000") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/286/" target="_blank">
@@ -398,8 +391,12 @@
         <small>(Dian Fay)</small>
       </a>
 
+    {{ time("10:30", "11:00") }}
+
     <li class="social" {{ slot("a-1030", "d-1030") }}>
       Coffee
+
+    {{ time("11:00", "11:30") }}
 
     <li class="talk" {{ slot("a-1100") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/353/" target="_blank">
@@ -419,6 +416,8 @@
         <small>(Lætitia AVROT)</small>
       </a>
 
+    {{ time("11:30", "12:30") }}
+
     <li class="talk" {{ slot("a-1130", "a-1200") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/430/" target="_blank">
         What went wrong with AIO<br>
@@ -437,6 +436,8 @@
         <small>(Alena Rybakina)</small>
       </a>
 
+    {{ time("12:30", "13:30") }}
+
     <li class="social" {{ slot("a-1230", "a-1300") }}>
       Lunch
 
@@ -445,6 +446,8 @@
 
     <li class="social" {{ slot("c-1230", "d-1300") }}>
       Lunch
+
+    {{ time("13:30", "14:30") }}
 
     <li class="talk" {{ slot("a-1330", "a-1400") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/446/" target="_blank">
@@ -464,6 +467,8 @@
         <small>(Michael Paquier)</small>
       </a>
 
+    {{ time("14:30", "15:00") }}
+
     <li class="talk" {{ slot("a-1430") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/318/" target="_blank">
         What can Postgres learn from DuckDB?<br>
@@ -481,8 +486,12 @@
         <small>(Stacey Haysler)</small>
       </a>
 
+    {{ time("15:00", "15:30") }}
+
     <li class="social" {{ slot("a-1500", "d-1500") }}>
       Coffee
+
+    {{ time("15:30", "16:30") }}
 
     <li class="talk" {{ slot("a-1530", "a-1600") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/419/" target="_blank">
@@ -502,65 +511,82 @@
         <small>(Melanie Plageman)</small>
       </a>
 
+    {{ time("16:30", "17:30") }}
+
     <li {{ slot("a-1630", "c-1700") }}>
       Lightning Talks
   </ul>
 
   <h2><time datetime="2025-05-16">Friday, May 16th</time></h2>
   <ul class="schedule">
-    {% for h in range(8, 19) -%}
-    {% for m in [0, 30] -%}
-      <div class="time" {{ slot("time-%02d%02d" | format(h, m)) }}>
-        {{ "%02d:%02d" | format(h, m) }}
-      </div>
-    {%- endfor %}{%- endfor %}
+    <h4 {{ slot("a-head") }}>Plenary</h4>
+    <h4 {{ slot("b-head") }}>Breakout 1</h4>
+    <h4 {{ slot("c-head") }}>Breakout 2</h4>
+    <h4 {{ slot("d-head") }}>Meeting Room</h4>
 
-    <h4 {{ slot("a-header") }}>Plenary</h4>
-    <h4 {{ slot("b-header") }}>Breakout 1</h4>
-    <h4 {{ slot("c-header") }}>Breakout 2</h4>
-    <h4 {{ slot("d-header") }}>Meeting Room</h4>
+    {{ time("08:00", "09:00") }}
 
     <li {{ slot("a-0800", "c-0830") }}>
       Breakfast
+
+    {{ time("09:00", "10:00") }}
 
     <li {{ slot("a-0900", "c-0930") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
         Unconference
       </a>
 
+    {{ time("10:00", "10:30") }}
+
     <li class="social" {{ slot("a-1000", "c-1000") }}>
       Coffee
+
+    {{ time("10:30", "11:30") }}
 
     <li {{ slot("a-1030", "c-1100") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
         Unconference
       </a>
 
+    {{ time("11:30", "12:30") }}
+
     <li {{ slot("a-1130", "c-1200") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
         Unconference
       </a>
 
+    {{ time("12:30", "13:30") }}
+
     <li class="social" {{ slot("a-1230", "c-1300") }}>
       Lunch
+
+    {{ time("13:30", "14:30") }}
 
     <li {{ slot("a-1330", "c-1400") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
         Unconference
       </a>
 
+    {{ time("14:30", "15:30") }}
+
     <li {{ slot("a-1430", "c-1500") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
         Unconference
       </a>
 
+    {{ time("15:30", "16:00") }}
+
     <li class="social" {{ slot("a-1530", "c-1530") }}>
       Coffee
+
+    {{ time("16:00", "17:00") }}
 
     <li {{ slot("a-1600", "c-1630") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
         Unconference
       </a>
+
+    {{ time("17:00", "17:30") }}
 
     <li {{ slot("a-1700") }}>
       Closing Remarks
