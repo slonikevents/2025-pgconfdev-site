@@ -1,0 +1,632 @@
+{% set title = "Schedule" %}
+{% extends "base.html.j2" %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ "static/schedule.css" | link }}">
+{% endblock %}
+
+{# Used to record the active time period and to do column-to-room conversion #}
+{% set ns = namespace(a="R", b="A", c="B", d="M") %}
+
+{#
+  Used to emit the inline style attribute that will locate an element at a slot
+  in the schedule. For example:
+
+    <li {{ assign("a-0800", "b-1200") }}>
+      ...
+
+  Will locate the <li> element so that its top left corner is in column A, at
+  08:00, and its bottom right corner is in column B, at 12:00. This should only
+  be used within the attribute list of an element inside of a class="schedule"
+  element. If the second argument to this macro is omitted, then the element is
+  located in the single slot specified by the first argument.
+#}
+{% macro assign(origin, stop=origin) -%}
+  style="grid-area: {{ origin }} / {{ origin }} / {{ stop }} / {{ stop }};"
+{%- endmacro %}
+
+{#
+  Called to emit a labeled period in the "time" column. For example, this call:
+
+    time("08:00", "09:30")
+
+  Will emit:
+
+    <li class="time" {{ assign("time-0800", "time-0900") }}>
+      <time>08:00</time>&ndash;<time>09:30</time>
+    </li>
+
+  The emitted label uses the first and second argument verbatim. The time slot
+  that the labeled period is emitted against is determined as:
+
+    1. The first argument is rounded down to the nearest half hour. This is the
+       starting time slot.
+
+    2. One minute is subtracted from the second argument. Then, it's rounded
+       down to the nearest half hour. This is the ending time slot.
+
+  This behavior is intended to handle the common situation wherein a time slot
+  begins on, or shortly after, an even half hour and ends on, or shortly before,
+  an even half hour.
+
+  This macro also sets the active time period used in each subsequent call to
+  slot().
+
+  If `synthetic` is true, then the emitted label will also have the "synthetic"
+  class so that it's hidden in the wide layout. This is used to change the
+  active time period, emitting a label in the narrow layout, when that label
+  would coincide with another label in the wide layout.
+#}
+{% macro time(earliest, latest, synthetic=False) -%}
+  {% set hour, minute = earliest.split(":") | map("int") -%}
+  {% set minute = 0 if minute < 30 else 30 -%}
+  {% set ns.earliest_slot = "%02d%02d" | format(hour, minute) -%}
+
+  {% set hour, minute = latest.split(":") | map("int") -%}
+  {% set hour = hour if minute > 0 else hour - 1 -%}
+  {% set minute = 0 if minute <= 30 else 30 -%}
+  {% set ns.latest_slot = "%02d%02d" | format(hour, minute) -%}
+
+  {% set class = ["time", "synthetic"] if synthetic else ["time"] -%}
+
+  <li class="{{ class | join(" ") }}" {{ assign("time-" + ns.earliest_slot, "time-" + ns.latest_slot) }}>
+    <time>{{ earliest }}</time>&ndash;<time>{{ latest }}</time>
+  </li>
+{%- endmacro %}
+
+{% macro slot(column1, column2=column1, room=undefined) -%}
+  {% if room is undefined and column1 == column2 -%}
+    {% set room = ns[column1] %}
+  {%- endif -%}
+  {% if room -%}
+    data-room="{{ room }}"
+  {%- endif %}
+  {{ assign(column1 + "-" + ns.earliest_slot, column2 + "-" + ns.latest_slot) }}
+{%- endmacro %}
+
+{# Hide the sponsor sidebar on the schedule page #}
+{% block side %}{% endblock %}
+
+{% block main %}
+  <h1>Schedule</h1>
+
+  <ul class="flex legend">
+    <li><span class="room">R</span> = Regence
+    <li><span class="room">A</span> = Cartier A
+    <li><span class="room">B</span> = Cartier B
+    <li><span class="room">M</span> = Meeting Room
+  </ul>
+
+  <h2><time datetime="2025-05-13">Tuesday, May 13<sup>th</sup></time></h2>
+  <ul class="schedule">
+    <h4 {{ assign("a-head") }}>Room 1</h4>
+    <h4 {{ assign("b-head", "d-head") }}>Rooms 3&ndash;7</h4>
+
+    {{ time("08:00", "08:30") }}
+
+    <li class="social" {{ slot("a", "d") }}>
+      Light Refreshments
+
+    {{ time("08:30", "12:30") }}
+
+    <li class="workshop" {{ slot("a", room=none) }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/314/" target="_blank">
+        Developer Meeting (Invite Only)
+      </a>
+
+    <li class="workshop" {{ slot("b", room=none) }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/241/" target="_blank">
+        Extension Ecosystem Summit
+      </a>
+
+    {{ time("12:30", "13:30") }}
+
+    <li class="social" {{ slot("a", "d") }}>
+      Lunch
+
+    {{ time("13:30", "14:00") }}
+
+    <li {{ slot("a", "d") }}>
+      Afternoon Session Intros
+
+    {{ time("14:00", "15:30") }}
+
+    <li class="workshop" {{ slot("a", room=none) }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/265/" target="_blank">
+        Advanced Patch Feedback Session
+      </a>
+
+    <li class="workshop" {{ slot("b", room=none) }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404/" target="_blank">
+        Community Summit: Microconference 1
+      </a>
+
+    <li class="workshop" {{ slot("c", room=none) }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404/" target="_blank">
+        Community Summit: Microconference 2
+      </a>
+
+    <li class="workshop" {{ slot("d", room=none) }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404/" target="_blank">
+        Community Summit: Microconference 3
+      </a>
+
+    {{ time("15:30", "16:00") }}
+
+    <li class="social" {{ slot("a", "c") }}>
+      Coffee
+
+    {{ time("15:30", "17:30", synthetic=True) }}
+
+    <li {{ slot("d") }}>
+      Security Team Meeting (Invite Only)
+
+    {{ time("16:00", "17:30") }}
+
+    <li class="workshop" {{ slot("a", room=none) }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/265/" target="_blank">
+        Advanced Patch Feedback Session
+      </a>
+
+    <li class="workshop" {{ slot("b", room=none) }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404/" target="_blank">
+        Community Summit: Microconference 4
+      </a>
+
+    <li class="workshop" {{ slot("c", room=none) }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404/" target="_blank">
+        Community Summit: Microconference 5
+      </a>
+
+    {{ time("17:30", "18:30") }}
+
+    <li {{ slot("a", "d") }}>
+      Meet up with Dinner Groups/Running Group
+  </ul>
+
+  <h2><time datetime="2025-05-14">Wednesday, May 14<sup>th</sup></time></h2>
+  <ul class="schedule">
+    <h4 {{ assign("a-head") }}>Plenary</h4>
+    <h4 {{ assign("b-head") }}>Breakout 1</h4>
+    <h4 {{ assign("c-head") }}>Breakout 2</h4>
+    <h4 {{ assign("d-head") }}>Meeting Room</h4>
+
+    {{ time("08:00", "09:00") }}
+
+    <li class="social" {{ slot("a", "c") }}>
+      Breakfast
+
+    <li class="social" {{ slot("d") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/313/" target="_blank">
+        Student Breakfast
+      </a>
+
+    {{ time("09:00", "09:30") }}
+
+    <li {{ slot("a") }}>
+      Opening
+
+    {{ time("09:30", "09:50") }}
+
+    <li {{ slot("a") }}>
+      Keynote
+
+    {{ time("10:00", "10:50") }}
+
+    <li class="talk" {{ slot("a") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/436/" target="_blank">
+        Investigating Multithreaded PostgreSQL<br>
+        <small>(Thomas Munro)</small>
+      </a>
+
+    <li class="talk" {{ slot("b") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/331/" target="_blank">
+        Adventures in Extension Packaging<br>
+        <small>(David E. Wheeler)</small>
+      </a>
+
+    <li class="talk" {{ slot("c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/256/" target="_blank">
+        Exploring the benefits of learned indexes in PostgreSQL: Theory and Implementation<br>
+        <small>(GARY W EVANS, Nishchay Kothari)</small>
+      </a>
+
+    {{ time("11:00", "11:30") }}
+
+    <li class="social" {{ slot("a", "d") }}>
+      Coffee
+
+    {{ time("11:30", "12:20") }}
+
+    <li class="talk" {{ slot("a") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/271/" target="_blank">
+        What is new in C and POSIX?<br>
+        <small>(Peter Eisentraut)</small>
+      </a>
+
+    <li class="talk" {{ slot("b") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/410/" target="_blank">
+        The trouble with extensions<br>
+        <small>(Marco Slot)</small>
+      </a>
+
+    <li class="talk" {{ slot("c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/293/" target="_blank">
+        Revisiting XTM: A Practical Case Study Highlighting Its Needs<br>
+        <small>(Yuya Watari)</small>
+      </a>
+
+    {{ time("12:30", "12:55") }}
+
+    <li class="talk" {{ slot("a") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/301/" target="_blank">
+        Compiling Postgres to WASM with PGlite<br>
+        <small>(Sam Willis)</small>
+      </a>
+
+    <li class="talk" {{ slot("b") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/388/" target="_blank">
+        postgresql.org: The hidden parts<br>
+        <small>(Magnus Hagander)</small>
+      </a>
+
+    <li class="talk" {{ slot("c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/281/" target="_blank">
+        The Present and Future of VACUUM in PostgreSQL<br>
+        <small>(Masahiko Sawada)</small>
+      </a>
+
+    {{ time("13:00", "14:00") }}
+
+    <li class="social" {{ slot("a", "c") }}>
+      Lunch
+
+    {{ time("13:00", "15:00", synthetic=True) }}
+
+    <li {{ slot("d") }}>
+      PGCA
+
+    {{ time("14:00", "14:50") }}
+
+    <li class="talk" {{ slot("a") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/254/" target="_blank">
+        Committer Review: An Exercise in Paranoia<br>
+        <small>(Robert Haas)</small>
+      </a>
+
+    <li class="talk" {{ slot("b") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/229/" target="_blank">
+        Multidimensional search strategies for composite B-Tree indexes<br>
+        <small>(Peter V Geoghegan)</small>
+      </a>
+
+    <li class="talk" {{ slot("c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/363/" target="_blank">
+        ChatGPT Ain’t Got $%@& On Me! Next Generation Automated Database Tuning<br>
+        <small>(William Zhang)</small>
+      </a>
+
+    {{ time("15:00", "15:50") }}
+
+    <li class="talk" {{ slot("a") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/433/" target="_blank">
+        Scaling Postgres to the next level at OpenAI<br>
+        <small>(Bohan Zhang)</small>
+      </a>
+
+    <li class="talk" {{ slot("b") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/276/" target="_blank">
+        Experimenting with a Global Index in PostgreSQL: Design, Implementation, and Challenges<br>
+        <small>(Dilip Kumar)</small>
+      </a>
+
+    <li class="talk" {{ slot("c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/385/" target="_blank">
+        Designing and implementing a monitoring feature in PostgreSQL<br>
+        <small>(Rahila Syed)</small>
+      </a>
+
+    {{ time("16:00", "16:30") }}
+
+    <li class="social" {{ slot("a", "d") }}>
+      Coffee
+
+    {{ time("16:30", "16:55") }}
+
+    <li class="talk" {{ slot("a") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/444/" target="_blank">
+        Tracking plan shapes over time with Plan IDs, and a new pg_stat_plans<br>
+        <small>(Lukas Fittl)</small>
+      </a>
+
+    <li class="talk" {{ slot("b") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/384/" target="_blank">
+        Debugging Data Corruption in PostgreSQL<br>
+        <small>(Palak Chaturvedi)</small>
+      </a>
+
+    <li class="talk" {{ slot("c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/372/" target="_blank">
+        PostgreSQL container groups, aka cgroups down the road.<br>
+        <small>(Cédric Villemain)</small>
+      </a>
+
+    {{ time("16:30", "17:30", synthetic=True) }}
+
+    <li class="talk" {{ slot("d", room=none) }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/345/" target="_blank">
+        Crafting exploits for historical CVEs<br>
+        <small>(Andrey Borodin)</small>
+      </a>
+
+    {{ time("17:00", "17:25") }}
+
+    <li class="talk" {{ slot("a") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/440/" target="_blank">
+        What 10 Postgres Major Contributors Did to Become a Hacker<br>
+        <small>(Claire Giordano)</small>
+      </a>
+
+    <li class="talk" {{ slot("b") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/364/" target="_blank">
+        Reproducible Postgres<br>
+        <small>(Javier Maestro, Alvaro Hernandez)</small>
+      </a>
+
+    <li class="talk" {{ slot("c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/311/" target="_blank">
+        Fast-path locking improvements in PG18<br>
+        <small>(Tomas Vondra)</small>
+      </a>
+
+    {{ time("17:30", "18:00") }}
+
+    {# Manually handle this time slot #}
+    <li class="time" {{ assign("time-1800", "time-1830") }}>
+      <time>18:00</time>&ndash;<time>01:00</time>
+    </li>
+    {% set ns.earliest_slot = "1800" -%}
+    {% set ns.latest_slot = "1830" -%}
+
+    <li class="social" {{ slot("a", "d") }}>
+      🎉 <span style="text-decoration: underline;">PARTY</span> 🎉
+  </ul>
+
+  <h2><time datetime="2025-05-15">Thursday, May 15<sup>th</sup></time></h2>
+  <ul class="schedule">
+    <h4 {{ assign("a-head") }}>Plenary</h4>
+    <h4 {{ assign("b-head") }}>Breakout 1</h4>
+    <h4 {{ assign("c-head") }}>Breakout 2</h4>
+    <h4 {{ assign("d-head") }}>Meeting Room</h4>
+
+    {{ time("08:30", "09:30") }}
+
+    <li class="social" {{ slot("a", "c") }}>
+      Breakfast
+
+    <li {{ slot("d", room=none) }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/424/" target="_blank">
+        Postgres Women Breakfast
+      </a>
+
+    {{ time("09:30", "10:20") }}
+
+    <li class="talk" {{ slot("a") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/286/" target="_blank">
+        Changing shared_buffers on the fly<br>
+        <small>(Dmitrii Dolgov, Ashutosh Bapat)</small>
+      </a>
+
+    <li class="talk" {{ slot("b") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/228/" target="_blank">
+        My Journey in PostgreSQL bug fixing<br>
+        <small>(Bertrand Drouvot)</small>
+      </a>
+
+    <li class="talk" {{ slot("c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/240/" target="_blank">
+        Application Development Challenges with Postgres<br>
+        <small>(Dian Fay)</small>
+      </a>
+
+    {{ time("10:30", "11:00") }}
+
+    <li class="social" {{ slot("a", "d") }}>
+      Coffee
+
+    {{ time("11:00", "11:25") }}
+
+    <li class="talk" {{ slot("a") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/353/" target="_blank">
+        Problems with logical decoding — an end-user’s perspective<br>
+        <small>(Polina Bungina)</small>
+      </a>
+
+    <li class="talk" {{ slot("b") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/379/" target="_blank">
+        What does moving to Pull Requests look like? The nginx story<br>
+        <small>(Alastair Turner)</small>
+      </a>
+
+    <li class="talk" {{ slot("c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/376/" target="_blank">
+        Rethinking PostgreSQL Performance in the Age of Monster Hardware<br>
+        <small>(Lætitia AVROT)</small>
+      </a>
+
+    {{ time("11:30", "12:20") }}
+
+    <li class="talk" {{ slot("a") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/430/" target="_blank">
+        What went wrong with AIO<br>
+        <small>(Andres Freund)</small>
+      </a>
+
+    <li class="talk" {{ slot("b") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/245/" target="_blank">
+        Detection and resolution of conflicts in logical replication<br>
+        <small>(Zhijie Hou, Ajin Cherian)</small>
+      </a>
+
+    <li class="talk" {{ slot("c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/346/" target="_blank">
+        Switching between query plans in real time (Switch Join)<br>
+        <small>(Alena Rybakina)</small>
+      </a>
+
+    {{ time("12:30", "13:30") }}
+
+    <li class="social" {{ slot("a", room=none) }}>
+      Lunch
+
+    <li {{ slot("b") }}>
+      Slonik Events Canada AGM
+
+    <li class="social" {{ slot("c", "d") }}>
+      Lunch
+
+    {{ time("13:30", "14:20") }}
+
+    <li class="talk" {{ slot("a") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/446/" target="_blank">
+        Vector search is now boring, but PostgreSQL has ways to go<br>
+        <small>(Jonathan Katz)</small>
+      </a>
+
+    <li class="talk" {{ slot("b") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/359/" target="_blank">
+        Improving scalability; Reducing overhead in shared memory<br>
+        <small>(Matthias van de Meent)</small>
+      </a>
+
+    <li class="talk" {{ slot("c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/260/" target="_blank">
+        Advanced testing with Injection Points<br>
+        <small>(Michael Paquier)</small>
+      </a>
+
+    {{ time("14:30", "14:55") }}
+
+    <li class="talk" {{ slot("a") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/318/" target="_blank">
+        What can Postgres learn from DuckDB?<br>
+        <small>(Jelte Fennema-Nio)</small>
+      </a>
+
+    <li class="talk" {{ slot("b") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/287/" target="_blank">
+        Foreign Key Joins<br>
+        <small>(Vik Fearing)</small>
+      </a>
+
+    <li class="talk" {{ slot("c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/426/" target="_blank">
+        Everything You Need to Know About Diversity in 25 Minutes<br>
+        <small>(Stacey Haysler)</small>
+      </a>
+
+    {{ time("15:00", "15:30") }}
+
+    <li class="social" {{ slot("a", "d") }}>
+      Coffee
+
+    {{ time("15:30", "16:20") }}
+
+    <li class="talk" {{ slot("a") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/419/" target="_blank">
+        Writing fast C code for a modern CPU (and applying it to PostgreSQL)<br>
+        <small>(David Rowley)</small>
+      </a>
+
+    <li class="talk" {{ slot("b") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/414/" target="_blank">
+        Re-engineering Postgres for Millions of Tenants<br>
+        <small>(Gwen Shapira)</small>
+      </a>
+
+    <li class="talk" {{ slot("c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/343/" target="_blank">
+        Fraught Feedback: Trying and Failing to Implement Adaptive Behavior in Postgres<br>
+        <small>(Melanie Plageman)</small>
+      </a>
+
+    {{ time("16:30", "17:30") }}
+
+    <li {{ slot("a", "c") }}>
+      Lightning Talks
+  </ul>
+
+  <h2><time datetime="2025-05-16">Friday, May 16<sup>th</sup></time></h2>
+  <ul class="schedule" style="grid-template-columns: auto 1fr 1fr 1fr 0;">
+    <h4 {{ assign("a-head") }}>Plenary</h4>
+    <h4 {{ assign("b-head") }}>Breakout 1</h4>
+    <h4 {{ assign("c-head") }}>Breakout 2</h4>
+
+    {{ time("08:00", "09:00") }}
+
+    <li {{ slot("a", "c") }}>
+      Breakfast
+
+    {{ time("09:00", "10:00") }}
+
+    <li {{ slot("a", "c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
+        Unconference
+      </a>
+
+    {{ time("10:00", "10:30") }}
+
+    <li class="social" {{ slot("a", "c") }}>
+      Coffee
+
+    {{ time("10:30", "11:30") }}
+
+    <li {{ slot("a", "c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
+        Unconference
+      </a>
+
+    {{ time("11:30", "12:30") }}
+
+    <li {{ slot("a", "c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
+        Unconference
+      </a>
+
+    {{ time("12:30", "13:30") }}
+
+    <li class="social" {{ slot("a", "c") }}>
+      Lunch
+
+    {{ time("13:30", "14:30") }}
+
+    <li {{ slot("a", "c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
+        Unconference
+      </a>
+
+    {{ time("14:30", "15:30") }}
+
+    <li {{ slot("a", "c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
+        Unconference
+      </a>
+
+    {{ time("15:30", "16:00") }}
+
+    <li class="social" {{ slot("a", "c") }}>
+      Coffee
+
+    {{ time("16:00", "17:00") }}
+
+    <li {{ slot("a", "c") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
+        Unconference
+      </a>
+
+    {{ time("17:00", "17:30") }}
+
+    <li {{ slot("a") }}>
+      Closing Remarks
+  </ul>
+{% endblock %}
