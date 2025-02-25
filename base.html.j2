@@ -76,29 +76,31 @@
 
 <main>{% block main %}{% endblock %}</main>
 
-<aside>
-  <h4><a href="{{ "sponsor-levels.html" | link }}">Sponsorship</a></h4>
-  <p>Support the PostgreSQL developers community!
-  <p>For great exposure to the global PostgreSQL community, see our
-    <a href="{{ "sponsor-levels.html" | link }}">sponsorship opportunities</a>.
+{% block side %}
+  <aside>
+    <h4><a href="{{ "sponsor-levels.html" | link }}">Sponsorship</a></h4>
+    <p>Support the PostgreSQL developers community!
+    <p>For great exposure to the global PostgreSQL community, see our
+      <a href="{{ "sponsor-levels.html" | link }}">sponsorship opportunities</a>.
 
-  <h4><a href="{{ "sponsors.html" | link }}">Gold Sponsors</a></h4>
-  {% for sponsor in gold %}
-    <a href="{{ sponsor.url }}" target="_blank">
-      <img src="{{ ("static/logo/" + sponsor.image) | link }}" alt="{{ sponsor.name }}">
-    </a>
-  {% endfor %}
+    <h4><a href="{{ "sponsors.html" | link }}">Gold Sponsors</a></h4>
+    {% for sponsor in gold %}
+      <a href="{{ sponsor.url }}" target="_blank">
+        <img src="{{ ("static/logo/" + sponsor.image) | link }}" alt="{{ sponsor.name }}">
+      </a>
+    {% endfor %}
 
-  <h4><a href="{{ "sponsors.html" | link }}">Silver Sponsors</a></h4>
-  {% for sponsor in silver %}
-    <a href="{{ sponsor.url }}" target="_blank">
-      <img src="{{ ("static/logo/" + sponsor.image) | link }}" alt="{{ sponsor.name }}">
-    </a>
-  {% endfor %}
+    <h4><a href="{{ "sponsors.html" | link }}">Silver Sponsors</a></h4>
+    {% for sponsor in silver %}
+      <a href="{{ sponsor.url }}" target="_blank">
+        <img src="{{ ("static/logo/" + sponsor.image) | link }}" alt="{{ sponsor.name }}">
+      </a>
+    {% endfor %}
 
-  <p>Want your logo here? Check out all our
-    <a href="{{ "sponsor-levels.html" | link }}">sponsorship opportunities</a>.
-</aside>
+    <p>Want your logo here? Check out all our
+      <a href="{{ "sponsor-levels.html" | link }}">sponsorship opportunities</a>.
+  </aside>
+{% endblock %}
 
 <footer>
   <h4>{{ full_name }} {{ date_hr }}&nbsp;{{ year }} {{ city }} {{ country }}</h4>
