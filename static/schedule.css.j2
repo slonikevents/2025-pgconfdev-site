@@ -5,14 +5,14 @@ body > main {
 }
 
 .schedule {
+  column-gap: 1rem;
   display: grid;
-  gap: 1rem;
   grid-template:
-    "t0-header t1-header t2-header t3-header t4-header" auto
+    "time-header a-header b-header c-header d-header" auto
     {% for h in range(8, 19) -%}
     {% for m in [0, 30] -%}
       {% set time = "%02d%02d" | format(h, m) %}
-      "t0-{{ time }} t1-{{ time }} t2-{{ time }} t3-{{ time }} t4-{{ time }}"
+      "time-{{ time }} a-{{ time }} b-{{ time }} c-{{ time }} d-{{ time }}"
     {%- endfor %}{%- endfor %}
     / auto 1fr 1fr 1fr 1fr;
   padding-left: 0;
@@ -23,15 +23,15 @@ body > main {
 }
 
 .schedule > h4 {
+  margin-top: 0;
   text-align: center;
-  margin-block: 0;
 }
 
 .schedule > li {
   border-radius: var(--border-radius);
   border: var(--border-width) solid var(--mute-border-color);
   list-style: none;
-  margin-bottom: 0;
+  margin-bottom: 1rem;
   overflow: auto;
   padding: 0.5rem;
 }

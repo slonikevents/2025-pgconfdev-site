@@ -9,11 +9,11 @@
   Used to emit the inline style attribute that will locate an element at a slot
   in the schedule. For example:
 
-    <li {{ slot("t1-0800", "t2-1200") }}>
+    <li {{ slot("a-0800", "b-1200") }}>
       ...
 
-  Will locate the <li> element so that its top left corner is in column 1, at
-  08:00, and its bottom right corner is in column 2, at 12:00. This should only
+  Will locate the <li> element so that its top left corner is in column A, at
+  08:00, and its bottom right corner is in column B, at 12:00. This should only
   be used within the attribute list of an element inside of a class="schedule"
   element. If the second argument to this macro is omitted, then the element is
   located in the single slot specified by the first argument.
@@ -30,331 +30,331 @@
 
   <h2><time datetime="2025-05-13">Tuesday, May 13th</time></h2>
   <ul class="schedule">
-    <div class="time" {{ slot("t0-0800") }}>
+    <div class="time" {{ slot("time-0800") }}>
       <time>08:00</time>&ndash;<time>08:30</time>
     </div>
 
-    <div class="time" {{ slot("t0-0830", "t0-1200") }}>
+    <div class="time" {{ slot("time-0830", "time-1200") }}>
       <time>08:30</time>&ndash;<time>12:30</time>
     </div>
 
-    <div class="time" {{ slot("t0-1230", "t0-1300") }}>
+    <div class="time" {{ slot("time-1230", "time-1300") }}>
       <time>12:30</time>&ndash;<time>13:30</time>
     </div>
 
-    <div class="time" {{ slot("t0-1330") }}>
+    <div class="time" {{ slot("time-1330") }}>
       <time>13:30</time>&ndash;<time>14:00</time>
     </div>
 
-    <div class="time" {{ slot("t0-1400", "t0-1500") }}>
+    <div class="time" {{ slot("time-1400", "time-1500") }}>
       <time>14:00</time>&ndash;<time>15:30</time>
     </div>
 
-    <div class="time" {{ slot("t0-1530") }}>
+    <div class="time" {{ slot("time-1530") }}>
       <time>15:30</time>&ndash;<time>16:00</time>
     </div>
 
-    <div class="time" {{ slot("t0-1600", "t0-1700") }}>
+    <div class="time" {{ slot("time-1600", "time-1700") }}>
       <time>16:00</time>&ndash;<time>17:30</time>
     </div>
 
-    <div class="time" {{ slot("t0-1730", "t0-1800") }}>
+    <div class="time" {{ slot("time-1730", "time-1800") }}>
       <time>17:30</time>&ndash;<time>18:30</time>
     </div>
 
-    <h4 {{ slot("t1-header") }}>Room 1</h4>
-    <h4 {{ slot("t2-header", "t4-header") }}>Rooms 3&ndash;7</h4>
+    <h4 {{ slot("a-header") }}>Room 1</h4>
+    <h4 {{ slot("b-header", "d-header") }}>Rooms 3&ndash;7</h4>
 
-    <li class="social" {{ slot("t1-0800", "t4-0800") }}>
+    <li class="social" {{ slot("a-0800", "d-0800") }}>
       Light Refreshments
 
-    <li class="workshop" {{ slot("t1-0830", "t1-1200") }}>
+    <li class="workshop" {{ slot("a-0830", "a-1200") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/314/" target="_blank">
         Developer Meeting (Invite Only)
       </a>
 
-    <li class="workshop" {{ slot("t2-0830", "t2-1200") }}>
+    <li class="workshop" {{ slot("b-0830", "b-1200") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/241/" target="_blank">
         Extension Ecosystem Summit
       </a>
 
-    <li class="social" {{ slot("t1-1230", "t4-1300") }}>
+    <li class="social" {{ slot("a-1230", "d-1300") }}>
       Lunch
 
-    <li {{ slot("t1-1330", "t3-1330") }}>
+    <li {{ slot("a-1330", "c-1330") }}>
       Afternoon Session Intros
 
-    <li {{ slot("t4-1330", "t4-1530") }}>
+    <li {{ slot("d-1330", "d-1530") }}>
       Security Team Meeting (Invite Only)
 
-    <li class="workshop" {{ slot("t1-1400", "t1-1500") }}>
+    <li class="workshop" {{ slot("a-1400", "a-1500") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/265/" target="_blank">
         Advanced Patch Feedback Session
       </a>
 
-    <li class="workshop" {{ slot("t2-1400", "t2-1500") }}>
+    <li class="workshop" {{ slot("b-1400", "b-1500") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404/" target="_blank">
         Community Summit: Microconference 1
       </a>
 
-    <li class="workshop" {{ slot("t3-1400", "t3-1500") }}>
+    <li class="workshop" {{ slot("c-1400", "c-1500") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404/" target="_blank">
         Community Summit: Microconference 2
       </a>
 
-    <li class="social" {{ slot("t1-1530", "t3-1530") }}>
+    <li class="social" {{ slot("a-1530", "c-1530") }}>
       Coffee
 
-    <li class="workshop" {{ slot("t1-1600", "t1-1700") }}>
+    <li class="workshop" {{ slot("a-1600", "a-1700") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/265/" target="_blank">
         Advanced Patch Feedback Session
       </a>
 
-    <li class="workshop" {{ slot("t2-1600", "t2-1700") }}>
+    <li class="workshop" {{ slot("b-1600", "b-1700") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404/" target="_blank">
         Community Summit: Microconference 3
       </a>
 
-    <li class="workshop" {{ slot("t3-1600", "t3-1700") }}>
+    <li class="workshop" {{ slot("c-1600", "c-1700") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404/" target="_blank">
         Community Summit: Microconference 4
       </a>
 
-    <li class="workshop" {{ slot("t4-1600", "t4-1700") }}>
+    <li class="workshop" {{ slot("d-1600", "d-1700") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404/" target="_blank">
         Community Summit: Microconference 5
       </a>
 
-    <li {{ slot("t1-1730", "t4-1800") }}>
+    <li {{ slot("a-1730", "d-1800") }}>
       Meet up with Dinner Groups/Running
   </ul>
 
   <h2><time datetime="2025-05-14">Wednesday, May 14th</time></h2>
   <ul class="schedule">
-    <div class="time" {{ slot("t0-0800", "t0-0830") }}>
+    <div class="time" {{ slot("time-0800", "time-0830") }}>
       <time>08:00</time>&ndash;<time>09:00</time>
     </div>
 
-    <div class="time" {{ slot("t0-0900") }}>
+    <div class="time" {{ slot("time-0900") }}>
       <time>09:00</time>&ndash;<time>09:30</time>
     </div>
 
-    <div class="time" {{ slot("t0-0930") }}>
+    <div class="time" {{ slot("time-0930") }}>
       <time>09:30</time>&ndash;<time>10:00</time>
     </div>
 
-    <div class="time" {{ slot("t0-1000", "t0-1030") }}>
+    <div class="time" {{ slot("time-1000", "time-1030") }}>
       <time>10:00</time>&ndash;<time>11:00</time>
     </div>
 
-    <div class="time" {{ slot("t0-1100") }}>
+    <div class="time" {{ slot("time-1100") }}>
       <time>11:00</time>&ndash;<time>11:30</time>
     </div>
 
-    <div class="time" {{ slot("t0-1130", "t0-1200") }}>
+    <div class="time" {{ slot("time-1130", "time-1200") }}>
       <time>11:30</time>&ndash;<time>12:30</time>
     </div>
 
-    <div class="time" {{ slot("t0-1230") }}>
+    <div class="time" {{ slot("time-1230") }}>
       <time>12:30</time>&ndash;<time>13:00</time>
     </div>
 
-    <div class="time" {{ slot("t0-1300", "t0-1330") }}>
+    <div class="time" {{ slot("time-1300", "time-1330") }}>
       <time>13:00</time>&ndash;<time>14:00</time>
     </div>
 
-    <div class="time" {{ slot("t0-1400", "t0-1430") }}>
+    <div class="time" {{ slot("time-1400", "time-1430") }}>
       <time>14:00</time>&ndash;<time>15:00</time>
     </div>
 
-    <div class="time" {{ slot("t0-1500", "t0-1530") }}>
+    <div class="time" {{ slot("time-1500", "time-1530") }}>
       <time>15:00</time>&ndash;<time>16:00</time>
     </div>
 
-    <div class="time" {{ slot("t0-1600") }}>
+    <div class="time" {{ slot("time-1600") }}>
       <time>16:00</time>&ndash;<time>16:30</time>
     </div>
 
-    <div class="time" {{ slot("t0-1630") }}>
+    <div class="time" {{ slot("time-1630") }}>
       <time>16:30</time>&ndash;<time>17:00</time>
     </div>
 
-    <div class="time" {{ slot("t0-1700") }}>
+    <div class="time" {{ slot("time-1700") }}>
       <time>17:00</time>&ndash;<time>17:30</time>
     </div>
 
-    <div class="time" {{ slot("t0-1730") }}>
+    <div class="time" {{ slot("time-1730") }}>
       <time>17:30</time>&ndash;<time>18:00</time>
     </div>
 
-    <div class="time" {{ slot("t0-1800", "t0-1830") }}>
+    <div class="time" {{ slot("time-1800", "time-1830") }}>
       <time>18:00</time>&ndash;<time>01:00</time>
     </div>
 
-    <h4 {{ slot("t1-header") }}>Plenary</h4>
-    <h4 {{ slot("t2-header") }}>Breakout 1</h4>
-    <h4 {{ slot("t3-header") }}>Breakout 2</h4>
-    <h4 {{ slot("t4-header") }}>Meeting Room</h4>
+    <h4 {{ slot("a-header") }}>Plenary</h4>
+    <h4 {{ slot("b-header") }}>Breakout 1</h4>
+    <h4 {{ slot("c-header") }}>Breakout 2</h4>
+    <h4 {{ slot("d-header") }}>Meeting Room</h4>
 
-    <li class="social" {{ slot("t1-0800", "t3-0830") }}>
+    <li class="social" {{ slot("a-0800", "c-0830") }}>
       Breakfast
 
-    <li class="social" {{ slot("t4-0800", "t4-0830") }}>
+    <li class="social" {{ slot("d-0800", "d-0830") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/313/" target="_blank">
         Student Breakfast
       </a>
 
-    <li {{ slot("t1-0900") }}>
+    <li {{ slot("a-0900") }}>
       Opening
 
-    <li {{ slot("t1-0930") }}>
+    <li {{ slot("a-0930") }}>
       Keynote
 
-    <li class="talk" {{ slot("t1-1000", "t1-1030") }}>
+    <li class="talk" {{ slot("a-1000", "a-1030") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/436/" target="_blank">
         Investigating Multithreaded PostgreSQL<br>
         <small>(Thomas Munro)</small>
       </a>
 
-    <li class="talk" {{ slot("t2-1000", "t2-1030") }}>
+    <li class="talk" {{ slot("b-1000", "b-1030") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/331/" target="_blank">
         Adventures in Extension Packaging<br>
         <small>(David E. Wheeler)</small>
       </a>
 
-    <li class="talk" {{ slot("t3-1000", "t3-1030") }}>
+    <li class="talk" {{ slot("c-1000", "c-1030") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/256/" target="_blank">
         Exploring the benefits of learned indexes in PostgreSQL: Theory and Implementation<br>
         <small>(GARY W EVANS, Nishchay Kothari)</small>
       </a>
 
-    <li class="social" {{ slot("t1-1100", "t4-1100") }}>
+    <li class="social" {{ slot("a-1100", "d-1100") }}>
       Coffee
 
-    <li class="talk" {{ slot("t1-1130", "t1-1200") }}>
+    <li class="talk" {{ slot("a-1130", "a-1200") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/271/" target="_blank">
         What is new in C and POSIX?<br>
         <small>(Peter Eisentraut)</small>
       </a>
 
-    <li class="talk" {{ slot("t2-1130", "t2-1200") }}>
+    <li class="talk" {{ slot("b-1130", "b-1200") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/410/" target="_blank">
         The trouble with extensions<br>
         <small>(Marco Slot)</small>
       </a>
 
-    <li class="talk" {{ slot("t3-1130", "t3-1200") }}>
+    <li class="talk" {{ slot("c-1130", "c-1200") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/293/" target="_blank">
         Revisiting XTM: A Practical Case Study Highlighting Its Needs<br>
         <small>(Yuya Watari)</small>
       </a>
 
-    <li class="talk" {{ slot("t1-1230") }}>
+    <li class="talk" {{ slot("a-1230") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/301/" target="_blank">
         Compiling Postgres to WASM with PGlite<br>
         <small>(Sam Willis)</small>
       </a>
 
-    <li class="talk" {{ slot("t2-1230") }}>
+    <li class="talk" {{ slot("b-1230") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/388/" target="_blank">
         postgresql.org: The hidden parts<br>
         <small>(Magnus Hagander)</small>
       </a>
 
-    <li class="talk" {{ slot("t3-1230") }}>
+    <li class="talk" {{ slot("c-1230") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/281/" target="_blank">
         The Present and Future of VACUUM in PostgreSQL<br>
         <small>(Masahiko Sawada)</small>
       </a>
 
-    <li class="social" {{ slot("t1-1300", "t3-1330") }}>
+    <li class="social" {{ slot("a-1300", "c-1330") }}>
       Lunch
 
-    <li {{ slot("t4-1300", "t4-1430") }}>
+    <li {{ slot("d-1300", "d-1430") }}>
       PGCA
 
-    <li class="talk" {{ slot("t1-1400", "t1-1430") }}>
+    <li class="talk" {{ slot("a-1400", "a-1430") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/254/" target="_blank">
         Committer Review: An Exercise in Paranoia<br>
         <small>(Robert Haas)</small>
       </a>
 
-    <li class="talk" {{ slot("t2-1400", "t2-1430") }}>
+    <li class="talk" {{ slot("b-1400", "b-1430") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/229/" target="_blank">
         Multidimensional search strategies for composite B-Tree indexes<br>
         <small>(Peter V Geoghegan)</small>
       </a>
 
-    <li class="talk" {{ slot("t3-1400", "t3-1430") }}>
+    <li class="talk" {{ slot("c-1400", "c-1430") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/363/" target="_blank">
         ChatGPT Ain’t Got $%@& On Me! Next Generation Automated Database Tuning<br>
         <small>(William Zhang)</small>
       </a>
 
-    <li class="talk" {{ slot("t1-1500", "t1-1530") }}>
+    <li class="talk" {{ slot("a-1500", "a-1530") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/433/" target="_blank">
         Scaling Postgres to the next level at OpenAI<br>
         <small>(Bohan Zhang)</small>
       </a>
 
-    <li class="talk" {{ slot("t2-1500", "t2-1530") }}>
+    <li class="talk" {{ slot("b-1500", "b-1530") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/276/" target="_blank">
         Experimenting with a Global Index in PostgreSQL: Design, Implementation, and Challenges<br>
         <small>(Dilip Kumar)</small>
       </a>
 
-    <li class="talk" {{ slot("t3-1500", "t3-1530") }}>
+    <li class="talk" {{ slot("c-1500", "c-1530") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/385/" target="_blank">
         Designing and implementing a monitoring feature in PostgreSQL<br>
         <small>(Rahila Syed)</small>
       </a>
 
-    <li class="social" {{ slot("t1-1600", "t4-1600") }}>
+    <li class="social" {{ slot("a-1600", "d-1600") }}>
       Coffee
 
-    <li class="talk" {{ slot("t1-1630") }}>
+    <li class="talk" {{ slot("a-1630") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/444/" target="_blank">
         Tracking plan shapes over time with Plan IDs, and a new pg_stat_plans<br>
         <small>(Lukas Fittl)</small>
       </a>
 
-    <li class="talk" {{ slot("t2-1630") }}>
+    <li class="talk" {{ slot("b-1630") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/384/" target="_blank">
         Debugging Data Corruption in PostgreSQL<br>
         <small>(Palak Chaturvedi)</small>
       </a>
 
-    <li class="talk" {{ slot("t3-1630") }}>
+    <li class="talk" {{ slot("c-1630") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/372/" target="_blank">
         PostgreSQL container groups, aka cgroups down the road.<br>
         <small>(Cédric Villemain)</small>
       </a>
 
-    <li class="talk" {{ slot("t4-1630", "t4-1700") }}>
+    <li class="talk" {{ slot("d-1630", "d-1700") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/345/" target="_blank">
         Crafting exploits for historical CVEs<br>
         <small>(Andrey Borodin)</small>
       </a>
 
-    <li class="talk" {{ slot("t1-1700") }}>
+    <li class="talk" {{ slot("a-1700") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/440/" target="_blank">
         What 10 Postgres Major Contributors Did to Become a Hacker<br>
         <small>(Claire Giordano)</small>
       </a>
 
-    <li class="talk" {{ slot("t2-1700") }}>
+    <li class="talk" {{ slot("b-1700") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/364/" target="_blank">
         Reproducible Postgres<br>
         <small>(Javier Maestro, Alvaro Hernandez)</small>
       </a>
 
-    <li class="talk" {{ slot("t3-1700") }}>
+    <li class="talk" {{ slot("c-1700") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/311/" target="_blank">
         Fast-path locking improvements in PG18<br>
         <small>(Tomas Vondra)</small>
       </a>
 
-    <li class="social" {{ slot("t1-1800", "t4-1800") }}>
+    <li class="social" {{ slot("a-1800", "d-1800") }}>
       🎉 <span style="text-decoration: underline;">PARTY</span> 🎉
   </ul>
 
@@ -362,147 +362,147 @@
   <ul class="schedule">
     {% for h in range(8, 19) -%}
     {% for m in [0, 30] -%}
-      <div {{ slot("t0-%02d%02d" | format(h, m)) }}>
+      <div {{ slot("time-%02d%02d" | format(h, m)) }}>
         {{ "%02d:%02d" | format(h, m) }}
       </div>
     {%- endfor %}{%- endfor %}
 
-    <h4 {{ slot("t1-header") }}>Plenary</h4>
-    <h4 {{ slot("t2-header") }}>Breakout 1</h4>
-    <h4 {{ slot("t3-header") }}>Breakout 2</h4>
-    <h4 {{ slot("t4-header") }}>Meeting Room</h4>
+    <h4 {{ slot("a-header") }}>Plenary</h4>
+    <h4 {{ slot("b-header") }}>Breakout 1</h4>
+    <h4 {{ slot("c-header") }}>Breakout 2</h4>
+    <h4 {{ slot("d-header") }}>Meeting Room</h4>
 
-    <li class="social" {{ slot("t1-0800", "t3-0830") }}>
+    <li class="social" {{ slot("a-0800", "c-0830") }}>
       Breakfast
 
-    <li {{ slot("t4-0800", "t4-0830") }}>
+    <li {{ slot("d-0800", "d-0830") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/424/" target="_blank">
         Postgres Women Breakfast
       </a>
 
-    <li class="talk" {{ slot("t1-0930", "t1-1000") }}>
+    <li class="talk" {{ slot("a-0930", "a-1000") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/286/" target="_blank">
         Changing shared_buffers on the fly<br>
         <small>(Dmitrii Dolgov, Ashutosh Bapat)</small>
       </a>
 
-    <li class="talk" {{ slot("t2-0930", "t2-1000") }}>
+    <li class="talk" {{ slot("b-0930", "b-1000") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/228/" target="_blank">
         My Journey in PostgreSQL bug fixing<br>
         <small>(Bertrand Drouvot)</small>
       </a>
 
-    <li class="talk" {{ slot("t3-0930", "t3-1000") }}>
+    <li class="talk" {{ slot("c-0930", "c-1000") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/240/" target="_blank">
         Application Development Challenges with Postgres<br>
         <small>(Dian Fay)</small>
       </a>
 
-    <li class="social" {{ slot("t1-1030", "t4-1030") }}>
+    <li class="social" {{ slot("a-1030", "d-1030") }}>
       Coffee
 
-    <li class="talk" {{ slot("t1-1100") }}>
+    <li class="talk" {{ slot("a-1100") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/353/" target="_blank">
         Problems with logical decoding — an end-user’s perspective<br>
         <small>(Polina Bungina)</small>
       </a>
 
-    <li class="talk" {{ slot("t2-1100") }}>
+    <li class="talk" {{ slot("b-1100") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/379/" target="_blank">
         What does moving to Pull Requests look like? The nginx story<br>
         <small>(Alastair Turner)</small>
       </a>
 
-    <li class="talk" {{ slot("t3-1100") }}>
+    <li class="talk" {{ slot("c-1100") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/376/" target="_blank">
         Rethinking PostgreSQL Performance in the Age of Monster Hardware<br>
         <small>(Lætitia AVROT)</small>
       </a>
 
-    <li class="talk" {{ slot("t1-1130", "t1-1200") }}>
+    <li class="talk" {{ slot("a-1130", "a-1200") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/430/" target="_blank">
         What went wrong with AIO<br>
         <small>(Andres Freund)</small>
       </a>
 
-    <li class="talk" {{ slot("t2-1130", "t2-1200") }}>
+    <li class="talk" {{ slot("b-1130", "b-1200") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/245/" target="_blank">
         Detection and resolution of conflicts in logical replication<br>
         <small>(Zhijie Hou, Ajin Cherian)</small>
       </a>
 
-    <li class="talk" {{ slot("t3-1130", "t3-1200") }}>
+    <li class="talk" {{ slot("c-1130", "c-1200") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/346/" target="_blank">
         Switching between query plans in real time (Switch Join)<br>
         <small>(Alena Rybakina)</small>
       </a>
 
-    <li class="social" {{ slot("t1-1230", "t1-1300") }}>
+    <li class="social" {{ slot("a-1230", "a-1300") }}>
       Lunch
 
-    <li {{ slot("t2-1230", "t2-1300") }}>
+    <li {{ slot("b-1230", "b-1300") }}>
       Slonik Events Canada AGM
 
-    <li class="social" {{ slot("t3-1230", "t4-1300") }}>
+    <li class="social" {{ slot("c-1230", "d-1300") }}>
       Lunch
 
-    <li class="talk" {{ slot("t1-1330", "t1-1400") }}>
+    <li class="talk" {{ slot("a-1330", "a-1400") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/446/" target="_blank">
         Vector search is now boring, but PostgreSQL has ways to go<br>
         <small>(Jonathan Katz)</small>
       </a>
 
-    <li class="talk" {{ slot("t2-1330", "t2-1400") }}>
+    <li class="talk" {{ slot("b-1330", "b-1400") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/359/" target="_blank">
         Improving scalability; Reducing overhead in shared memory<br>
         <small>(Matthias van de Meent)</small>
       </a>
 
-    <li class="talk" {{ slot("t3-1330", "t3-1400") }}>
+    <li class="talk" {{ slot("c-1330", "c-1400") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/260/" target="_blank">
         Advanced testing with Injection Points<br>
         <small>(Michael Paquier)</small>
       </a>
 
-    <li class="talk" {{ slot("t1-1430") }}>
+    <li class="talk" {{ slot("a-1430") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/318/" target="_blank">
         What can Postgres learn from DuckDB?<br>
         <small>(Jelte Fennema-Nio)</small>
 
-    <li class="talk" {{ slot("t2-1430") }}>
+    <li class="talk" {{ slot("b-1430") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/287/" target="_blank">
         Foreign Key Joins<br>
         <small>(Vik Fearing)</small>
       </a>
 
-    <li class="talk" {{ slot("t3-1430") }}>
+    <li class="talk" {{ slot("c-1430") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/426/" target="_blank">
         Everything You Need to Know About Diversity in 25 Minutes<br>
         <small>(Stacey Haysler)</small>
       </a>
 
-    <li class="social" {{ slot("t1-1500", "t4-1500") }}>
+    <li class="social" {{ slot("a-1500", "d-1500") }}>
       Coffee
 
-    <li class="talk" {{ slot("t1-1530", "t1-1600") }}>
+    <li class="talk" {{ slot("a-1530", "a-1600") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/419/" target="_blank">
         Writing fast C code for a modern CPU (and applying it to PostgreSQL)<br>
         <small>(David Rowley)</small>
       </a>
 
-    <li class="talk" {{ slot("t2-1530", "t2-1600") }}>
+    <li class="talk" {{ slot("b-1530", "b-1600") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/414/" target="_blank">
         Re-engineering Postgres for Millions of Tenants<br>
         <small>(Gwen Shapira)</small>
       </a>
 
-    <li class="talk" {{ slot("t3-1530", "t3-1600") }}>
+    <li class="talk" {{ slot("c-1530", "c-1600") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/343/" target="_blank">
         Fraught Feedback: Trying and Failing to Implement Adaptive Behavior in Postgres<br>
         <small>(Melanie Plageman)</small>
       </a>
 
-    <li {{ slot("t1-1630", "t3-1700") }}>
+    <li {{ slot("a-1630", "c-1700") }}>
       Lightning Talks
   </ul>
 
@@ -510,59 +510,59 @@
   <ul class="schedule">
     {% for h in range(8, 19) -%}
     {% for m in [0, 30] -%}
-      <div class="time" {{ slot("t0-%02d%02d" | format(h, m)) }}>
+      <div class="time" {{ slot("time-%02d%02d" | format(h, m)) }}>
         {{ "%02d:%02d" | format(h, m) }}
       </div>
     {%- endfor %}{%- endfor %}
 
-    <h4 {{ slot("t1-header") }}>Plenary</h4>
-    <h4 {{ slot("t2-header") }}>Breakout 1</h4>
-    <h4 {{ slot("t3-header") }}>Breakout 2</h4>
-    <h4 {{ slot("t4-header") }}>Meeting Room</h4>
+    <h4 {{ slot("a-header") }}>Plenary</h4>
+    <h4 {{ slot("b-header") }}>Breakout 1</h4>
+    <h4 {{ slot("c-header") }}>Breakout 2</h4>
+    <h4 {{ slot("d-header") }}>Meeting Room</h4>
 
-    <li {{ slot("t1-0800", "t3-0830") }}>
+    <li {{ slot("a-0800", "c-0830") }}>
       Breakfast
 
-    <li {{ slot("t1-0900", "t3-0930") }}>
+    <li {{ slot("a-0900", "c-0930") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
         Unconference
       </a>
 
-    <li class="social" {{ slot("t1-1000", "t3-1000") }}>
+    <li class="social" {{ slot("a-1000", "c-1000") }}>
       Coffee
 
-    <li {{ slot("t1-1030", "t3-1100") }}>
+    <li {{ slot("a-1030", "c-1100") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
         Unconference
       </a>
 
-    <li {{ slot("t1-1130", "t3-1200") }}>
+    <li {{ slot("a-1130", "c-1200") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
         Unconference
       </a>
 
-    <li class="social" {{ slot("t1-1230", "t3-1300") }}>
+    <li class="social" {{ slot("a-1230", "c-1300") }}>
       Lunch
 
-    <li {{ slot("t1-1330", "t3-1400") }}>
+    <li {{ slot("a-1330", "c-1400") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
         Unconference
       </a>
 
-    <li {{ slot("t1-1430", "t3-1500") }}>
+    <li {{ slot("a-1430", "c-1500") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
         Unconference
       </a>
 
-    <li class="social" {{ slot("t1-1530", "t3-1530") }}>
+    <li class="social" {{ slot("a-1530", "c-1530") }}>
       Coffee
 
-    <li {{ slot("t1-1600", "t3-1630") }}>
+    <li {{ slot("a-1600", "c-1630") }}>
       <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348" target="_blank">
         Unconference
       </a>
 
-    <li {{ slot("t1-1700") }}>
+    <li {{ slot("a-1700") }}>
       Closing Remarks
   </ul>
 {% endblock %}
