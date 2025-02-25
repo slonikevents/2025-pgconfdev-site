@@ -69,6 +69,10 @@ gold:
     url: https://aws.amazon.com
     image: aws.png
     description: Amazon Web Services (AWS) is the world's most comprehensive cloud platform, offering hundreds of key services, spanning 18 geographic regions around the globe. With many solutions built for and around PostgreSQL, we strive to be a leading employer and contributor within the PostgreSQL community.
+  - name: Google
+    url: https://cloud.google.com/alloydb
+    image: google.png
+    description: Google's Data Cloud embraces open standards. AlloyDB boosts PostgreSQL's performance, availability, and scalability. Cloud SQL provides a fully managed PostgreSQL experience. Spanner's PostgreSQL interface extends Spanner's global consistency and virtually unlimited scale to the PostgreSQL world.
 silver:
   - name: Percona
     url: https://www.percona.com/
