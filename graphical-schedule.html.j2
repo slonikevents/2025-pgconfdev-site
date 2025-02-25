@@ -95,6 +95,7 @@
     <li><span class="room">A</span> = Cartier A
     <li><span class="room">B</span> = Cartier B
     <li><span class="room">M</span> = Meeting Room
+    <li><span class="room">O</span> = Offsite
   </ul>
 
   <h2><time datetime="2025-05-13">Tuesday, May 13<sup>th</sup></time></h2>
@@ -178,10 +179,22 @@
         Community Summit: Microconference 5
       </a>
 
-    {{ time("17:30", "18:30") }}
+    {# Manually handle this time slot #}
+    <li class="time" {{ assign("time-1730", "time-1830") }}>
+      <time>17:30</time>&ndash;<time>20:30</time>
+    </li>
+    {% set ns.earliest_slot = "1730" -%}
+    {% set ns.latest_slot = "1830" -%}
 
-    <li {{ slot("a", "d") }}>
-      Meet up with Dinner Groups/Running Group
+    <li {{ slot("a", "b", room="O") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/347/" target="_blank">
+        Community Meet and Eat
+      </a>
+
+    <li {{ slot("c", "d", room="O") }}>
+      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/269/" target="_blank">
+        Social Run (and Dinner)
+      </a>
   </ul>
 
   <h2><time datetime="2025-05-14">Wednesday, May 14<sup>th</sup></time></h2>
@@ -388,8 +401,8 @@
     {% set ns.earliest_slot = "1800" -%}
     {% set ns.latest_slot = "1830" -%}
 
-    <li class="social" {{ slot("a", "d") }}>
-      🎉 <span style="text-decoration: underline;">PARTY</span> 🎉
+    <li class="social" {{ slot("a", "d", room="O") }}>
+      🎉 Social 🎉
   </ul>
 
   <h2><time datetime="2025-05-15">Thursday, May 15<sup>th</sup></time></h2>
