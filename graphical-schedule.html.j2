@@ -9,32 +9,13 @@
 {% set ns = namespace(a="R", b="A", c="B", d="M") %}
 
 {#
-  Used to emit the inline style attribute that will locate an element at a slot
-  in the schedule. For example:
-
-    <li {{ assign("a-0800", "b-1200") }}>
-      ...
-
-  Will locate the <li> element so that its top left corner is in column A, at
-  08:00, and its bottom right corner is in column B, at 12:00. This should only
-  be used within the attribute list of an element inside of a class="schedule"
-  element. If the second argument to this macro is omitted, then the element is
-  located in the single slot specified by the first argument.
-#}
-{% macro assign(origin, stop=origin) -%}
-  style="grid-area: {{ origin }} / {{ origin }} / {{ stop }} / {{ stop }};"
-{%- endmacro %}
-
-{#
   Called to emit a labeled period in the "time" column. For example, this call:
 
     time("08:00", "09:30")
 
   Will emit:
 
-    <li class="time" {{ assign("time-0800", "time-0900") }}>
-      <time>08:00</time>&ndash;<time>09:30</time>
-    </li>
+    <li class="time" ...><time>08:00</time>–<time>09:30</time></li>
 
   The emitted label uses the first and second argument verbatim. The time slot
   that the labeled period is emitted against is determined as:
@@ -50,38 +31,60 @@
   an even half hour.
 
   This macro also sets the active time period used in each subsequent call to
-  slot().
-
-  If `synthetic` is true, then the emitted label will also have the "synthetic"
-  class so that it's hidden in the wide layout. This is used to change the
-  active time period, emitting a label in the narrow layout, when that label
-  would coincide with another label in the wide layout.
+  item(). The class keyword argument is appended to the <li> element's class.
 #}
-{% macro time(earliest, latest, synthetic=False) -%}
+{% macro time(earliest, latest, class="") -%}
   {% set hour, minute = earliest.split(":") | map("int") -%}
   {% set minute = 0 if minute < 30 else 30 -%}
-  {% set ns.earliest_slot = "%02d%02d" | format(hour, minute) -%}
+  {% set earliest_slot = "time-%02d%02d" | format(hour, minute) -%}
 
   {% set hour, minute = latest.split(":") | map("int") -%}
   {% set hour = hour if minute > 0 else hour - 1 -%}
   {% set minute = 0 if minute <= 30 else 30 -%}
-  {% set ns.latest_slot = "%02d%02d" | format(hour, minute) -%}
+  {% set latest_slot = "time-%02d%02d" | format(hour, minute) -%}
 
-  {% set class = ["time", "synthetic"] if synthetic else ["time"] -%}
+  {% set ns.slot -%}
+    grid-row: {{ earliest_slot }} / {{ latest_slot }}
+  {%- endset -%}
 
-  <li class="{{ class | join(" ") }}" {{ assign("time-" + ns.earliest_slot, "time-" + ns.latest_slot) }}>
+  {% set class = ["time", class] | join(" ") -%}
+
+  <li class="{{ class }}" style="grid-column: time; {{ ns.slot }};">
     <time>{{ earliest }}</time>&ndash;<time>{{ latest }}</time>
   </li>
 {%- endmacro %}
 
-{% macro slot(column1, column2=column1, room=undefined) -%}
-  {% if room is undefined and column1 == column2 -%}
-    {% set room = ns[column1] %}
-  {%- endif -%}
-  {% if room -%}
-    data-room="{{ room }}"
-  {%- endif %}
-  {{ assign(column1 + "-" + ns.earliest_slot, column2 + "-" + ns.latest_slot) }}
+{#
+  Called to emit an item in the schedule that will span the specified column.
+
+  The column argument is used, as-is, as the emitted element's grid-column. If a
+  single column is specified, or room isn't none or undefined, then a room
+  marker, visible in the narrow layout, is emitted as well. If link isn't none
+  or undefined, then the caller of the macro is wrapped within an <a> element
+  with the link text as the element's href. If link is an integer, then it's
+  interpreted as a session ID in the PGEU system, and the URL to that session is
+  used as the <a> element's href.
+
+  Any additional keyword elements to this macro are added as attributes to the
+  emitted <li> element.
+#}
+{% macro item(column, room=ns[column], link=undefined) -%}
+  {%- if link is integer %}
+    {%- set link %}https://www.pgevents.ca/events/pgconfdev2025/schedule/session/{{ link }}/{% endset %}
+  {% endif -%}
+
+  <li style="grid-column: {{ column }}; {{ ns.slot }};"
+      {%- for k, v in kwargs | items %} {{ k }}="{{ v }}" {%- endfor %}>
+    {%- if room %}
+      <span class="narrow room">{{ room }}</span>
+    {%- endif %}
+
+    {%- if link %}
+      <a href="{{ link }}">{{ caller() if caller }}</a>
+    {%- else %}
+      {{ caller() if caller }}
+    {%- endif %}
+  </li>
 {%- endmacro %}
 
 {# Hide the sponsor sidebar on the schedule page #}
@@ -90,7 +93,7 @@
 {% block main %}
   <h1>Schedule</h1>
 
-  <ul class="flex legend">
+  <ul class="narrow flex">
     <li><span class="room">R</span> = Regence
     <li><span class="room">A</span> = Cartier A
     <li><span class="room">B</span> = Cartier B
@@ -100,546 +103,404 @@
 
   <h2><time datetime="2025-05-13">Tuesday, May 13<sup>th</sup></time></h2>
   <ul class="schedule">
-    <h4 {{ assign("a-head") }}>Room 1</h4>
-    <h4 {{ assign("b-head", "d-head") }}>Rooms 3&ndash;7</h4>
+    <h4>Time</h4>
+    <h4>Room 1</h4>
+    <h4 style="grid-column: b / d;">Rooms 3&ndash;7</h4>
 
     {{ time("08:00", "08:30") }}
 
-    <li class="social" {{ slot("a", "d") }}>
-      Light Refreshments
+    {% call item("a / d", class="social") -%} Light Refreshments {%- endcall %}
 
     {{ time("08:30", "12:30") }}
 
-    <li class="workshop" {{ slot("a", room=none) }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/314/">
-        Developer Meeting (Invite Only)
-      </a>
+    {% call item("a", class="workshop", room=none, link=314) -%}
+      Developer Meeting (Invite Only)
+    {%- endcall %}
 
-    <li class="workshop" {{ slot("b", room=none) }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/241/">
-        Extension Ecosystem Summit
-      </a>
+    {% call item("b", class="workshop", room=none, link=241) -%}
+      Extension Ecosystem Summit
+    {%- endcall %}
 
     {{ time("12:30", "13:30") }}
 
-    <li class="social" {{ slot("a", "d") }}>
-      Lunch
+    {% call item("a / d", class="social") -%} Lunch {%- endcall %}
 
     {{ time("13:30", "14:00") }}
 
-    <li {{ slot("a", "d") }}>
-      Afternoon Session Intros
+    {% call item("a / d") -%} Afternoon Session Intros {%- endcall %}
 
     {{ time("14:00", "15:30") }}
 
-    <li class="workshop" {{ slot("a", room=none) }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/265/">
-        Advanced Patch Feedback Session
-      </a>
+    {% call item("a", class="workshop", room=none, link=265) -%}
+      Advanced Patch Feedback Session
+    {%- endcall %}
 
-    <li class="workshop" {{ slot("b", room=none) }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404/">
-        Community Summit: Microconference 1
-      </a>
+    {% call item("b", class="workshop", room=none, link=404) -%}
+      Community Summit: Microconference 1
+    {%- endcall %}
 
-    <li class="workshop" {{ slot("c", room=none) }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404/">
-        Community Summit: Microconference 2
-      </a>
+    {% call item("c", class="workshop", room=none, link=404) -%}
+      Community Summit: Microconference 2
+    {%- endcall %}
 
-    <li class="workshop" {{ slot("d", room=none) }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404/">
-        Community Summit: Microconference 3
-      </a>
+    {% call item("d", class="workshop", room=none, link=404) -%}
+      Community Summit: Microconference 3
+    {%- endcall %}
 
     {{ time("15:30", "16:00") }}
 
-    <li class="social" {{ slot("a", "c") }}>
-      Coffee
+    {% call item("a / c", class="social") -%} Coffee {%- endcall %}
 
-    {{ time("15:30", "17:30", synthetic=True) }}
+    {{ time("15:30", "17:30", class="narrow") }}
 
-    <li {{ slot("d") }}>
-      Security Team Meeting (Invite Only)
+    {% call item("d") -%} Security Team Meeting (Invite Only) {%- endcall %}
 
     {{ time("16:00", "17:30") }}
 
-    <li class="workshop" {{ slot("a", room=none) }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/265/">
-        Advanced Patch Feedback Session
-      </a>
+    {% call item("a", class="workshop", room=none, link=265) -%}
+      Advanced Patch Feedback Session
+    {%- endcall %}
 
-    <li class="workshop" {{ slot("b", room=none) }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404/">
-        Community Summit: Microconference 4
-      </a>
+    {% call item("b", class="workshop", room=none, link=404) -%}
+      Community Summit: Microconference 4
+    {%- endcall %}
 
-    <li class="workshop" {{ slot("c", room=none) }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404/">
-        Community Summit: Microconference 5
-      </a>
+    {% call item("c", class="workshop", room=none, link=404) -%}
+      Community Summit: Microconference 5
+    {%- endcall %}
 
-    {# Manually handle this time slot #}
-    <li class="time" {{ assign("time-1730", "time-1830") }}>
-      <time>17:30</time>&ndash;<time>20:30</time>
-    </li>
-    {% set ns.earliest_slot = "1730" -%}
-    {% set ns.latest_slot = "1830" -%}
+    {{ time("17:30", "20:30") }}
 
-    <li {{ slot("a", "b", room="O") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/347/">
-        Community Meet and Eat
-      </a>
+    {% call item("a / b", room="O", link=347) -%}
+      Community Meet and Eat
+    {%- endcall %}
 
-    <li {{ slot("c", "d", room="O") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/269/">
-        Social Run (and Dinner)
-      </a>
+    {% call item("c / d", room="O", link=269) -%}
+      Social Run (and Dinner)
+    {%- endcall %}
   </ul>
 
   <h2><time datetime="2025-05-14">Wednesday, May 14<sup>th</sup></time></h2>
   <ul class="schedule">
-    <h4 {{ assign("a-head") }}>Plenary</h4>
-    <h4 {{ assign("b-head") }}>Breakout 1</h4>
-    <h4 {{ assign("c-head") }}>Breakout 2</h4>
-    <h4 {{ assign("d-head") }}>Meeting Room</h4>
+    <h4>Time</h4>
+    <h4>Plenary</h4>
+    <h4>Breakout 1</h4>
+    <h4>Breakout 2</h4>
+    <h4>Meeting Room</h4>
 
     {{ time("08:00", "09:00") }}
 
-    <li class="social" {{ slot("a", "c") }}>
-      Breakfast
+    {% call item("a / c", class="social") -%} Breakfast {%- endcall %}
 
-    <li class="social" {{ slot("d") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/313/">
-        Student Breakfast
-      </a>
+    {% call item("d", class="social", link=313) -%}
+      Student Breakfast
+    {%- endcall %}
 
     {{ time("09:00", "09:30") }}
 
-    <li {{ slot("a") }}>
-      Opening
+    {% call item("a") -%} Opening {%- endcall %}
 
     {{ time("09:30", "09:50") }}
 
-    <li {{ slot("a") }}>
-      Keynote
+    {% call item("a") -%} Keynote {%- endcall %}
 
     {{ time("10:00", "10:50") }}
 
-    <li class="talk" {{ slot("a") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/436/">
-        Investigating Multithreaded PostgreSQL<br>
-        <small>(Thomas Munro)</small>
-      </a>
+    {% call item("a", class="talk", link=436) -%}
+      Investigating Multithreaded PostgreSQL<br><small>(Thomas Munro)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("b") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/331/">
-        Adventures in Extension Packaging<br>
-        <small>(David E. Wheeler)</small>
-      </a>
+    {% call item("b", class="talk", link=331) -%}
+      Adventures in Extension Packaging<br><small>(David E. Wheeler)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/256/">
-        Exploring the benefits of learned indexes in PostgreSQL: Theory and Implementation<br>
-        <small>(GARY W EVANS, Nishchay Kothari)</small>
-      </a>
+    {% call item("c", class="talk", link=256) -%}
+      Exploring the benefits of learned indexes in PostgreSQL: Theory and Implementation<br><small>(GARY W EVANS, Nishchay Kothari)</small>
+    {%- endcall %}
 
     {{ time("11:00", "11:30") }}
 
-    <li class="social" {{ slot("a", "d") }}>
-      Coffee
+    {% call item("a / d", class="social") -%} Coffee {%- endcall %}
 
     {{ time("11:30", "12:20") }}
 
-    <li class="talk" {{ slot("a") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/271/">
-        What is new in C and POSIX?<br>
-        <small>(Peter Eisentraut)</small>
-      </a>
+    {% call item("a", class="talk", link=271) -%}
+      What is new in C and POSIX?<br><small>(Peter Eisentraut)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("b") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/410/">
-        The trouble with extensions<br>
-        <small>(Marco Slot)</small>
-      </a>
+    {% call item("b", class="talk", link=410) -%}
+      The trouble with extensions<br><small>(Marco Slot)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/293/">
-        Revisiting XTM: A Practical Case Study Highlighting Its Needs<br>
-        <small>(Yuya Watari)</small>
-      </a>
+    {% call item("c", class="talk", link=293) -%}
+      Revisiting XTM: A Practical Case Study Highlighting Its Needs<br><small>(Yuya Watari)</small>
+    {%- endcall %}
 
     {{ time("12:30", "12:55") }}
 
-    <li class="talk" {{ slot("a") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/301/">
-        Compiling Postgres to WASM with PGlite<br>
-        <small>(Sam Willis)</small>
-      </a>
+    {% call item("a", class="talk", link=301) -%}
+      Compiling Postgres to WASM with PGlite<br><small>(Sam Willis)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("b") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/388/">
-        postgresql.org: The hidden parts<br>
-        <small>(Magnus Hagander)</small>
-      </a>
+    {% call item("b", class="talk", link=388) -%}
+      postgresql.org: The hidden parts<br><small>(Magnus Hagander)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/281/">
-        The Present and Future of VACUUM in PostgreSQL<br>
-        <small>(Masahiko Sawada)</small>
-      </a>
+    {% call item("c", class="talk", link=281) -%}
+      The Present and Future of VACUUM in PostgreSQL<br><small>(Masahiko Sawada)</small>
+    {%- endcall %}
 
     {{ time("13:00", "14:00") }}
 
-    <li class="social" {{ slot("a", "c") }}>
-      Lunch
+    {% call item("a / c", class="social") -%} Lunch {%- endcall %}
 
-    {{ time("13:00", "15:00", synthetic=True) }}
+    {{ time("13:00", "15:00", class="narrow") }}
 
-    <li {{ slot("d") }}>
-      PGCA
+    {% call item("d") -%} PGCA {%- endcall %}
 
     {{ time("14:00", "14:50") }}
 
-    <li class="talk" {{ slot("a") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/254/">
-        Committer Review: An Exercise in Paranoia<br>
-        <small>(Robert Haas)</small>
-      </a>
+    {% call item("a", class="talk", link=254) -%}
+      Committer Review: An Exercise in Paranoia<br><small>(Robert Haas)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("b") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/229/">
-        Multidimensional search strategies for composite B-Tree indexes<br>
-        <small>(Peter V Geoghegan)</small>
-      </a>
+    {% call item("b", class="talk", link=229) -%}
+      Multidimensional search strategies for composite B-Tree indexes<br><small>(Peter V Geoghegan)</small>
+    {% endcall %}
 
-    <li class="talk" {{ slot("c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/363/">
-        ChatGPT Ain’t Got $%@& On Me! Next Generation Automated Database Tuning<br>
-        <small>(William Zhang)</small>
-      </a>
+    {% call item("c", class="talk", link=363) -%}
+      ChatGPT Ain’t Got $%@& On Me! Next Generation Automated Database Tuning<br><small>(William Zhang)</small>
+    {%- endcall %}
 
     {{ time("15:00", "15:50") }}
 
-    <li class="talk" {{ slot("a") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/433/">
-        Scaling Postgres to the next level at OpenAI<br>
-        <small>(Bohan Zhang)</small>
-      </a>
+    {% call item("a", class="talk", link=433) -%}
+      Scaling Postgres to the next level at OpenAI<br><small>(Bohan Zhang)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("b") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/276/">
-        Experimenting with a Global Index in PostgreSQL: Design, Implementation, and Challenges<br>
-        <small>(Dilip Kumar)</small>
-      </a>
+    {% call item("b", class="talk", link=276) -%}
+      Experimenting with a Global Index in PostgreSQL: Design, Implementation, and Challenges<br><small>(Dilip Kumar)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/385/">
-        Designing and implementing a monitoring feature in PostgreSQL<br>
-        <small>(Rahila Syed)</small>
-      </a>
+    {% call item("c", class="talk", link=385) -%}
+      Designing and implementing a monitoring feature in PostgreSQL<br><small>(Rahila Syed)</small>
+    {%- endcall %}
 
     {{ time("16:00", "16:30") }}
 
-    <li class="social" {{ slot("a", "d") }}>
-      Coffee
+    {% call item("a / d", class="social") -%} Coffee {%- endcall %}
 
     {{ time("16:30", "16:55") }}
 
-    <li class="talk" {{ slot("a") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/444/">
-        Tracking plan shapes over time with Plan IDs, and a new pg_stat_plans<br>
-        <small>(Lukas Fittl)</small>
-      </a>
+    {% call item("a", class="talk", link=444) -%}
+      Tracking plan shapes over time with Plan IDs, and a new pg_stat_plans<br><small>(Lukas Fittl)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("b") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/384/">
-        Debugging Data Corruption in PostgreSQL<br>
-        <small>(Palak Chaturvedi)</small>
-      </a>
+    {% call item("b", class="talk", link=384) -%}
+      Debugging Data Corruption in PostgreSQL<br><small>(Palak Chaturvedi)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/372/">
-        PostgreSQL container groups, aka cgroups down the road.<br>
-        <small>(Cédric Villemain)</small>
-      </a>
+    {% call item("c", class="talk", link=372) -%}
+      PostgreSQL container groups, aka cgroups down the road.<br><small>(Cédric Villemain)</small>
+    {%- endcall %}
 
-    {{ time("16:30", "17:30", synthetic=True) }}
+    {{ time("16:30", "17:30", class="narrow") }}
 
-    <li class="talk" {{ slot("d", room=none) }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/345/">
-        Crafting exploits for historical CVEs<br>
-        <small>(Andrey Borodin)</small>
-      </a>
+    {% call item("d", room=none, class="talk", link=345) -%}
+      Crafting exploits for historical CVEs<br><small>(Andrey Borodin)</small>
+    {%- endcall %}
 
     {{ time("17:00", "17:25") }}
 
-    <li class="talk" {{ slot("a") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/440/">
-        What 10 Postgres Major Contributors Did to Become a Hacker<br>
-        <small>(Claire Giordano)</small>
-      </a>
+    {% call item("a", class="talk", link=440) -%}
+      What 10 Postgres Major Contributors Did to Become a Hacker<br><small>(Claire Giordano)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("b") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/364/">
-        Reproducible Postgres<br>
-        <small>(Javier Maestro, Alvaro Hernandez)</small>
-      </a>
+    {% call item("b", class="talk", link=364) -%}
+      Reproducible Postgres<br><small>(Javier Maestro, Alvaro Hernandez)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/311/">
-        Fast-path locking improvements in PG18<br>
-        <small>(Tomas Vondra)</small>
-      </a>
+    {% call item("c", class="talk", link=311) -%}
+      Fast-path locking improvements in PG18<br><small>(Tomas Vondra)</small>
+    {%- endcall %}
 
     {{ time("17:30", "18:00") }}
 
-    {# Manually handle this time slot #}
-    <li class="time" {{ assign("time-1800", "time-1830") }}>
-      <time>18:00</time>&ndash;<time>01:00</time>
-    </li>
-    {% set ns.earliest_slot = "1800" -%}
-    {% set ns.latest_slot = "1830" -%}
+    {{ time("18:00", "01:00") }}
 
-    <li class="social" {{ slot("a", "d", room="O") }}>
-      🎉 Social 🎉
+    {% call item("a / d", room="O") -%} 🎉 Social 🎉 {%- endcall %}
   </ul>
 
   <h2><time datetime="2025-05-15">Thursday, May 15<sup>th</sup></time></h2>
   <ul class="schedule">
-    <h4 {{ assign("a-head") }}>Plenary</h4>
-    <h4 {{ assign("b-head") }}>Breakout 1</h4>
-    <h4 {{ assign("c-head") }}>Breakout 2</h4>
-    <h4 {{ assign("d-head") }}>Meeting Room</h4>
+    <h4>Time</h4>
+    <h4>Plenary</h4>
+    <h4>Breakout 1</h4>
+    <h4>Breakout 2</h4>
+    <h4>Meeting Room</h4>
 
     {{ time("08:30", "09:30") }}
 
-    <li class="social" {{ slot("a", "c") }}>
-      Breakfast
+    {% call item("a / c", class="social") -%} Breakfast {%- endcall %}
 
-    <li {{ slot("d", room=none) }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/424/">
-        Postgres Women Breakfast
-      </a>
+    {% call item("d", room=none, link=424) -%}
+      Postgres Women Breakfast
+    {%- endcall %}
 
     {{ time("09:30", "10:20") }}
 
-    <li class="talk" {{ slot("a") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/286/">
-        Changing shared_buffers on the fly<br>
-        <small>(Dmitrii Dolgov, Ashutosh Bapat)</small>
-      </a>
+    {% call item("a", class="talk", link=286) -%}
+      Changing shared_buffers on the fly<br><small>(Dmitrii Dolgov, Ashutosh Bapat)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("b") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/228/">
-        My Journey in PostgreSQL bug fixing<br>
-        <small>(Bertrand Drouvot)</small>
-      </a>
+    {% call item("b", class="talk", link=228) -%}
+      My Journey in PostgreSQL bug fixing<br><small>(Bertrand Drouvot)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/240/">
-        Application Development Challenges with Postgres<br>
-        <small>(Dian Fay)</small>
-      </a>
+    {% call item("c", class="talk", link=240) -%}
+      Application Development Challenges with Postgres<br><small>(Dian Fay)</small>
+    {%- endcall %}
 
     {{ time("10:30", "11:00") }}
 
-    <li class="social" {{ slot("a", "d") }}>
-      Coffee
+    {% call item("a / d", class="social") -%} Coffee {%- endcall %}
 
     {{ time("11:00", "11:25") }}
 
-    <li class="talk" {{ slot("a") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/353/">
-        Problems with logical decoding — an end-user’s perspective<br>
-        <small>(Polina Bungina)</small>
-      </a>
+    {% call item("a", class="talk", link=353) -%}
+      Problems with logical decoding — an end-user’s perspective<br><small>(Polina Bungina)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("b") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/379/">
-        What does moving to Pull Requests look like? The nginx story<br>
-        <small>(Alastair Turner)</small>
-      </a>
+    {% call item("b", class="talk", link=379) -%}
+      What does moving to Pull Requests look like? The nginx story<br><small>(Alastair Turner)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/376/">
-        Rethinking PostgreSQL Performance in the Age of Monster Hardware<br>
-        <small>(Lætitia AVROT)</small>
-      </a>
+    {% call item("c", class="talk", link=376) -%}
+      Rethinking PostgreSQL Performance in the Age of Monster Hardware<br><small>(Lætitia AVROT)</small>
+    {%- endcall %}
 
     {{ time("11:30", "12:20") }}
 
-    <li class="talk" {{ slot("a") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/430/">
-        What went wrong with AIO<br>
-        <small>(Andres Freund)</small>
-      </a>
+    {% call item("a", class="talk", link=430) -%}
+      What went wrong with AIO<br><small>(Andres Freund)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("b") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/245/">
-        Detection and resolution of conflicts in logical replication<br>
-        <small>(Zhijie Hou, Ajin Cherian)</small>
-      </a>
+    {% call item("b", class="talk", link=245) -%}
+      Detection and resolution of conflicts in logical replication<br><small>(Zhijie Hou, Ajin Cherian)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/346/">
-        Switching between query plans in real time (Switch Join)<br>
-        <small>(Alena Rybakina)</small>
-      </a>
+    {% call item("c", class="talk", link=346) -%}
+      Switching between query plans in real time (Switch Join)<br><small>(Alena Rybakina)</small>
+    {%- endcall %}
 
     {{ time("12:30", "13:30") }}
 
-    <li class="social" {{ slot("a", room=none) }}>
-      Lunch
+    {% call item("a", class="social", room=none) -%} Lunch {%- endcall %}
 
-    <li {{ slot("b") }}>
-      Slonik Events Canada AGM
+    {% call item("b") -%} Slonik Events Canada AGM {%- endcall %}
 
-    <li class="social" {{ slot("c", "d") }}>
-      Lunch
+    {% call item("c / d", class="social") -%} Lunch {%- endcall %}
 
     {{ time("13:30", "14:20") }}
 
-    <li class="talk" {{ slot("a") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/446/">
-        Vector search is now boring, but PostgreSQL has ways to go<br>
-        <small>(Jonathan Katz)</small>
-      </a>
+    {% call item("a", class="talk", link=446) -%}
+      Vector search is now boring, but PostgreSQL has ways to go<br><small>(Jonathan Katz)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("b") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/359/">
-        Improving scalability; Reducing overhead in shared memory<br>
-        <small>(Matthias van de Meent)</small>
-      </a>
+    {% call item("b", class="talk", link=359) -%}
+      Improving scalability; Reducing overhead in shared memory<br><small>(Matthias van de Meent)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/260/">
-        Advanced testing with Injection Points<br>
-        <small>(Michael Paquier)</small>
-      </a>
+    {% call item("c", class="talk", link=260) -%}
+      Advanced testing with Injection Points<br><small>(Michael Paquier)</small>
+    {%- endcall %}
 
     {{ time("14:30", "14:55") }}
 
-    <li class="talk" {{ slot("a") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/318/">
-        What can Postgres learn from DuckDB?<br>
-        <small>(Jelte Fennema-Nio)</small>
-      </a>
+    {% call item("a", class="talk", link=318) -%}
+      What can Postgres learn from DuckDB?<br><small>(Jelte Fennema-Nio)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("b") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/287/">
-        Foreign Key Joins<br>
-        <small>(Vik Fearing)</small>
-      </a>
+    {% call item("b", class="talk", link=287) -%}
+      Foreign Key Joins<br><small>(Vik Fearing)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/426/">
-        Everything You Need to Know About Diversity in 25 Minutes<br>
-        <small>(Stacey Haysler)</small>
-      </a>
+    {% call item("c", class="talk", link=426) -%}
+      Everything You Need to Know About Diversity in 25 Minutes<br><small>(Stacey Haysler)</small>
+    {%- endcall %}
 
     {{ time("15:00", "15:30") }}
 
-    <li class="social" {{ slot("a", "d") }}>
-      Coffee
+    {% call item("a / d", class="social") -%} Coffee {%- endcall %}
 
     {{ time("15:30", "16:20") }}
 
-    <li class="talk" {{ slot("a") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/419/">
-        Writing fast C code for a modern CPU (and applying it to PostgreSQL)<br>
-        <small>(David Rowley)</small>
-      </a>
+    {% call item("a", class="talk", link=419) -%}
+      Writing fast C code for a modern CPU (and applying it to PostgreSQL)<br><small>(David Rowley)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("b") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/414/">
-        Re-engineering Postgres for Millions of Tenants<br>
-        <small>(Gwen Shapira)</small>
-      </a>
+    {% call item("b", class="talk", link=414) -%}
+      Re-engineering Postgres for Millions of Tenants<br><small>(Gwen Shapira)</small>
+    {%- endcall %}
 
-    <li class="talk" {{ slot("c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/343/">
-        Fraught Feedback: Trying and Failing to Implement Adaptive Behavior in Postgres<br>
-        <small>(Melanie Plageman)</small>
-      </a>
+    {% call item("c", class="talk", link=343) -%}
+      Fraught Feedback: Trying and Failing to Implement Adaptive Behavior in Postgres<br><small>(Melanie Plageman)</small>
+    {%- endcall %}
 
     {{ time("16:30", "17:30") }}
 
-    <li {{ slot("a", "c") }}>
-      Lightning Talks
+    {% call item("a / c") -%} Lightning Talks {%- endcall %}
   </ul>
 
   <h2><time datetime="2025-05-16">Friday, May 16<sup>th</sup></time></h2>
   <ul class="schedule" style="grid-template-columns: auto 1fr 1fr 1fr 0;">
-    <h4 {{ assign("a-head") }}>Plenary</h4>
-    <h4 {{ assign("b-head") }}>Breakout 1</h4>
-    <h4 {{ assign("c-head") }}>Breakout 2</h4>
+    <h4>Time</h4>
+    <h4>Plenary</h4>
+    <h4>Breakout 1</h4>
+    <h4>Breakout 2</h4>
 
     {{ time("08:00", "09:00") }}
 
-    <li {{ slot("a", "c") }}>
-      Breakfast
+    {% call item("a / c") -%} Breakfast {%- endcall %}
 
     {{ time("09:00", "10:00") }}
 
-    <li {{ slot("a", "c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348">
-        Unconference
-      </a>
+    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
 
     {{ time("10:00", "10:30") }}
 
-    <li class="social" {{ slot("a", "c") }}>
-      Coffee
+    {% call item("a / c", class="social") -%} Coffee {%- endcall %}
 
     {{ time("10:30", "11:30") }}
 
-    <li {{ slot("a", "c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348">
-        Unconference
-      </a>
+    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
 
     {{ time("11:30", "12:30") }}
 
-    <li {{ slot("a", "c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348">
-        Unconference
-      </a>
+    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
 
     {{ time("12:30", "13:30") }}
 
-    <li class="social" {{ slot("a", "c") }}>
-      Lunch
+    {% call item("a / c", class="social") -%} Lunch {%- endcall %}
 
     {{ time("13:30", "14:30") }}
 
-    <li {{ slot("a", "c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348">
-        Unconference
-      </a>
+    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
 
     {{ time("14:30", "15:30") }}
 
-    <li {{ slot("a", "c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348">
-        Unconference
-      </a>
+    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
 
     {{ time("15:30", "16:00") }}
 
-    <li class="social" {{ slot("a", "c") }}>
-      Coffee
+    {% call item("a / c", class="social") -%} Coffee {%- endcall %}
 
     {{ time("16:00", "17:00") }}
 
-    <li {{ slot("a", "c") }}>
-      <a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348">
-        Unconference
-      </a>
+    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
 
     {{ time("17:00", "17:30") }}
 
-    <li {{ slot("a") }}>
-      Closing Remarks
+    {% call item("a") -%} Closing Remarks {%- endcall %}
   </ul>
 {% endblock %}

@@ -52,26 +52,28 @@ main > ul > li {
   text-decoration: none;
 }
 
-.room, [data-room]::before {
+.room {
   align-items: center;
   border-radius: var(--border-radius);
   border: calc(2 * var(--border-width)) solid currentColor;
+  cursor: default;
   display: inline-flex;
   font-weight: bold;
   height: 1.5rem;
   justify-content: center;
   user-select: none;
+  -webkit-user-select: none;
   width: 1.5rem;
 }
 
-[data-room]::before {
+li > .room {
   content: attr(data-room);
   float: right;
   margin-left: 1rem;
 }
 
 @media (min-width: 800px) {
-  .legend, .synthetic, [data-room]::before {
+  .narrow {
     display: none;
   }
 
@@ -79,7 +81,7 @@ main > ul > li {
     column-gap: 1rem;
     display: grid;
     grid-template:
-      "time-head a-head b-head c-head d-head"
+      "time a b c d"
       "time-0800 a-0800 b-0800 c-0800 d-0800"
       "time-0830 a-0830 b-0830 c-0830 d-0830"
       "time-0900 a-0900 b-0900 c-0900 d-0900"
@@ -102,6 +104,20 @@ main > ul > li {
       "time-1730 a-1730 b-1730 c-1730 d-1730"
       "time-1800 a-1800 b-1800 c-1800 d-1800"
       "time-1830 a-1830 b-1830 c-1830 d-1830"
+      "time-1900 a-1900 b-1900 c-1900 d-1900"
+      "time-1930 a-1930 b-1930 c-1930 d-1930"
+      "time-2000 a-2000 b-2000 c-2000 d-2000"
+      "time-2030 a-2030 b-2030 c-2030 d-2030"
+      "time-2100 a-2100 b-2100 c-2100 d-2100"
+      "time-2130 a-2130 b-2130 c-2130 d-2130"
+      "time-2200 a-2200 b-2200 c-2200 d-2200"
+      "time-2230 a-2230 b-2230 c-2230 d-2230"
+      "time-2300 a-2300 b-2300 c-2300 d-2300"
+      "time-2330 a-2330 b-2330 c-2330 d-2330"
+      "time-0000 a-0000 b-0000 c-0000 d-0000"
+      "time-0030 a-0030 b-0030 c-0030 d-0030"
+      "time-0100 a-0100 b-0100 c-0100 d-0100"
+      "time-0130 a-0130 b-0130 c-0130 d-0130"
       / auto 1fr 1fr 1fr 1fr;
   }
 
