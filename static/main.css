@@ -87,7 +87,7 @@ body > main p {
   text-align: justify;
 }
 
-p.lead {
+main > h1 + p, .lead {
   font-size: 1.25em;
   font-weight: 300;
 }

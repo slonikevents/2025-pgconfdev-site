@@ -20,36 +20,31 @@
   </style>
 {% endblock %}
 
-{% block main %}
-  <h1>About</h1>
+{% block main %}{% markdown %}
+  # About
 
-  <p class="lead">
-    The PostgreSQL Development Conference, aka “<abbr>PGConf.dev</abbr>”, is
-    where users, developers, and community organizers come together to focus on
-    <a href="https://www.postgresql.org" target="_blank">PostgreSQL</a>
-    development and community growth.
+  The PostgreSQL Development Conference, aka “<abbr>PGConf.dev</abbr>”, is where
+  users, developers, and community organizers come together to focus on
+  [PostgreSQL] development and community growth.
 
-  <p>PGConf.dev is the successor to
-    <a href="https://www.pgcon.org/" target="_blank">PGCon</a>, and focuses on
-    creating a fun and constructive environment for PostgreSQL contributors to
-    meet, collaborate, and learn from each other.
+  PGConf.dev is the successor to [PGCon], and focuses on creating a fun and
+  constructive environment for PostgreSQL contributors to meet, collaborate, and
+  learn from each other.
 
-  <p>PGConf.dev is made possible by the generous support of our sponsors, the
-    amazing content from our speakers, the volunteers who help to organize and
-    run the event, and the participation of the PostgreSQL contributor
-    community.
+  PGConf.dev is made possible by the generous support of our sponsors, the
+  amazing content from our speakers, the volunteers who help to organize and run
+  the event, and the participation of the PostgreSQL contributor community.
 
-  <p>Follow us on
-    <a href="https://twitter.com/pgconfdev" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+  Follow us on
+    <a href="https://twitter.com/pgconfdev"><i class="fa-brands fa-x-twitter"></i></a>
     or
-    <a href="https://mastodon.social/@pgconfdev" rel="me" target="_blank"><i class="fa-brands fa-mastodon"></i></a>
+    <a href="https://mastodon.social/@pgconfdev" rel="me"><i class="fa-brands fa-mastodon"></i></a>
     for up date news about the event.
 
-  <h2>Organization Team</h2>
+  ## Organization Team
 
-  <p>PGConf.dev {{ year }} is organized in cooperation with
-    <a href="https://www.pgevents.ca/" target="_blank">Slonik Events Canada</a>
-    by the following people.
+  PGConf.dev {{ year }} is organized in cooperation with [Slonik Events Canada]
+  by the following people.
 
   <div class="flex">
     <figure class="person">
@@ -83,55 +78,53 @@
     </figure>
   </div>
 
-  <h2>Volunteering</h2>
+  ## Volunteering
 
-  <p>Please <a href="{{ "contact.html" | link }}">contact us</a> if you'd like
-    to help organize, or volunteer at, the conference. Volunteering is a great
-    way to get more involved in the community, and we'd be happy to have you.
+  Please [contact us] if you'd like to help organize, or volunteer at, the
+  conference. Volunteering is a great way to get more involved in the community,
+  and we'd be happy to have you.
 
-  <h2>Policies</h2>
+  ## Policies
 
-  <ul>
-    <li>This conference is a
-      <a href="https://www.postgresql.org/about/policies/conferences/" target="_blank">PostgreSQL Community event</a>.
-    </li>
+  - This conference is a [PostgreSQL Community Event].
+  - All attendees will be required to follow the [Code of Conduct].
 
-    <li>All attendees will be required to follow the
-      <a href="/coc" target="_blank">Code of Conduct</a>.
-    </li>
-  </ul>
+  ## Privacy
 
-  <h2>Privacy</h2>
+  This site is hosted on [GitHub Pages]. Please refer to the [GitHub Privacy
+  Statement] for more information.
 
-  <p>This site is hosted on
-    <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#data-collection" target="_blank">GitHub Pages</a>.
-    Please refer to the
-    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank">GitHub Privacy Statement</a>
-    for more information.
+  We use [Cloudflare Web Analytics] to measure our outreach. Cloudflare Web
+  Analytics does not use any client-side state, such as cookies or localStorage,
+  to collect usage metrics. We also don’t "fingerprint" individuals via their IP
+  address, User Agent string, or any other data for the purpose of displaying
+  analytics.
 
-    We use
-    <a href="https://www.cloudflare.com/web-analytics/" target="_blank">Cloudflare Web Analytics</a>
-    to measure our outreach. Cloudflare Web Analytics does not use any
-    client-side state, such as cookies or localStorage, to collect usage
-    metrics. We also don’t “fingerprint” individuals via their IP address, User
-    Agent string, or any other data for the purpose of displaying analytics.
+  Our emails don’t use any form of tracking.
 
-    Our emails don’t use any form of tracking.
+  The PostgreSQL Development conference is organized by [Slonik Events Canada]
+  which follows the [Slonik Events Canada Privacy Policy].
 
-  <p>The PostgreSQL Development conference is organized by <a href="https://www.pgevents.ca">Slonik Events Canada</a>
-   which follows the <a href="https://www.pgevents.ca/about/privacypolicy/">Slonik Events Canada Privacy Policy</a>
+  ## Financial Disclosure
 
-  <h2>Financial Disclosure</h2>
+  PGConf.dev is financially supported by our generous sponsors and is
+  underwritten by [Slonik Events Canada], a Canadian non-profit organization
+  incorporated expressly to organize this conference. All proceeds belong to
+  Slonik Events Canada and will be used in accordance with its [by-laws] to
+  support the PostgreSQL community.
 
-  <p>PGConf.dev is financially supported by our generous sponsors and is
-    underwritten by
-    <a href="https://www.pgevents.ca/" target="_blank">Slonik Events Canada</a>,
-    a Canadian non-profit organization incorporated expressly to organize this
-    conference. All proceeds belong to Slonik Events Canada and will be used in
-    accordance with its
-    <a href="https://www.pgevents.ca/media/local/pdf/slonik-events-bylaws-2023.pdf" target="_blank">by-laws</a>
-    to support the PostgreSQL community.
+  Organizers and volunteers receive no remuneration except free attendance to
+  the conference.
 
-  <p>Organizers and volunteers receive no remuneration except free attendance to
-    the conference.
-{%endblock%}
+  [PostgreSQL]: https://www.postgresql.org
+  [PGCon]: https://www.pgcon.org/
+  [contact us]: {{ "/contact.html" | link }}
+  [PostgreSQL Community Event]: https://www.postgresql.org/about/policies/conferences/
+  [Code of Conduct]: /coc
+  [GitHub Pages]: https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#data-collection
+  [GitHub Privacy Statement]: https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement
+  [Cloudflare Web Analytics]: https://www.cloudflare.com/web-analytics/
+  [Slonik Events Canada]: https://www.pgevents.ca
+  [Slonik Events Canada Privacy Policy]: https://www.pgevents.ca/about/privacypolicy/
+  [by-laws]: https://www.pgevents.ca/media/local/pdf/slonik-events-bylaws-2023.pdf
+{% endmarkdown %}{% endblock %}

@@ -5,12 +5,17 @@ from invoke import task
 def render(c, relative_to=None):
     """Render the static site (into `site`)"""
 
+    from cmarkgfm.cmark import Options as cmarkgfmOptions
     from jinja2 import Environment, FileSystemLoader, pass_context
+    from jinja2.ext import Extension
+    from jinja2.nodes import CallBlock
     from pathlib import Path
+    import cmarkgfm
     import inspect
     import os.path
     import shutil
     import subprocess
+    import textwrap
     import yaml
 
     # Add each cached and untracked file to the site
@@ -75,8 +80,37 @@ def render(c, relative_to=None):
             return os.path.join(relative_to, target.relative_to("/"))
         return os.path.relpath(target, os.path.dirname("/" + context.name))
 
+    class MarkdownExtension(Extension):
+        tags = {"markdown"}
+
+        def parse(self, parser):
+            # Skip the {% markdown %} itself. Record its line number.
+            lineno = next(parser.stream).lineno
+
+            # Return a CallBlock to call self.render() on the text
+            markdown = parser.parse_statements(["name:endmarkdown"], True)
+            node = CallBlock(self.call_method("render"), [], [], markdown)
+            return node.set_lineno(lineno)
+
+        def render(self, caller):
+            """Dedent and render text as markdown."""
+
+            text = textwrap.dedent(caller())
+            kwargs = {
+                "extensions": ["autolink", "strikethrough", "table"],
+                "options": (
+                    cmarkgfmOptions.CMARK_OPT_UNSAFE |
+                    cmarkgfmOptions.CMARK_OPT_SMART |
+                    cmarkgfmOptions.CMARK_OPT_NORMALIZE |
+                    cmarkgfmOptions.CMARK_OPT_FOOTNOTES |
+                    cmarkgfmOptions.CMARK_OPT_TABLE_PREFER_STYLE_ATTRIBUTES
+                ),
+            }
+            return cmarkgfm.markdown_to_html_with_extensions(text, **kwargs)
+
     # Create the Jinja2 environment and context
-    environment = Environment(loader=FileSystemLoader("."))
+    loader = FileSystemLoader(".")
+    environment = Environment(loader=loader, extensions=[MarkdownExtension])
     environment.filters["link"] = link
     context = yaml.safe_load(Path("context.yaml").read_text()) or {}
 

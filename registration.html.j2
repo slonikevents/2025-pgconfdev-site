@@ -1,135 +1,65 @@
 {% set title = "Registration" %}
 {% extends "base.html.j2" %}
 
-{% block head %}
-  <style>
-    dd {
-      margin-inline-start: 1.5rem;
-    }
+{% block main %}{% markdown %}
+  # Registration
 
-    .side-by-side {
-      grid-template-columns: none;
-    }
+  PGConf.dev is an annual event where users, developers, and community
+  organizers come together to focus on PostgreSQL development and community
+  growth. This event is a strategic gathering of the PostgreSQL community that
+  takes place before development begins.
 
-    @media (min-width: 768px) {
-      .side-by-side {
-        align-items: start;
-        grid-template-columns: 1fr auto;
-      }
-    }
-  </style>
-{% endblock %}
+  | Ticket  |     Price | Description                       |
+  | ------- | --------: | --------------------------------- |
+  | Regular |  $500 CAD | Normal conference attendance      |
+  | Student |   $75 CAD | Students with proof of enrollment |
+  | Speaker | No charge | Free for confirmed speakers       |
 
-{% block main %}
-  <h1>Registration</h1>
-<div>
-  <p class="lead">
-    PGConf.dev is an annual event where users, developers, and community organizers come together to focus on PostgreSQL development and community growth.
+  A 5% GST and 9.9975% QST tax applies on top of the above ticket prices.
 
-This event is a strategic gathering of the PostgreSQL community that takes place before development begins.
+  <p style="margin-block: 2rem; text-align: center;">
+    <a href="https://www.pgevents.ca/events/pgconfdev2025/register/" role="button">Register</a>
 
-</p>
+  ---
 
+  ## Cancellation
 
-    <div>
-    <table>
-    <thead>
-        <tr>
-            <th>Ticket</th>
-            <th>Price</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-        <td>Regular</td>
-        <td>$500 CAD</td>
-        <td>Normal conference attendance</td>
-        </tr>
-        <tr>
-            <td>Student</td>
-            <td>$75 CAD</td>
-            <td>For anyone enrolled in a higher level education program with a valid
-        and current Student ID or proof of enrollment.</td>
-        </tr>
-        <tr>
-            <td>Speaker</td>
-            <td>$0</td>
-            <td>Confirmed speakers get free registration</td>
-        </tr>
-
-    </tbody>
-    </table>
-
-    <p>A 5% GST and 9.9975% QST tax applies on top of the above ticket prices<p>
-      <p style="margin-block: 2rem; text-align: center;">
-    <a href="https://www.pgevents.ca/events/pgconfdev2025/register//" role="button">Register</a>
-    </div>
-
-    <hr>
-
-  <h2 id="cancellation">Cancellation</h2>
-<p>
-  If you need to cancel your registration after you have paid, please
- <a href="mailto:contact@pgconf.dev">contact@pgconf.dev</a> for manual handling.  The
-  refund we can offer depends on when
-  you cancel so please cancel as soon as you know you won't be able to make
+  If you need to cancel your registration after you have paid, please email
+  contact@pgconf.dev for manual handling. The refund we can offer depends on
+  when you cancel so please cancel as soon as you know you won't be able to make
   it to the event. The available refund levels are:
-</p>
-<table class="cancellation">
-  <thead>
-    <tr>
-      <th>Cancel on or before</th>
-      <th>Refund</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>        
-        <td>2025-04-08</td>
-        <td>100%<td>
-    </tr>
-    <tr>        
-        <td>2025-04-22</td>
-        <td>50%<td>
-    </tr>
-    <tr>        
-        <td>2025-04-29</td>
-        <td>25%<td>
-    </tr>
-  </tbody>
-</table>
-<p>
-  Cancellations on or after 2025-04-30, as well as any for which
-  a visa invitation letter has been provided, cannot be refunded.
-</p>
-<p>
-  All cancellations incur a $30(plus tax) administration fee.
-</p>
 
-<hr>
+  | Cancel On or Before                                            | Refund |
+  | -------------------------------------------------------------- | ------ |
+  | <time datetime="2025-04-08">April  8<sup>th</sup>, 2025</time> |   100% |
+  | <time datetile="2025-04-22">April 22<sup>nd</sup>, 2025</time> |    50% |
+  | <time datetime="2025-04-29">April 29<sup>th</sup>, 2025</time> |    25% |
 
-<h2 id="student">Students</h2>
-<p>
-  We require proof of current enrollment such as a current student identification, or
-  some similar proof of enrolment. If you are unsure if you qualify for a
-  student ticket, <a href="mailto:contact@pgconf.dev">contact@pgconf.dev</a> and we will
-  give a definitive answer.
-</p>
-<p>We will contact you after your register and ask you to provide proof of your student status.
-The number of tickets reserved for students is limited, we recommend students register early.
-Students who register after the student tickets have been sold out will need to buy a full price regular registration
-</p>
+  Cancellations on or after <time datetime="2025-04-30">April 30<sup>th</sup>,
+  2025</time>, as well as cancellations for which a visa invitation letter has
+  already been provided, cannot be refunded.
 
-<h3>Your Data</h3>
-<p>
+  All cancellations incur a $30 CAD (plus tax) administration fee.
+
+  ## Students
+
+  We require proof of current enrollment such as a current student
+  identification, or some similar proof of enrollment. If you are unsure if you
+  qualify for a student ticket, email contact@pgconf.dev and we will give a
+  definitive answer.
+
+  We will contact you after you register and ask you to provide proof of your
+  student status. The number of tickets reserved for students is limited, we
+  recommend students register early. Students who register after the student
+  tickets have been sold out will need to buy a full price regular
+  registration.
+
+  ## Your Data
+
   When registering for the conference, we will ask for personal information
-  such as name and address, but also your dietary requirements.  For
-  information on how this data is stored and processed, see the
-  <a href="https://www.pgevents.ca/about/privacypolicy/">Slonik Events Canada
-    Privacy Policy</a>.
-</p>
-<span class="anchor" id="iban"></span>
+  such as name and address, but also your dietary requirements. For
+  information on how this data is stored and processed, see the [Slonik Events
+  Canada Privacy Policy]
 
-
-</div>
-{%endblock%}
+  [Slonik Events Canada Privacy Policy]: https://www.pgevents.ca/about/privacypolicy/
+{% endmarkdown %}{% endblock %}

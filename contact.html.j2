@@ -1,25 +1,17 @@
-{% set title = "Contact Us" %} 
+{% set title = "Contact Us" %}
 {% extends "base.html.j2" %}
 
-{% block main %}
-  <h1>Contact Us</h1>
+{% block main %}{% markdown %}
+  # Contact Us
 
-  <p class="lead" style="text-align: center;">We'd love to hear from you!
+  <p style="text-align: center;">We'd love to hear from you!
 
-  <p>If you have any questions, comments or just want to say hi feel free to
-    get in touch with us at
-    <a href="mailto:contact@pgconf.dev">contact@pgconf.dev</a>. You can also
-    follow us on
+  If you have any questions, comments or just want to say hi feel free to get in
+  touch with us at contact@pgconf.dev. You can also follow us on
+  <a href="https://twitter.com/pgconfdev"><i class="fa-brands fa-x-twitter"></i></a>
+  or
+  <a href="https://mastodon.social/@pgconfdev" rel="me"><i class="fa-brands fa-mastodon"></i></a>
+  for up date news about the event.
 
-    <a href="https://twitter.com/pgconfdev">
-      <i class="fa-brands fa-x-twitter"></i></a>
-
-    or
-
-    <a href="https://mastodon.social/@pgconfdev" rel="me">
-      <i class="fa-brands fa-mastodon"></i></a>
-
-    for up date news about the event.
-
-  <p>During the event, the registration desk will be staffed at all times.
-{% endblock %}
+  During the event, the registration desk will be staffed at all times.
+{% endmarkdown %}{% endblock %}
