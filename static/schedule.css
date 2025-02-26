@@ -4,12 +4,48 @@ body > main {
   max-width: 1200px;
 }
 
-main > ul {
+.schedule {
+  grid-template:
+    "time      . a . b . c . d"
+    "time-0800 . . . . . . . ."
+    "time-0830 . . . . . . . ."
+    "time-0900 . . . . . . . ."
+    "time-0930 . . . . . . . ."
+    "time-1000 . . . . . . . ."
+    "time-1030 . . . . . . . ."
+    "time-1100 . . . . . . . ."
+    "time-1130 . . . . . . . ."
+    "time-1200 . . . . . . . ."
+    "time-1230 . . . . . . . ."
+    "time-1300 . . . . . . . ."
+    "time-1330 . . . . . . . ."
+    "time-1400 . . . . . . . ."
+    "time-1430 . . . . . . . ."
+    "time-1500 . . . . . . . ."
+    "time-1530 . . . . . . . ."
+    "time-1600 . . . . . . . ."
+    "time-1630 . . . . . . . ."
+    "time-1700 . . . . . . . ."
+    "time-1730 . . . . . . . ."
+    "time-1800 . . . . . . . ."
+    "time-1830 . . . . . . . ."
+    "time-1900 . . . . . . . ."
+    "time-1930 . . . . . . . ."
+    "time-2000 . . . . . . . ."
+    "time-2030 . . . . . . . ."
+    "time-2100 . . . . . . . ."
+    "time-2130 . . . . . . . ."
+    "time-2200 . . . . . . . ."
+    "time-2230 . . . . . . . ."
+    "time-2300 . . . . . . . ."
+    "time-2330 . . . . . . . ."
+    "time-0000 . . . . . . . ."
+    "time-0030 . . . . . . . ."
+    "time-0100 . . . . . . . ."
+    "time-0130 . . . . . . . .";
+  grid-template-columns: auto repeat(4, 1rem 1fr);
+  list-style-type: none;
   padding-left: 0;
-}
-
-main > ul > li {
-  list-style: none;
 }
 
 .schedule > li {
@@ -21,7 +57,7 @@ main > ul > li {
 }
 
 .schedule > h4 {
-  display: none;
+  text-align: center;
 }
 
 .schedule > .time {
@@ -53,23 +89,23 @@ main > ul > li {
 }
 
 .room {
-  align-items: center;
   border-radius: var(--border-radius);
-  border: calc(2 * var(--border-width)) solid currentColor;
+  border: var(--border-width) solid currentColor;
   cursor: default;
-  display: inline-flex;
-  font-weight: bold;
-  height: 1.5rem;
-  justify-content: center;
+  padding-inline: 0.25rem;
   user-select: none;
   -webkit-user-select: none;
-  width: 1.5rem;
 }
 
-li > .room {
-  content: attr(data-room);
+.schedule .room {
   float: right;
   margin-left: 1rem;
+}
+
+@media (max-width: 800px) {
+  .wide {
+    display: none;
+  }
 }
 
 @media (min-width: 800px) {
@@ -78,51 +114,6 @@ li > .room {
   }
 
   .schedule {
-    column-gap: 1rem;
     display: grid;
-    grid-template:
-      "time a b c d"
-      "time-0800 a-0800 b-0800 c-0800 d-0800"
-      "time-0830 a-0830 b-0830 c-0830 d-0830"
-      "time-0900 a-0900 b-0900 c-0900 d-0900"
-      "time-0930 a-0930 b-0930 c-0930 d-0930"
-      "time-1000 a-1000 b-1000 c-1000 d-1000"
-      "time-1030 a-1030 b-1030 c-1030 d-1030"
-      "time-1100 a-1100 b-1100 c-1100 d-1100"
-      "time-1130 a-1130 b-1130 c-1130 d-1130"
-      "time-1200 a-1200 b-1200 c-1200 d-1200"
-      "time-1230 a-1230 b-1230 c-1230 d-1230"
-      "time-1300 a-1300 b-1300 c-1300 d-1300"
-      "time-1330 a-1330 b-1330 c-1330 d-1330"
-      "time-1400 a-1400 b-1400 c-1400 d-1400"
-      "time-1430 a-1430 b-1430 c-1430 d-1430"
-      "time-1500 a-1500 b-1500 c-1500 d-1500"
-      "time-1530 a-1530 b-1530 c-1530 d-1530"
-      "time-1600 a-1600 b-1600 c-1600 d-1600"
-      "time-1630 a-1630 b-1630 c-1630 d-1630"
-      "time-1700 a-1700 b-1700 c-1700 d-1700"
-      "time-1730 a-1730 b-1730 c-1730 d-1730"
-      "time-1800 a-1800 b-1800 c-1800 d-1800"
-      "time-1830 a-1830 b-1830 c-1830 d-1830"
-      "time-1900 a-1900 b-1900 c-1900 d-1900"
-      "time-1930 a-1930 b-1930 c-1930 d-1930"
-      "time-2000 a-2000 b-2000 c-2000 d-2000"
-      "time-2030 a-2030 b-2030 c-2030 d-2030"
-      "time-2100 a-2100 b-2100 c-2100 d-2100"
-      "time-2130 a-2130 b-2130 c-2130 d-2130"
-      "time-2200 a-2200 b-2200 c-2200 d-2200"
-      "time-2230 a-2230 b-2230 c-2230 d-2230"
-      "time-2300 a-2300 b-2300 c-2300 d-2300"
-      "time-2330 a-2330 b-2330 c-2330 d-2330"
-      "time-0000 a-0000 b-0000 c-0000 d-0000"
-      "time-0030 a-0030 b-0030 c-0030 d-0030"
-      "time-0100 a-0100 b-0100 c-0100 d-0100"
-      "time-0130 a-0130 b-0130 c-0130 d-0130"
-      / auto 1fr 1fr 1fr 1fr;
-  }
-
-  .schedule > h4 {
-    display: initial;
-    text-align: center;
   }
 }

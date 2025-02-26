@@ -57,18 +57,23 @@
 {#
   Called to emit an item in the schedule that will span the specified column.
 
-  The column argument is used, as-is, as the emitted element's grid-column. If a
-  single column is specified, or room isn't none or undefined, then a room
-  marker, visible in the narrow layout, is emitted as well. If link isn't none
-  or undefined, then the caller of the macro is wrapped within an <a> element
-  with the link text as the element's href. If link is an integer, then it's
-  interpreted as a session ID in the PGEU system, and the URL to that session is
-  used as the <a> element's href.
+  The column argument is used, as-is, as the emitted element's grid-column.
+
+  If a room name (that isn't none) is specified, then an always visible room
+  marker with that name is emitted into the item. If room is unspecified, and
+  column is a single column, then a room marker with the room name of that
+  column, visible only in the narrow layout, is emitted into the item. This
+  marker can be suppressed by passing none as the room.
+
+  If link isn't none or undefined, then the caller of the macro is wrapped
+  within an anchor with the link text as the element's href. If link is an
+  integer, then it's interpreted as a session ID in the PGEU system, and the URL
+  to that session is used as the anchor's href.
 
   Any additional keyword elements to this macro are added as attributes to the
   emitted <li> element.
 #}
-{% macro item(column, room=ns[column], link=undefined) -%}
+{% macro item(column, room=undefined, link=undefined) -%}
   {%- if link is integer %}
     {%- set link %}https://www.pgevents.ca/events/pgconfdev2025/schedule/session/{{ link }}/{% endset %}
   {% endif -%}
@@ -76,7 +81,9 @@
   <li style="grid-column: {{ column }}; {{ ns.slot }};"
       {%- for k, v in kwargs | items %} {{ k }}="{{ v }}" {%- endfor %}>
     {%- if room %}
-      <span class="narrow room">{{ room }}</span>
+      <span class="room">{{ room }}</span>
+    {%- elif ns[column] %}
+      <span class="narrow room">{{ ns[column] }}</span>
     {%- endif %}
 
     {%- if link %}
@@ -93,104 +100,101 @@
 {% block main %}
   <h1>Schedule</h1>
 
-  <ul class="narrow flex">
-    <li><span class="room">R</span> = Regence
-    <li><span class="room">A</span> = Cartier A
-    <li><span class="room">B</span> = Cartier B
-    <li><span class="room">M</span> = Meeting Room
-    <li><span class="room">O</span> = Offsite
-  </ul>
-
   <h2><time datetime="2025-05-13">Tuesday, May 13<sup>th</sup></time></h2>
-  <ul class="schedule">
-    <h4>Time</h4>
-    <h4>Room 1</h4>
-    <h4 style="grid-column: b / d;">Rooms 3&ndash;7</h4>
+  <ul class="schedule" style="grid-template-columns: auto repeat(3, 1rem 1fr);">
+    <h4 class="wide" style="grid-area: a;">Cartier A</h4>
+    {%- set ns.a = "Cartier A" %}
+
+    <h4 class="wide" style="grid-area: b;">Cartier B</h4>
+    {%- set ns.b = "Cartier B" %}
+
+    <h4 class="wide" style="grid-area: c;">Versailles</h4>
+    {%- set ns.c = "Versailles" %}
 
     {{ time("08:00", "08:30") }}
 
-    {% call item("a / d", class="social") -%} Light Refreshments {%- endcall %}
+    {% call item("a / c", class="social", room="Foyer") -%}
+      Light Refreshments
+    {%- endcall %}
 
     {{ time("08:30", "12:30") }}
 
-    {% call item("a", class="workshop", room=none, link=314) -%}
+    {% call item("a", class="workshop", link=314) -%}
       Developer Meeting (Invite Only)
     {%- endcall %}
 
-    {% call item("b", class="workshop", room=none, link=241) -%}
+    {% call item("b", class="workshop", link=241) -%}
       Extension Ecosystem Summit
     {%- endcall %}
 
     {{ time("12:30", "13:30") }}
 
-    {% call item("a / d", class="social") -%} Lunch {%- endcall %}
+    {% call item("a / c", class="social") -%} Lunch {%- endcall %}
 
     {{ time("13:30", "14:00") }}
 
-    {% call item("a / d") -%} Afternoon Session Intros {%- endcall %}
+    {% call item("a / c") -%} Afternoon Session Intros {%- endcall %}
 
     {{ time("14:00", "15:30") }}
 
-    {% call item("a", class="workshop", room=none, link=265) -%}
+    {% call item("a", class="workshop", link=265) -%}
       Advanced Patch Feedback Session
     {%- endcall %}
 
-    {% call item("b", class="workshop", room=none, link=404) -%}
+    {% call item("b", class="workshop", link=404) -%}
       Community Summit: Microconference 1
-    {%- endcall %}
-
-    {% call item("c", class="workshop", room=none, link=404) -%}
-      Community Summit: Microconference 2
-    {%- endcall %}
-
-    {% call item("d", class="workshop", room=none, link=404) -%}
-      Community Summit: Microconference 3
     {%- endcall %}
 
     {{ time("15:30", "16:00") }}
 
-    {% call item("a / c", class="social") -%} Coffee {%- endcall %}
+    {% call item("a / b", class="social", room="Foyer") -%}
+      Coffee
+    {%- endcall %}
 
     {{ time("15:30", "17:30", class="narrow") }}
 
-    {% call item("d") -%} Security Team Meeting (Invite Only) {%- endcall %}
+    {% call item("c") -%} Security Team Meeting (Invite Only) {%- endcall %}
 
     {{ time("16:00", "17:30") }}
 
-    {% call item("a", class="workshop", room=none, link=265) -%}
+    {% call item("a", class="workshop", link=265) -%}
       Advanced Patch Feedback Session
     {%- endcall %}
 
-    {% call item("b", class="workshop", room=none, link=404) -%}
-      Community Summit: Microconference 4
-    {%- endcall %}
-
-    {% call item("c", class="workshop", room=none, link=404) -%}
-      Community Summit: Microconference 5
+    {% call item("b", class="workshop", link=404) -%}
+      Community Summit: Microconference 2
     {%- endcall %}
 
     {{ time("17:30", "20:30") }}
 
-    {% call item("a / b", room="O", link=347) -%}
+    {% call item("a / b", room="Offsite", link=347) -%}
       Community Meet and Eat
     {%- endcall %}
 
-    {% call item("c / d", room="O", link=269) -%}
+    {% call item("c", room="Offsite", link=269) -%}
       Social Run (and Dinner)
     {%- endcall %}
   </ul>
 
   <h2><time datetime="2025-05-14">Wednesday, May 14<sup>th</sup></time></h2>
   <ul class="schedule">
-    <h4>Time</h4>
-    <h4>Plenary</h4>
-    <h4>Breakout 1</h4>
-    <h4>Breakout 2</h4>
-    <h4>Meeting Room</h4>
+    <h4 class="wide" style="grid-area: a;">Regence B2C</h4>
+    {%- set ns.a = "Regence B2C" %}
+
+    <h4 class="wide" style="grid-area: b;">Cartier A</h4>
+    {%- set ns.b = "Cartier A" %}
+
+    <h4 class="wide" style="grid-area: c;">Cartier B</h4>
+    {%- set ns.c = "Cartier B" %}
+
+    <h4 class="wide" style="grid-area: d;">Bonsecours</h4>
+    {%- set ns.d = "Bonsecours" %}
 
     {{ time("08:00", "09:00") }}
 
-    {% call item("a / c", class="social") -%} Breakfast {%- endcall %}
+    {% call item("a / c", class="social", room="Foyer") -%}
+      Breakfast
+    {%- endcall %}
 
     {% call item("d", class="social", link=313) -%}
       Student Breakfast
@@ -220,7 +224,9 @@
 
     {{ time("11:00", "11:30") }}
 
-    {% call item("a / d", class="social") -%} Coffee {%- endcall %}
+    {% call item("a / d", class="social", room="Foyer") -%}
+      Coffee
+    {%- endcall %}
 
     {{ time("11:30", "12:20") }}
 
@@ -269,7 +275,7 @@
     {% endcall %}
 
     {% call item("c", class="talk", link=363) -%}
-      ChatGPT Ain’t Got $%@& On Me! Next Generation Automated Database Tuning<br><small>(William Zhang)</small>
+      ChatGPT Ain’t Got $%@&amp; On Me! Next Generation Automated Database Tuning<br><small>(William Zhang)</small>
     {%- endcall %}
 
     {{ time("15:00", "15:50") }}
@@ -288,7 +294,9 @@
 
     {{ time("16:00", "16:30") }}
 
-    {% call item("a / d", class="social") -%} Coffee {%- endcall %}
+    {% call item("a / d", class="social", room="Foyer") -%}
+      Coffee
+    {%- endcall %}
 
     {{ time("16:30", "16:55") }}
 
@@ -306,7 +314,7 @@
 
     {{ time("16:30", "17:30", class="narrow") }}
 
-    {% call item("d", room=none, class="talk", link=345) -%}
+    {% call item("d", class="talk", link=345) -%}
       Crafting exploits for historical CVEs<br><small>(Andrey Borodin)</small>
     {%- endcall %}
 
@@ -328,24 +336,30 @@
 
     {{ time("18:00", "01:00") }}
 
-    {% call item("a / d", room="O") -%} 🎉 Social 🎉 {%- endcall %}
+    {% call item("a / d", room="Offsite") -%} 🎉 Social 🎉 {%- endcall %}
   </ul>
 
   <h2><time datetime="2025-05-15">Thursday, May 15<sup>th</sup></time></h2>
   <ul class="schedule">
-    <h4>Time</h4>
-    <h4>Plenary</h4>
-    <h4>Breakout 1</h4>
-    <h4>Breakout 2</h4>
-    <h4>Meeting Room</h4>
+    <h4 class="wide" style="grid-area: a;">Regence B2C</h4>
+    {%- set ns.a = "Regence B2C" %}
+
+    <h4 class="wide" style="grid-area: b;">Cartier A</h4>
+    {%- set ns.b = "Cartier A" %}
+
+    <h4 class="wide" style="grid-area: c;">Cartier B</h4>
+    {%- set ns.c = "Cartier B" %}
+
+    <h4 class="wide" style="grid-area: d;">Le Royer</h4>
+    {%- set ns.d = "Le Royer" %}
 
     {{ time("08:30", "09:30") }}
 
-    {% call item("a / c", class="social") -%} Breakfast {%- endcall %}
-
-    {% call item("d", room=none, link=424) -%}
-      Postgres Women Breakfast
+    {% call item("a / c", class="social", room="Foyer") -%}
+      Breakfast
     {%- endcall %}
+
+    {% call item("d", link=424) -%} Postgres Women Breakfast {%- endcall %}
 
     {{ time("09:30", "10:20") }}
 
@@ -395,11 +409,9 @@
 
     {{ time("12:30", "13:30") }}
 
-    {% call item("a", class="social", room=none) -%} Lunch {%- endcall %}
+    {% call item("a / b", class="social") -%} Lunch {%- endcall %}
 
-    {% call item("b") -%} Slonik Events Canada AGM {%- endcall %}
-
-    {% call item("c / d", class="social") -%} Lunch {%- endcall %}
+    {% call item("c") -%} Slonik Events Canada AGM {%- endcall %}
 
     {{ time("13:30", "14:20") }}
 
@@ -431,7 +443,9 @@
 
     {{ time("15:00", "15:30") }}
 
-    {% call item("a / d", class="social") -%} Coffee {%- endcall %}
+    {% call item("a / d", class="social", room="Foyer") -%}
+      Coffee
+    {%- endcall %}
 
     {{ time("15:30", "16:20") }}
 
@@ -449,27 +463,33 @@
 
     {{ time("16:30", "17:30") }}
 
-    {% call item("a / c") -%} Lightning Talks {%- endcall %}
+    {% call item("a") -%} Lightning Talks {%- endcall %}
   </ul>
 
   <h2><time datetime="2025-05-16">Friday, May 16<sup>th</sup></time></h2>
-  <ul class="schedule" style="grid-template-columns: auto 1fr 1fr 1fr 0;">
-    <h4>Time</h4>
-    <h4>Plenary</h4>
-    <h4>Breakout 1</h4>
-    <h4>Breakout 2</h4>
+  <ul class="schedule" style="grid-template-columns: auto repeat(3, 1rem 1fr);">
+    <h4 class="wide" style="grid-area: a;">Regence B2C</h4>
+    {%- set ns.a = "Regence B2C" %}
+
+    <h4 class="wide" style="grid-area: b;">Cartier A</h4>
+    {%- set ns.b = "Cartier A" %}
+
+    <h4 class="wide" style="grid-area: c;">Cartier B</h4>
+    {%- set ns.c = "Cartier A" %}
 
     {{ time("08:00", "09:00") }}
 
-    {% call item("a / c") -%} Breakfast {%- endcall %}
+    {% call item("a / c", room="Foyer") -%} Breakfast {%- endcall %}
 
     {{ time("09:00", "10:00") }}
 
-    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
+    {% call item("a", link=348) -%} Unconference Organizing {%- endcall %}
 
     {{ time("10:00", "10:30") }}
 
-    {% call item("a / c", class="social") -%} Coffee {%- endcall %}
+    {% call item("a / c", class="social", room="Foyer") -%}
+      Coffee
+    {%- endcall %}
 
     {{ time("10:30", "11:30") }}
 
@@ -493,7 +513,9 @@
 
     {{ time("15:30", "16:00") }}
 
-    {% call item("a / c", class="social") -%} Coffee {%- endcall %}
+    {% call item("a / c", class="social", room="Foyer") -%}
+      Coffee
+    {%- endcall %}
 
     {{ time("16:00", "17:00") }}
 
