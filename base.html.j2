@@ -15,6 +15,21 @@
 <!-- https://stackoverflow.com/questions/14389566/stop-css-transition-from-firing-on-page-load -->
 <script> </script>
 
+<!-- Add the target="_blank" attribute to all external links -->
+<script>
+  window.addEventListener("DOMContentLoaded", (e) => {
+    for (const link of document.links) {
+      if (!["http:", "https:"].includes(link.protocol))
+        continue;
+      if (link.host == "" || link.host == location.host)
+        continue;
+      if (link.target != "")
+        continue;
+      link.target = "_blank";
+    }
+  });
+</script>
+
 <!-- Cloudflare Web Analytics -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "463d71d19a5a44428cc69b733b96e8ef"}'></script>
 
@@ -85,14 +100,14 @@
 
     <h4><a href="{{ "sponsors.html" | link }}">Gold Sponsors</a></h4>
     {% for sponsor in gold %}
-      <a href="{{ sponsor.url }}" target="_blank">
+      <a href="{{ sponsor.url }}">
         <img src="{{ ("static/logo/" + sponsor.image) | link }}" alt="{{ sponsor.name }}">
       </a>
     {% endfor %}
 
     <h4><a href="{{ "sponsors.html" | link }}">Silver Sponsors</a></h4>
     {% for sponsor in silver %}
-      <a href="{{ sponsor.url }}" target="_blank">
+      <a href="{{ sponsor.url }}">
         <img src="{{ ("static/logo/" + sponsor.image) | link }}" alt="{{ sponsor.name }}">
       </a>
     {% endfor %}

@@ -2,40 +2,60 @@
 {% extends "base.html.j2" %}
 
 {% block main %}
-  <h1>Welcome to Montreal!</h1>
+  {% markdown %}
+    # Welcome to Montreal!
 
-  <p class="lead">
-    PGConf.dev 2025 will be held at Plaza Centre-Ville, inside the “EVO”
+    PGConf.dev 2025 will be held at Plaza Centre-Ville, inside the "EVO"
     building at 777, boul  Robert-Bourassa, Montréal, QC, H3A 0B1.
 
-  <article>
-    <figure>
-      <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-73.56381744146348%2C45.49910356368318%2C-73.56139272451402%2C45.50043083868488&amp;layer=mapnik&amp;marker=45.49976720509503%2C-73.56260508298874" style="aspect-ratio: 16 / 10; width: 100%;"></iframe>
-      <figcaption style="font-size: 0.8em;">
-        <a href="https://www.openstreetmap.org/?mlat=45.499767&amp;mlon=-73.562605#map=19/45.499767/-73.562605" target="_blank">View Larger Map</a>
-      </figcaption>
-    </figure>
-  </article>
+    <article>
+      <figure>
+        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-73.56381744146348%2C45.49910356368318%2C-73.56139272451402%2C45.50043083868488&amp;layer=mapnik&amp;marker=45.49976720509503%2C-73.56260508298874" style="aspect-ratio: 16 / 10; width: 100%;"></iframe>
+        <figcaption style="font-size: 0.8em;">
+          <a href="https://www.openstreetmap.org/?mlat=45.499767&amp;mlon=-73.562605#map=19/45.499767/-73.562605">View Larger Map</a>
+        </figcaption>
+      </figure>
+    </article>
 
-  <h2>Hotels</h2>
-    <p>
-    PGConf.dev has negotiated discounted rates with several hotels in Montreal. We recommend that you book your accommodations early, whether or not you're staying at one of the hotels below, as there are many activities around Montreal at this time of the year.
-    </p>
-  <h3>Alt Hotel Montreal</h3>
-  <p>
-  <a href="https://www.germainhotels.com/en/alt-hotel/montreal" target="_blank">The Alt Hotel</a> is located
-  at 120, rue Peel, approximately a 15 minute walk from the conference venue.  Rooms are available
-  starting at $239 CAD a night.  You can book with this <a href="https://reservation.germainhotels.com/ibe/details.aspx?propertyid=17532&nights=1&checkin=05/12/2025&group=2505SQLDEV&lang=en-us&adults=1&childAges=" target="blank">link</a>
-  Bookings with the above link must be made by <time datetime="2025-04-12">April 12, 2025</time>.  It might be possible to make bookings by phone or email using the code <kbd>2505SQLDEV</kbd> after this date. 
-  If your trying to book rooms adjacent to May 11-17 you might need call the hotel at <a href="tel:18558238120">1.855.823.8120</a> or email <a href="mailto:reservations.altmontreal@germainhotels.com">reservations.altmontreal@germainhotels.com</a>
-  </p>
+    ## Hotels
 
-  <h3>Le St Sulpice</h3>
-  <p>
-  <a href="https://www.lesaintsulpice.com/">Le Saint Sulpice</a> is a boutique hotel located in the old city. 
-  The hotel is at 414, rou Saint-Sulpice, approximately a 15 minute walk from the conference venue.
-  Rooms are available starting at $284 CAD a night.  You can book with this <a href="https://be.synxis.com/?Hotel=80196&Chain=17448&locale=en-US&group=2505SL">link</a>
-  before <time datetime="2025-03-28">March 28 2025</time>. It should be possible took rooms adjacent to the May 10-17 at their regular rate using the code 2505SL</p>
+    PGConf.dev has negotiated discounted rates with several hotels in Montreal.
+    We recommend that you book your accommodations early, whether or not you're
+    staying at one of the hotels below, as there are many activities around
+    Montreal at this time of the year.
+
+    ### Alt Hotel Montreal
+
+    The [Alt Hotel] is located at 120, rue Peel, approximately a 15 minute walk
+    from the conference venue. Rooms are available starting at $239 CAD a night.
+    You can [book the Alt Hotel here]. Bookings with the above link must be made
+    by <time datetime="2025-04-12">April 12<sup>th</sup>, 2025</time>.
+
+    It might be possible to make bookings by phone or email using the code
+    <kbd>2505SQLDEV</kbd> after this date. If you're trying to book rooms
+    adjacent to
+    <time datetime="2025-05-11">May 11<sup>th</sup></time>&ndash;<time datetime="2025-05-17">17<sup>th</sup></time>,
+    you might need call the hotel at [1.855.823.8120] or email
+    reservations.altmontreal@germainhotels.com.
+
+    ### Le St Sulpice
+
+    [Le Saint Sulpice] is a boutique hotel located in the old city. The hotel is
+    at 414, rou Saint-Sulpice, approximately a 15 minute walk from the
+    conference venue. Rooms are available starting at $284 CAD a night. You can
+    [book Le St Sulpice here] before
+    <time datetime="2025-03-28">March 28<sup>th</sup> 2025</time>. It should be
+    possible took rooms adjacent to
+    <time datetime="2025-05-10">May 10<sup>th</sup></time>&ndash;<time datetime="2025-05-17">17<sup>th</sup></time>
+    at their regular rate using the code <kbd>2505SL</kbd>.
+
+    [Alt Hotel]: https://www.germainhotels.com/en/alt-hotel/montreal
+    [book the Alt Hotel here]: https://reservation.germainhotels.com/ibe/details.aspx?propertyid=17532&nights=1&checkin=05/12/2025&group=2505SQLDEV&lang=en-us&adults=1&childAges=
+    [1.855.823.8120]: tel:+18558238120
+    [Le Saint Sulpice]: https://www.lesaintsulpice.com/
+    [book Le St Sulpice here]: https://be.synxis.com/?Hotel=80196&Chain=17448&locale=en-US&group=2505SL
+  {% endmarkdown %}
+
   <h2>Travel</h2>
 
   <div style="font-size: 0.875em;">
@@ -49,7 +69,7 @@
 
       <p>Montréal&ndash;Trudeau International Airport (YUL) is the nearest
         airport to the conference. It has
-        <a href="https://www.admtl.com/en/flights/direct-flights" target="_blank">direct flights</a>
+        <a href="https://www.admtl.com/en/flights/direct-flights">direct flights</a>
         to 151 destinations in 46 countries.
     </article>
 
@@ -62,19 +82,21 @@
       </header>
 
       <p>The conference is located two blocks from
-        <a href="https://garecentrale.ca/en" target="_blank">Montreal Central Station</a>,
+        <a href="https://garecentrale.ca/en">Montreal Central Station</a>,
         with service to both
-        <a href="https://www.viarail.ca" target="_blank">VIA Rail</a> and
-        <a href="https://www.amtrak.com/home.html" target="_blank">Amtrak</a>.
+        <a href="https://www.viarail.ca">VIA Rail</a> and
+        <a href="https://www.amtrak.com/home.html">Amtrak</a>.
     </article>
   </div>
 
-  <h2>Visa Information</h2>
+  {% markdown %}
+    ## Visa Information
 
-  <p>Most international travellers need either a visitor visa or an Electronic
-    Travel Authorization (<abbr>eTA</abbr>) to enter Canada.
-    <a href="https://ircc.canada.ca/english/visit/visas.asp" target="_blank">This tool</a>
-    will help you determine which applies to you.
+    Most international travellers need either a visitor visa or an Electronic
+    Travel Authorization (<abbr>eTA</abbr>) to enter Canada. [This
+    tool](https://ircc.canada.ca/english/visit/visas.asp) will help you
+    determine which applies to you.
+  {% endmarkdown %}
 
   <article>
     <main>
@@ -83,7 +105,7 @@
         <p>Citizens and permanent residents of the U.S. may enter Canada visa-free.
           U.S. Citizens must have a valid passport while lawful permanent residents
           must have the documents listed
-          <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/entry-requirements-country.html#lawful-pr-us" target="_blank">here</a>.
+          <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/entry-requirements-country.html#lawful-pr-us">here</a>.
       </details>
 
       <hr>
@@ -91,9 +113,9 @@
       <details>
         <summary>Electronic Travel Authorization (eTA)</summary>
         <p>Visitors from
-          <a href="https://ircc.canada.ca/english/visit/visas.asp" target="_blank">visa-exempt countries</a>
+          <a href="https://ircc.canada.ca/english/visit/visas.asp">visa-exempt countries</a>
           should apply for an eTA
-          <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/eta/apply.html" target="_blank">here</a>.
+          <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/eta/apply.html">here</a>.
           Most applications are approved quickly.
       </details>
 
@@ -102,14 +124,19 @@
       <details>
         <summary>Visitor Visa</summary>
         <p>Procedures for obtaining a visitor visa are available
-          <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/about-visitor-visa.html" target="_blank">here</a>.
+          <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/about-visitor-visa.html">here</a>.
           This process can be lengthy and we advise that you start it as soon as you
           have decided that you will be attending the conference.
       </details>
     </main>
   </article>
 
-  <h2>Questions</h2>
-  <p>If you have any questions regarding your travel arrangements feel free to
-    <a href="/contact.html">contact us</a>, we are more than happy to assist you.
+  {% markdown %}
+    ## Questions
+
+    If you have any questions regarding your travel arrangements feel free to
+    [contact us], we are more than happy to assist you.
+
+    [contact us]: {{ "/contact.html" | link }}
+  {% endmarkdown %}
 {% endblock %}
