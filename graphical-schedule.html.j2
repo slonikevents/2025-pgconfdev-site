@@ -147,13 +147,14 @@
 
     {{ time("15:30", "16:00") }}
 
-    {% call item("a / b", class="social", room="Foyer") -%}
+    {% call item("a / c", class="social", room="Foyer") -%}
       Coffee
     {%- endcall %}
 
+    {#
     {{ time("15:30", "17:30", class="narrow") }}
-
     {% call item("c") -%} Security Team Meeting (Invite Only) {%- endcall %}
+    #}
 
     {{ time("16:00", "17:30") }}
 
