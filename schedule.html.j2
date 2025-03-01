@@ -1,33 +1,529 @@
 {% set title = "Schedule" %}
 {% extends "base.html.j2" %}
 
+{% block head %}
+  <link rel="stylesheet" href="{{ "static/schedule.css" | link }}">
+{% endblock %}
+
+{# Used to record the active time period and to do column-to-room conversion #}
+{% set ns = namespace(a="R", b="A", c="B", d="M") %}
+
+{#
+  Called to emit a labeled period in the "time" column. For example, this call:
+
+    time("08:00", "09:30")
+
+  Will emit:
+
+    <li class="time" ...><time>08:00</time>–<time>09:30</time></li>
+
+  The emitted label uses the first and second argument verbatim. The time slot
+  that the labeled period is emitted against is determined as:
+
+    1. The first argument is rounded down to the nearest half hour. This is the
+       starting time slot.
+
+    2. One minute is subtracted from the second argument. Then, it's rounded
+       down to the nearest half hour. This is the ending time slot.
+
+  This behavior is intended to handle the common situation wherein a time slot
+  begins on, or shortly after, an even half hour and ends on, or shortly before,
+  an even half hour.
+
+  This macro also sets the active time period used in each subsequent call to
+  item(). The class keyword argument is appended to the <li> element's class.
+#}
+{% macro time(earliest, latest, class="") -%}
+  {% set hour, minute = earliest.split(":") | map("int") -%}
+  {% set minute = 0 if minute < 30 else 30 -%}
+  {% set earliest_slot = "time-%02d%02d" | format(hour, minute) -%}
+
+  {% set hour, minute = latest.split(":") | map("int") -%}
+  {% set hour = hour if minute > 0 else hour - 1 -%}
+  {% set minute = 0 if minute <= 30 else 30 -%}
+  {% set latest_slot = "time-%02d%02d" | format(hour, minute) -%}
+
+  {% set ns.slot -%}
+    grid-row: {{ earliest_slot }} / {{ latest_slot }}
+  {%- endset -%}
+
+  {% set class = ["time", class] | join(" ") -%}
+
+  <li class="{{ class }}" style="grid-column: time; {{ ns.slot }};">
+    <time>{{ earliest }}</time>&ndash;<time>{{ latest }}</time>
+  </li>
+{%- endmacro %}
+
+{#
+  Called to emit an item in the schedule that will span the specified column.
+
+  The column argument is used, as-is, as the emitted element's grid-column.
+
+  If a room name (that isn't none) is specified, then an always visible room
+  marker with that name is emitted into the item. If room is unspecified, and
+  column is a single column, then a room marker with the room name of that
+  column, visible only in the narrow layout, is emitted into the item. This
+  marker can be suppressed by passing none as the room.
+
+  If link isn't none or undefined, then the caller of the macro is wrapped
+  within an anchor with the link text as the element's href. If link is an
+  integer, then it's interpreted as a session ID in the PGEU system, and the URL
+  to that session is used as the anchor's href.
+
+  Any additional keyword elements to this macro are added as attributes to the
+  emitted <li> element.
+#}
+{% macro item(column, room=undefined, link=undefined) -%}
+  {%- if link is integer %}
+    {%- set link %}https://www.pgevents.ca/events/pgconfdev2025/schedule/session/{{ link }}/{% endset %}
+  {% endif -%}
+
+  <li style="grid-column: {{ column }}; {{ ns.slot }};"
+      {%- for k, v in kwargs | items %} {{ k }}="{{ v }}" {%- endfor %}>
+    {%- if room %}
+      <span class="room">{{ room }}</span>
+    {%- elif ns[column] %}
+      <span class="narrow room">{{ ns[column] }}</span>
+    {%- endif %}
+
+    {%- if link %}
+      <a href="{{ link }}">{{ caller() if caller }}</a>
+    {%- else %}
+      {{ caller() if caller }}
+    {%- endif %}
+  </li>
+{%- endmacro %}
+
+{# Hide the sponsor sidebar on the schedule page #}
+{% block side %}{% endblock %}
+
 {% block main %}
-  <h1>Confirmed Sessions</h1>
+  <h1>Schedule</h1>
 
-  <h2><time datetime="2025-05-13">Tuesday, May 13th</time></h2>
-  <ul>
-    <li><a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/314-developer-meeting-invite-only/" target="_blank">Developer Meeting (Invite Only)</a>
-      (<time datetime="08:30">08:30</time> - <time datetime="12:30">12:30</time>)
+  <h2><time datetime="2025-05-13">Tuesday, May 13<sup>th</sup></time></h2>
+  <ul class="schedule" style="grid-template-columns: auto repeat(3, 1rem 1fr);">
+    <h4 class="wide" style="grid-area: a;">Cartier A</h4>
+    {%- set ns.a = "Cartier A" %}
 
-    <li><a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/241-extension-ecosystem-summit/" target="_blank">Extension Ecosystem Summit</a>
-      (<time datetime="08:30">08:30</time> - <time datetime="12:30">12:30</time>)
+    <h4 class="wide" style="grid-area: b;">Cartier B</h4>
+    {%- set ns.b = "Cartier B" %}
 
-    <li><a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/404-postgres-community-summit/" target="_blank">Community Summit</a>
-      (<time datetime="13:30">13:30</time> - <time datetime="17:30">17:30</time>)
+    <h4 class="wide" style="grid-area: c;">Versailles</h4>
+    {%- set ns.c = "Versailles" %}
 
-    <li><a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/265-advanced-patch-feedback-session-invite-only/" target="_blank">Advanced Patch Feedback Session</a>
-      (<time datetime="13:30">13:30</time> - <time datetime="17:30">17:30</time>)
+    {{ time("08:00", "08:30") }}
+
+    {% call item("a / c", class="social", room="Foyer") -%}
+      Light Refreshments
+    {%- endcall %}
+
+    {{ time("08:30", "12:30") }}
+
+    {% call item("a", class="workshop", link=314) -%}
+      Developer Meeting (Invite Only)
+    {%- endcall %}
+
+    {% call item("b", class="workshop", link=241) -%}
+      Extension Ecosystem Summit
+    {%- endcall %}
+
+    {{ time("12:30", "13:30") }}
+
+    {% call item("a / c", class="social") -%} Lunch {%- endcall %}
+
+    {{ time("13:30", "14:00") }}
+
+    {% call item("a / c") -%} Afternoon Session Intros {%- endcall %}
+
+    {{ time("14:00", "15:30") }}
+
+    {% call item("a", class="workshop", link=265) -%}
+      Advanced Patch Feedback Session
+    {%- endcall %}
+
+    {% call item("b", class="workshop", link=404) -%}
+      Community Summit: Microconference 1
+    {%- endcall %}
+
+    {{ time("15:30", "16:00") }}
+
+    {% call item("a / c", class="social", room="Foyer") -%}
+      Coffee
+    {%- endcall %}
+
+    {#
+    {{ time("15:30", "17:30", class="narrow") }}
+    {% call item("c") -%} Security Team Meeting (Invite Only) {%- endcall %}
+    #}
+
+    {{ time("16:00", "17:30") }}
+
+    {% call item("a", class="workshop", link=265) -%}
+      Advanced Patch Feedback Session
+    {%- endcall %}
+
+    {% call item("b", class="workshop", link=404) -%}
+      Community Summit: Microconference 2
+    {%- endcall %}
+
+    {{ time("17:30", "20:30") }}
+
+    {% call item("a / b", room="Offsite", link=347) -%}
+      Community Meet and Eat
+    {%- endcall %}
+
+    {% call item("c", room="Offsite", link=269) -%}
+      Social Run (and Dinner)
+    {%- endcall %}
   </ul>
 
-  <h2><time datetime="2025-05-14">Wednesday, May 14th</time> - <time datetime="2025-05-15">Thursday, May 15th</time></h2>
-  <ul>
-    {% for item in schedule %}
-      <li><a href="{{ item.link }}" target="_blank">{{ item.name | e }}</a>
-    {% endfor %}
+  <h2><time datetime="2025-05-14">Wednesday, May 14<sup>th</sup></time></h2>
+  <ul class="schedule">
+    <h4 class="wide" style="grid-area: a;">Regence B2C</h4>
+    {%- set ns.a = "Regence B2C" %}
+
+    <h4 class="wide" style="grid-area: b;">Cartier A</h4>
+    {%- set ns.b = "Cartier A" %}
+
+    <h4 class="wide" style="grid-area: c;">Cartier B</h4>
+    {%- set ns.c = "Cartier B" %}
+
+    <h4 class="wide" style="grid-area: d;">Bonsecours</h4>
+    {%- set ns.d = "Bonsecours" %}
+
+    {{ time("08:00", "09:00") }}
+
+    {% call item("a / c", class="social", room="Foyer") -%}
+      Breakfast
+    {%- endcall %}
+
+    {% call item("d", class="social", link=313) -%}
+      Student Breakfast
+    {%- endcall %}
+
+    {{ time("09:00", "09:30") }}
+
+    {% call item("a") -%} Opening {%- endcall %}
+
+    {{ time("09:30", "09:50") }}
+
+    {% call item("a") -%} Keynote {%- endcall %}
+
+    {{ time("10:00", "10:50") }}
+
+    {% call item("a", class="talk", link=436) -%}
+      Investigating Multithreaded PostgreSQL<br><small>(Thomas Munro)</small>
+    {%- endcall %}
+
+    {% call item("b", class="talk", link=331) -%}
+      Adventures in Extension Packaging<br><small>(David E. Wheeler)</small>
+    {%- endcall %}
+
+    {% call item("c", class="talk", link=256) -%}
+      Exploring the benefits of learned indexes in PostgreSQL: Theory and Implementation<br><small>(GARY W EVANS, Nishchay Kothari)</small>
+    {%- endcall %}
+
+    {{ time("11:00", "11:30") }}
+
+    {% call item("a / d", class="social", room="Foyer") -%}
+      Coffee
+    {%- endcall %}
+
+    {{ time("11:30", "12:20") }}
+
+    {% call item("a", class="talk", link=271) -%}
+      What is new in C and POSIX?<br><small>(Peter Eisentraut)</small>
+    {%- endcall %}
+
+    {% call item("b", class="talk", link=410) -%}
+      The trouble with extensions<br><small>(Marco Slot)</small>
+    {%- endcall %}
+
+    {% call item("c", class="talk", link=293) -%}
+      Revisiting XTM: A Practical Case Study Highlighting Its Needs<br><small>(Yuya Watari)</small>
+    {%- endcall %}
+
+    {{ time("12:30", "12:55") }}
+
+    {% call item("a", class="talk", link=301) -%}
+      Compiling Postgres to WASM with PGlite<br><small>(Sam Willis)</small>
+    {%- endcall %}
+
+    {% call item("b", class="talk", link=388) -%}
+      postgresql.org: The hidden parts<br><small>(Magnus Hagander)</small>
+    {%- endcall %}
+
+    {% call item("c", class="talk", link=281) -%}
+      The Present and Future of VACUUM in PostgreSQL<br><small>(Masahiko Sawada)</small>
+    {%- endcall %}
+
+    {{ time("13:00", "14:00") }}
+
+    {% call item("a / c", class="social") -%} Lunch {%- endcall %}
+
+    {{ time("13:00", "15:00", class="narrow") }}
+
+    {% call item("d") -%} PGCA {%- endcall %}
+
+    {{ time("14:00", "14:50") }}
+
+    {% call item("a", class="talk", link=254) -%}
+      Committer Review: An Exercise in Paranoia<br><small>(Robert Haas)</small>
+    {%- endcall %}
+
+    {% call item("b", class="talk", link=229) -%}
+      Multidimensional search strategies for composite B-Tree indexes<br><small>(Peter V Geoghegan)</small>
+    {% endcall %}
+
+    {% call item("c", class="talk", link=363) -%}
+      ChatGPT Ain’t Got $%@&amp; On Me! Next Generation Automated Database Tuning<br><small>(William Zhang)</small>
+    {%- endcall %}
+
+    {{ time("15:00", "15:50") }}
+
+    {% call item("a", class="talk", link=433) -%}
+      Scaling Postgres to the next level at OpenAI<br><small>(Bohan Zhang)</small>
+    {%- endcall %}
+
+    {% call item("b", class="talk", link=276) -%}
+      Experimenting with a Global Index in PostgreSQL: Design, Implementation, and Challenges<br><small>(Dilip Kumar)</small>
+    {%- endcall %}
+
+    {% call item("c", class="talk", link=385) -%}
+      Designing and implementing a monitoring feature in PostgreSQL<br><small>(Rahila Syed)</small>
+    {%- endcall %}
+
+    {{ time("16:00", "16:30") }}
+
+    {% call item("a / d", class="social", room="Foyer") -%}
+      Coffee
+    {%- endcall %}
+
+    {{ time("16:30", "16:55") }}
+
+    {% call item("a", class="talk", link=444) -%}
+      Tracking plan shapes over time with Plan IDs, and a new pg_stat_plans<br><small>(Lukas Fittl)</small>
+    {%- endcall %}
+
+    {% call item("b", class="talk", link=384) -%}
+      Debugging Data Corruption in PostgreSQL<br><small>(Palak Chaturvedi)</small>
+    {%- endcall %}
+
+    {% call item("c", class="talk", link=372) -%}
+      PostgreSQL container groups, aka cgroups down the road.<br><small>(Cédric Villemain)</small>
+    {%- endcall %}
+
+    {{ time("16:30", "17:30", class="narrow") }}
+
+    {% call item("d", class="talk", link=345) -%}
+      Crafting exploits for historical CVEs<br><small>(Andrey Borodin)</small>
+    {%- endcall %}
+
+    {{ time("17:00", "17:25") }}
+
+    {% call item("a", class="talk", link=440) -%}
+      What 10 Postgres Major Contributors Did to Become a Hacker<br><small>(Claire Giordano)</small>
+    {%- endcall %}
+
+    {% call item("b", class="talk", link=364) -%}
+      Reproducible Postgres<br><small>(Javier Maestro, Alvaro Hernandez)</small>
+    {%- endcall %}
+
+    {% call item("c", class="talk", link=311) -%}
+      Fast-path locking improvements in PG18<br><small>(Tomas Vondra)</small>
+    {%- endcall %}
+
+    {{ time("17:30", "18:00") }}
+
+    {{ time("18:00", "01:00") }}
+
+    {% call item("a / d", room="Offsite") -%} 🎉 Social 🎉 {%- endcall %}
   </ul>
 
-  <h2><time datetime="2025-05-16">Friday, May 16th</time></h2>
-  <ul>
-    <li><a href="https://www.pgevents.ca/events/pgconfdev2025/schedule/session/348-unconference/" target="_blank">Unconference</a> (<time datetime="09:00">09:00</time> - <time datetime="17:30">17:30</time>)
+  <h2><time datetime="2025-05-15">Thursday, May 15<sup>th</sup></time></h2>
+  <ul class="schedule">
+    <h4 class="wide" style="grid-area: a;">Regence B2C</h4>
+    {%- set ns.a = "Regence B2C" %}
+
+    <h4 class="wide" style="grid-area: b;">Cartier A</h4>
+    {%- set ns.b = "Cartier A" %}
+
+    <h4 class="wide" style="grid-area: c;">Cartier B</h4>
+    {%- set ns.c = "Cartier B" %}
+
+    <h4 class="wide" style="grid-area: d;">Le Royer</h4>
+    {%- set ns.d = "Le Royer" %}
+
+    {{ time("08:30", "09:30") }}
+
+    {% call item("a / c", class="social", room="Foyer") -%}
+      Breakfast
+    {%- endcall %}
+
+    {% call item("d", link=424) -%} Postgres Women Breakfast {%- endcall %}
+
+    {{ time("09:30", "10:20") }}
+
+    {% call item("a", class="talk", link=286) -%}
+      Changing shared_buffers on the fly<br><small>(Dmitrii Dolgov, Ashutosh Bapat)</small>
+    {%- endcall %}
+
+    {% call item("b", class="talk", link=228) -%}
+      My Journey in PostgreSQL bug fixing<br><small>(Bertrand Drouvot)</small>
+    {%- endcall %}
+
+    {% call item("c", class="talk", link=240) -%}
+      Application Development Challenges with Postgres<br><small>(Dian Fay)</small>
+    {%- endcall %}
+
+    {{ time("10:30", "11:00") }}
+
+    {% call item("a / d", class="social") -%} Coffee {%- endcall %}
+
+    {{ time("11:00", "11:25") }}
+
+    {% call item("a", class="talk", link=353) -%}
+      Problems with logical decoding — an end-user’s perspective<br><small>(Polina Bungina)</small>
+    {%- endcall %}
+
+    {% call item("b", class="talk", link=379) -%}
+      What does moving to Pull Requests look like? The nginx story<br><small>(Alastair Turner)</small>
+    {%- endcall %}
+
+    {% call item("c", class="talk", link=376) -%}
+      Rethinking PostgreSQL Performance in the Age of Monster Hardware<br><small>(Lætitia AVROT)</small>
+    {%- endcall %}
+
+    {{ time("11:30", "12:20") }}
+
+    {% call item("a", class="talk", link=430) -%}
+      What went wrong with AIO<br><small>(Andres Freund)</small>
+    {%- endcall %}
+
+    {% call item("b", class="talk", link=245) -%}
+      Detection and resolution of conflicts in logical replication<br><small>(Zhijie Hou, Ajin Cherian)</small>
+    {%- endcall %}
+
+    {% call item("c", class="talk", link=346) -%}
+      Switching between query plans in real time (Switch Join)<br><small>(Alena Rybakina)</small>
+    {%- endcall %}
+
+    {{ time("12:30", "13:30") }}
+
+    {% call item("a / b", class="social") -%} Lunch {%- endcall %}
+
+    {% call item("c") -%} Slonik Events Canada AGM {%- endcall %}
+
+    {{ time("13:30", "14:20") }}
+
+    {% call item("a", class="talk", link=446) -%}
+      Vector search is now boring, but PostgreSQL has ways to go<br><small>(Jonathan Katz)</small>
+    {%- endcall %}
+
+    {% call item("b", class="talk", link=359) -%}
+      Improving scalability; Reducing overhead in shared memory<br><small>(Matthias van de Meent)</small>
+    {%- endcall %}
+
+    {% call item("c", class="talk", link=260) -%}
+      Advanced testing with Injection Points<br><small>(Michael Paquier)</small>
+    {%- endcall %}
+
+    {{ time("14:30", "14:55") }}
+
+    {% call item("a", class="talk", link=318) -%}
+      What can Postgres learn from DuckDB?<br><small>(Jelte Fennema-Nio)</small>
+    {%- endcall %}
+
+    {% call item("b", class="talk", link=287) -%}
+      Foreign Key Joins<br><small>(Vik Fearing)</small>
+    {%- endcall %}
+
+    {% call item("c", class="talk", link=426) -%}
+      Everything You Need to Know About Diversity in 25 Minutes<br><small>(Stacey Haysler)</small>
+    {%- endcall %}
+
+    {{ time("15:00", "15:30") }}
+
+    {% call item("a / d", class="social", room="Foyer") -%}
+      Coffee
+    {%- endcall %}
+
+    {{ time("15:30", "16:20") }}
+
+    {% call item("a", class="talk", link=419) -%}
+      Writing fast C code for a modern CPU (and applying it to PostgreSQL)<br><small>(David Rowley)</small>
+    {%- endcall %}
+
+    {% call item("b", class="talk", link=414) -%}
+      Re-engineering Postgres for Millions of Tenants<br><small>(Gwen Shapira)</small>
+    {%- endcall %}
+
+    {% call item("c", class="talk", link=343) -%}
+      Fraught Feedback: Trying and Failing to Implement Adaptive Behavior in Postgres<br><small>(Melanie Plageman)</small>
+    {%- endcall %}
+
+    {{ time("16:30", "17:30") }}
+
+    {% call item("a") -%} Lightning Talks {%- endcall %}
+  </ul>
+
+  <h2><time datetime="2025-05-16">Friday, May 16<sup>th</sup></time></h2>
+  <ul class="schedule" style="grid-template-columns: auto repeat(3, 1rem 1fr);">
+    <h4 class="wide" style="grid-area: a;">Regence B2C</h4>
+    {%- set ns.a = "Regence B2C" %}
+
+    <h4 class="wide" style="grid-area: b;">Cartier A</h4>
+    {%- set ns.b = "Cartier A" %}
+
+    <h4 class="wide" style="grid-area: c;">Cartier B</h4>
+    {%- set ns.c = "Cartier A" %}
+
+    {{ time("08:00", "09:00") }}
+
+    {% call item("a / c", room="Foyer") -%} Breakfast {%- endcall %}
+
+    {{ time("09:00", "10:00") }}
+
+    {% call item("a", link=348) -%} Unconference Organizing {%- endcall %}
+
+    {{ time("10:00", "10:30") }}
+
+    {% call item("a / c", class="social", room="Foyer") -%}
+      Coffee
+    {%- endcall %}
+
+    {{ time("10:30", "11:30") }}
+
+    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
+
+    {{ time("11:30", "12:30") }}
+
+    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
+
+    {{ time("12:30", "13:30") }}
+
+    {% call item("a / c", class="social") -%} Lunch {%- endcall %}
+
+    {{ time("13:30", "14:30") }}
+
+    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
+
+    {{ time("14:30", "15:30") }}
+
+    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
+
+    {{ time("15:30", "16:00") }}
+
+    {% call item("a / c", class="social", room="Foyer") -%}
+      Coffee
+    {%- endcall %}
+
+    {{ time("16:00", "17:00") }}
+
+    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
+
+    {{ time("17:00", "17:30") }}
+
+    {% call item("a") -%} Closing Remarks {%- endcall %}
   </ul>
 {% endblock %}
