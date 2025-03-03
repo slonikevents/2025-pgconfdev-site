@@ -159,6 +159,12 @@ body > header {
   top: 0;
 }
 
+@media print {
+  body > header {
+    display: none;
+  }
+}
+
 body > header > nav {
   align-items: center;
   flex-wrap: wrap;
@@ -230,6 +236,12 @@ body > footer {
   grid-area: footer;
   padding: 1rem;
   text-align: center;
+}
+
+@media print {
+  body > footer {
+    display: none;
+  }
 }
 
 body > footer > nav {
