@@ -86,6 +86,9 @@ silver:
   - name: Crunchy Data
     url: https://www.crunchydata.com/
     image: crunchydata.png
+  - name: SRA OSS K.K.
+    url: https://www.sraoss.co.jp/index_en/
+    image: sra.png
 bronze:
   - name: Xatabase, Inc.
     url: https://xata.io/
