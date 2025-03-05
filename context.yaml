@@ -99,6 +99,9 @@ bronze:
   - name: ubicloud
     url:  https://www.ubicloud.com/
     image: ubicloud.png
+  - name: pgEdge
+    url:  https://www.https://www.pgedge.com
+    image: pgedge.png
 
 schedule:
 - name: "My Journey in PostgreSQL bug fixing (Bertrand Drouvot)"
