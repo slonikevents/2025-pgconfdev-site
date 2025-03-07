@@ -73,6 +73,10 @@ gold:
     url: https://cloud.google.com/alloydb
     image: google.png
     description: Google's Data Cloud embraces open standards. AlloyDB boosts PostgreSQL's performance, availability, and scalability. Cloud SQL provides a fully managed PostgreSQL experience. Spanner's PostgreSQL interface extends Spanner's global consistency and virtually unlimited scale to the PostgreSQL world.
+  - name: Huawei
+    url: https://www.huawei.com/ca/
+    image: huawei.png
+    description: Huawei Cloud has become one of the world's fastest-growing major cloud vendors. As a core service of databases, our team is focused on providing a fully managed PostgreSQL service with better experience, performance, scalability and availability.
 silver:
   - name: Percona
     url: https://www.percona.com/
