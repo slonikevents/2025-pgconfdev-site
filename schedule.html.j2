@@ -191,7 +191,7 @@
     <h4 class="wide" style="grid-area: d;">Bonsecours</h4>
     {%- set ns.d = "Bonsecours" %}
 
-    {{ time("08:00", "09:00") }}
+    {{ time("07:30", "08:45") }}
 
     {% call item("a / c", class="social", room="Foyer") -%}
       Breakfast
@@ -201,13 +201,23 @@
       Student Breakfast
     {%- endcall %}
 
-    {{ time("09:00", "09:30") }}
+    {# Fake a slot to accommodate this 15 minute nonsense #}
 
-    {% call item("a") -%} Opening {%- endcall %}
+    {% set ns.slot -%}
+      grid-row: time-0845 / time-0845
+    {%- endset -%}
 
-    {{ time("09:30", "09:50") }}
+    <li class="time" style="grid-column: time; {{ ns.slot }};">
+      <time>08:45</time>&ndash;<time>09:00</time>
+    </li>
 
-    {% call item("a") -%} Keynote {%- endcall %}
+    {% call item("a / c", room="Regence B2C") -%} Opening {%- endcall %}
+
+    {{ time("09:00", "09:50") }}
+
+    {% call item("a / c", room="Regence B2C") -%}
+      Keynote - From RAP to Snowflake - a 50 Year Journey in Scalable DB Systems<br><small>(David DeWitt)</small>
+    {%- endcall %}
 
     {{ time("10:00", "10:50") }}
 

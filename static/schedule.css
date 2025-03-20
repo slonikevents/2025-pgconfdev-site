@@ -7,8 +7,10 @@ body > main {
 .schedule {
   grid-template:
     "time      . a . b . c . d"
+    "time-0730 . . . . . . . ."
     "time-0800 . . . . . . . ."
     "time-0830 . . . . . . . ."
+    "time-0845 . . . . . . . ."
     "time-0900 . . . . . . . ."
     "time-0930 . . . . . . . ."
     "time-1000 . . . . . . . ."
