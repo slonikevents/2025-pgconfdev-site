@@ -93,6 +93,12 @@ silver:
   - name: SRA OSS K.K.
     url: https://www.sraoss.co.jp/index_en/
     image: sra.png
+  - name: Supabase
+    url: https://supabase.com
+    image: supabase.png
+  - name: Highgo Software
+    url: https://www.highgo.com/
+    image: highgo.png
 bronze:
   - name: Xatabase, Inc.
     url: https://xata.io/
