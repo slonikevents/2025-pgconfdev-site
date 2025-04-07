@@ -36,15 +36,7 @@ body > main {
     "time-2000 . . . . . . . ."
     "time-2030 . . . . . . . ."
     "time-2100 . . . . . . . ."
-    "time-2130 . . . . . . . ."
-    "time-2200 . . . . . . . ."
-    "time-2230 . . . . . . . ."
-    "time-2300 . . . . . . . ."
-    "time-2330 . . . . . . . ."
-    "time-0000 . . . . . . . ."
-    "time-0030 . . . . . . . ."
-    "time-0100 . . . . . . . ."
-    "time-0130 . . . . . . . .";
+    "time-2130 . . . . . . . .";
   grid-template-columns: auto repeat(4, 1rem 1fr);
   list-style-type: none;
   padding-left: 0;
