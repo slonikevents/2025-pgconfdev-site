@@ -4,12 +4,12 @@
 {% block head %}
   <link rel="stylesheet" href="{{ "static/index.css" | link }}">
 
-  {# <script src="{{ "static/news.js" | link }}"></script>
+  <script src="{{ "static/news.js" | link }}"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       update_frontpage_news('{{ newsurl }}json/');
     });
-  </script> #}
+  </script>
 {% endblock %}
 
 {% block main %}
@@ -43,7 +43,7 @@
   <p>PGConf.dev {{ year }} will be held in {{ city }}, {{ country }}, on
     {{ date_hr }} at the {{ venue.name }}.
 
-  {# <section id="newsContainer">
+  <section id="newsContainer">
     <h2>Latest news</h2>
-  </section> #}
+  </section>
 {%endblock%}
