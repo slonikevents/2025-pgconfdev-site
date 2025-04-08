@@ -108,8 +108,8 @@
     <h4 class="wide" style="grid-area: b;">Cartier B</h4>
     {%- set ns.b = "Cartier B" %}
 
-    <h4 class="wide" style="grid-area: c;">Versailles</h4>
-    {%- set ns.c = "Versailles" %}
+    <h4 class="wide" style="grid-area: c;">Bonsecours</h4>
+    {%- set ns.c = "Bonsecours" %}
 
     {{ time("08:00", "08:30") }}
 
@@ -137,12 +137,12 @@
 
     {{ time("14:00", "15:30") }}
 
-    {% call item("a", class="workshop", link=265) -%}
-      Advanced Patch Feedback Session
-    {%- endcall %}
-
     {% call item("b", class="workshop", link=404) -%}
       Community Summit: Microconference 1
+    {%- endcall %}
+
+    {% call item("c", class="workshop", link=265) -%}
+      Advanced Patch Feedback Session
     {%- endcall %}
 
     {{ time("15:30", "16:00") }}
@@ -158,12 +158,12 @@
 
     {{ time("16:00", "17:30") }}
 
-    {% call item("a", class="workshop", link=265) -%}
-      Advanced Patch Feedback Session
-    {%- endcall %}
-
     {% call item("b", class="workshop", link=404) -%}
       Community Summit: Microconference 2
+    {%- endcall %}
+
+    {% call item("c", class="workshop", link=265) -%}
+      Advanced Patch Feedback Session
     {%- endcall %}
 
     {{ time("17:30", "20:30") }}
