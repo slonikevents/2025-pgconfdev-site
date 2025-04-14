@@ -99,6 +99,9 @@ silver:
   - name: Highgo Software
     url: https://www.highgo.com/
     image: highgo.png
+  - name: Neon
+    url: https://neon.tech
+    image: neon.png
 bronze:
   - name: Xatabase, Inc.
     url: https://xata.io/
