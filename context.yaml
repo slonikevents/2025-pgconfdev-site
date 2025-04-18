@@ -139,7 +139,7 @@ schedule:
   link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/276/
 - name: "The Present and Future of VACUUM in PostgreSQL (Masahiko Sawada)"
   link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/281/
-- name: "Changing shared_buffers on the fly (Dmitrii Dolgov, Ashutosh Bapat)"
+- name: "Changing shared_buffers on the fly (Ashutosh Bapat)"
   link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/286/
 - name: "Foreign Key Joins (Vik Fearing)"
   link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/287/
