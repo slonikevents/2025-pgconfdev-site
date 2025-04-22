@@ -111,3 +111,27 @@ body > main {
     display: grid;
   }
 }
+
+/* Ongoing Activities Styles */
+.ongoing-activities {
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.ongoing-activities a {
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.ongoing-activities a:hover {
+  text-decoration: underline;
+}
+
+.poster {
+  background-color: #e6f7ff;
+  border-left: 4px solid #1890ff;
+}
