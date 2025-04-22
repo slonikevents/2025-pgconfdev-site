@@ -115,6 +115,9 @@ bronze:
   - name: pgEdge
     url:  https://www.https://www.pgedge.com
     image: pgedge.png
+  - name: Navicat for PostreSQL
+    url:  https://www.navicat.com/en/products/navicat-for-postgresql
+    image: navicat.png
 
 schedule:
 - name: "My Journey in PostgreSQL bug fixing (Bertrand Drouvot)"
