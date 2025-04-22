@@ -1,0 +1,190 @@
+{% set title = "Ongoing Activities" %}
+{% extends "base.html.j2" %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ "static/schedule.css" | link }}">
+{% endblock %}
+
+{# Hide the sponsor sidebar on the ongoing activities page #}
+{% block side %}{% endblock %}
+
+{# Used to record the active time period and to do column-to-room conversion #}
+{% set ns = namespace(a="R", b="A", c="B", d="M") %}
+
+{#
+  Called to emit a labeled period in the "time" column. For example, this call:
+
+    time("08:00", "09:30")
+
+  Will emit:
+
+    <li class="time" ...><time>08:00</time>–<time>09:30</time></li>
+
+  The emitted label uses the first and second argument verbatim. The time slot
+  that the labeled period is emitted against is determined as:
+
+    1. The first argument is rounded down to the nearest half hour. This is the
+       starting time slot.
+
+    2. One minute is subtracted from the second argument. Then, it's rounded
+       down to the nearest half hour. This is the ending time slot.
+
+  This behavior is intended to handle the common situation wherein a time slot
+  begins on, or shortly after, an even half hour and ends on, or shortly before,
+  an even half hour.
+
+  This macro also sets the active time period used in each subsequent call to
+  item(). The class keyword argument is appended to the <li> element's class.
+#}
+{% macro time(earliest, latest, class="") -%}
+  {% set hour, minute = earliest.split(":") | map("int") -%}
+  {% set minute = 0 if minute < 30 else 30 -%}
+  {% set earliest_slot = "time-%02d%02d" | format(hour, minute) -%}
+
+  {% set hour, minute = latest.split(":") | map("int") -%}
+  {% set hour = hour if minute > 0 else hour - 1 -%}
+  {% set minute = 0 if minute <= 30 else 30 -%}
+  {% set latest_slot = "time-%02d%02d" | format(hour, minute) -%}
+
+  {% set ns.slot -%}
+    grid-row: {{ earliest_slot }} / {{ latest_slot }}
+  {%- endset -%}
+
+  {% set class = ["time", class] | join(" ") -%}
+
+  <li class="{{ class }}" style="grid-column: time; {{ ns.slot }};">
+    <time>{{ earliest }}</time>&ndash;<time>{{ latest }}</time>
+  </li>
+{%- endmacro %}
+
+{#
+  Called to emit an item in the schedule that will span the specified column.
+
+  The column argument is used, as-is, as the emitted element's grid-column.
+
+  If a room name (that isn't none) is specified, then an always visible room
+  marker with that name is emitted into the item. If room is unspecified, and
+  column is a single column, then a room marker with the room name of that
+  column, visible only in the narrow layout, is emitted into the item. This
+  marker can be suppressed by passing none as the room.
+
+  If link isn't none or undefined, then the caller of the macro is wrapped
+  within an anchor with the link text as the element's href. If link is an
+  integer, then it's interpreted as a session ID in the PGEU system, and the URL
+  to that session is used as the anchor's href.
+
+  Any additional keyword elements to this macro are added as attributes to the
+  emitted <li> element.
+#}
+{% macro item(column, room=undefined, link=undefined) -%}
+  {%- if link is integer %}
+    {%- set link %}https://www.pgevents.ca/events/pgconfdev2025/schedule/session/{{ link }}/{% endset %}
+  {% endif -%}
+
+  <li style="grid-column: {{ column }}; {{ ns.slot }};"
+      {%- for k, v in kwargs | items %} {{ k }}="{{ v }}" {%- endfor %}>
+    {%- if room %}
+      <span class="room">{{ room }}</span>
+    {%- elif ns[column] %}
+      <span class="narrow room">{{ ns[column] }}</span>
+    {%- endif %}
+
+    {%- if link %}
+      <a href="{{ link }}">{{ caller() if caller }}</a>
+    {%- else %}
+      {{ caller() if caller }}
+    {%- endif %}
+  </li>
+{%- endmacro %}
+
+{% block main %}
+  <h1>Ongoing Activities</h1>
+
+  <h2>Community Booth</h2>
+  <p>The Community Booth is a dedicated space where you can meet with various PostgreSQL community members and participate in informal sessions throughout the conference.</p>
+
+  <h3><time datetime="2025-05-14">Wednesday, May 14<sup>th</sup></time></h3>
+  <ul class="schedule">
+    <h4 class="wide" style="grid-area: a;">Community Booth</h4>
+    {%- set ns.a = "Community Booth" %}
+
+    {{ time("10:00", "11:30") }}
+
+    {% call item("a / c", class="talk", link=438) -%}
+      Build Postgres on your laptop<br><small>(Andrey Borodin)</small><br>
+      <small class="description">If you wanted to start hacking on Postgres source code - bring your laptop, let's do it together. I'll give some simple ideas if you do not know where to start.</small>
+    {%- endcall %}
+
+    {{ time("15:00", "16:30") }}
+
+    {% call item("a / c", class="talk", link=438) -%}
+      PgUS Volunteer Recruiting<br>
+      <small>(Stacey Haysler)</small><br>
+      <small class="description">Interested in volunteering for PgUS, but don't know where to start? Meet us at the Community Booth to find out the many opportunities we have for becoming involved, and sign up! You do not have to live in the US to be a PgUS member and volunteer!</small>
+    {%- endcall %}
+
+    {{ time("16:30", "17:30") }}
+
+    {% call item("a / c", class="talk", link=438) -%}
+      PostgreSQL Exhibition Efforts<br>
+      <small>(Mark Wong)</small><br>
+      <small class="description">PostgreSQL can sometimes be seen in the exhibition halls of various events networking with other communities and passing out swag. This session covers the volunteer effort that makes this happen including:<br>
+      • planning & scheduling<br>
+      • staffing<br>
+      • budgeting<br>
+      • swag<br><br>
+      Please come to help us to better, discuss any of these topics, and get involved!</small>
+    {%- endcall %}
+  </ul>
+
+  <h3><time datetime="2025-05-15">Thursday, May 15<sup>th</sup></time></h3>
+  <ul class="schedule">
+    <h4 class="wide" style="grid-area: a;">Community Booth</h4>
+    {%- set ns.a = "Community Booth" %}
+
+    {{ time("09:30", "11:00") }}
+
+    {% call item("a / c", class="talk", link=438) -%}
+      Podcasting about Postgres<br>
+      <small>(Claire Giordano)</small><br>
+      <small class="description">Find out what some of the most popular Postgres podcasts are—and also explore recent Talking Postgres episodes with some of the Postgres committers, that dive into why they do what they do and how they got their start.<br><br>
+      Would also love your feedback about future topics & future guests you think people would be interested in.</small>
+    {%- endcall %}
+  </ul>
+
+  <h2>Poster Session</h2>
+  <p>Andrey Borodin is arranging a poster session in conjunction with PGConf.dev 2025. This is a great opportunity to showcase your PostgreSQL-related work in a more informal setting.</p>
+
+  <h3>Submission Details</h3>
+  <ul>
+    <li><strong>Format:</strong> A2-sized poster (ANSI C, 17" × 22") in portrait orientation</li>
+    <li><strong>Submission Deadline:</strong> 
+      <ul>
+        <li>For self-printed posters: Deliver to conference venue by May 13</li>
+        <li>For printing assistance: Express interest by May 1, final submission by May 8</li>
+      </ul>
+    </li>
+    <li><strong>Contact:</strong> Email <a href="mailto:x4mmm@yandex-team.ru">x4mmm@yandex-team.ru</a> or x4m on Discord</li>
+  </ul>
+
+  <h3>Poster Content</h3>
+  <p>Your poster should include:</p>
+  <ul>
+    <li>A visual representation of your patch or project</li>
+    <li>The conference logo and year</li>
+    <li>Information on what attention or collaboration your project requires</li>
+    <li>Contact details for potential collaborators (e.g., QR code to your patch/project, email, or messenger)</li>
+  </ul>
+
+  <h3>Purpose</h3>
+  <p>This experimental poster session aims to improve collaboration by:</p>
+  <ul>
+    <li>Attracting co-authors and reviewers</li>
+    <li>Facilitating discussions with committers</li>
+    <li>Enhancing overall project visibility and engagement</li>
+  </ul>
+
+  <p>For more information about the poster session, see the <a href="https://www.postgresql.org/message-id/1DB191EA-D612-4E36-B92B-61F0CD4C2F20%40yandex-team.ru">announcement on pgsql-hackers</a>.</p>
+
+  <p>Posters will be displayed throughout the conference, allowing attendees to view them at their convenience. This format provides an excellent opportunity for in-depth discussions about your work with other conference participants.</p>
+{% endblock %} 
