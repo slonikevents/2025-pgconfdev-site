@@ -114,7 +114,7 @@
     {{ time("08:00", "08:30") }}
 
     {% call item("a / c", class="social", room="Foyer") -%}
-      Light Refreshments
+      Breakfast
     {%- endcall %}
 
     {{ time("08:30", "12:30") }}
@@ -215,7 +215,9 @@
       <time>08:45</time>&ndash;<time>09:00</time>
     </li>
 
-    {% call item("a / c", room="Regence B2C") -%} Opening {%- endcall %}
+    {% call item("a / c", room="Regence B2C") -%}
+      <strong>Opening</strong>
+    {%- endcall %}
 
     {{ time("09:00", "09:50") }}
 
@@ -299,8 +301,8 @@
       Scaling Postgres to the next level at OpenAI<br><small>(Bohan Zhang)</small>
     {%- endcall %}
 
-    {% call item("b", class="talk", link=276) -%}
-      Experimenting with a Global Index in PostgreSQL: Design, Implementation, and Challenges<br><small>(Dilip Kumar)</small>
+    {% call item("b", class="talk", link=292) -%}
+      A journey toward the columnar data store - lessons from past discussions and new proposals<br><small>(Aya Iwata)</small>
     {%- endcall %}
 
     {% call item("c", class="talk", link=385) -%}
@@ -379,7 +381,7 @@
     {{ time("09:30", "10:20") }}
 
     {% call item("a", class="talk", link=286) -%}
-      Changing shared_buffers on the fly<br><small>(Dmitrii Dolgov, Ashutosh Bapat)</small>
+      Changing shared_buffers on the fly<br><small>(Ashutosh Bapat)</small>
     {%- endcall %}
 
     {% call item("b", class="talk", link=228) -%}
@@ -400,8 +402,8 @@
       Fast-path locking improvements in PG18<br><small>(Tomas Vondra)</small>
     {%- endcall %}
 
-    {% call item("b", class="talk", link=379) -%}
-      What does moving to Pull Requests look like? The nginx story<br><small>(Alastair Turner)</small>
+    {% call item("b", class="talk", link=298) -%}
+      PostgreSQL Europe Diversity Task Force<br><small>(Karen Jex)</small>
     {%- endcall %}
 
     {% call item("c", class="talk", link=376) -%}
@@ -448,8 +450,8 @@
       What can Postgres learn from DuckDB?<br><small>(Jelte Fennema-Nio)</small>
     {%- endcall %}
 
-    {% call item("b", class="talk", link=287) -%}
-      Foreign Key Joins<br><small>(Vik Fearing)</small>
+    {% call item("b", class="talk", link=379) -%}
+      What does moving to Pull Requests look like? The nginx story<br><small>(Alastair Turner)</small>
     {%- endcall %}
 
     {% call item("c", class="talk", link=426) -%}
@@ -498,7 +500,9 @@
 
     {{ time("09:00", "10:00") }}
 
-    {% call item("a", link=348) -%} Unconference Organizing {%- endcall %}
+    {% call item("a / c", room="Regence B2C", link=348) -%}
+      Unconference Organizing
+    {%- endcall %}
 
     {{ time("10:00", "10:30") }}
 
@@ -508,11 +512,15 @@
 
     {{ time("10:30", "11:30") }}
 
-    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
+    {% call item("a", link=348) -%} Unconference {%- endcall %}
+    {% call item("b", link=348) -%} Unconference {%- endcall %}
+    {% call item("c", link=348) -%} Unconference {%- endcall %}
 
     {{ time("11:30", "12:30") }}
 
-    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
+    {% call item("a", link=348) -%} Unconference {%- endcall %}
+    {% call item("b", link=348) -%} Unconference {%- endcall %}
+    {% call item("c", link=348) -%} Unconference {%- endcall %}
 
     {{ time("12:30", "13:30") }}
 
@@ -520,24 +528,26 @@
 
     {{ time("13:30", "14:30") }}
 
-    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
+    {% call item("a", link=348) -%} Unconference {%- endcall %}
+    {% call item("b", link=348) -%} Unconference {%- endcall %}
+    {% call item("c", link=348) -%} Unconference {%- endcall %}
 
     {{ time("14:30", "15:30") }}
 
-    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
+    {% call item("a", link=348) -%} Unconference {%- endcall %}
+    {% call item("b", link=348) -%} Unconference {%- endcall %}
+    {% call item("c", link=348) -%} Unconference {%- endcall %}
 
     {{ time("15:30", "16:00") }}
+
+    {% call item("a / c", room="Regence B2C") -%}
+      <strong>Closing</strong>
+    {%- endcall %}
+
+    {{ time("16:00", "16:30") }}
 
     {% call item("a / c", class="social", room="Foyer") -%}
       Coffee
     {%- endcall %}
-
-    {{ time("16:00", "17:00") }}
-
-    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
-
-    {{ time("17:00", "17:30") }}
-
-    {% call item("a") -%} Closing Remarks {%- endcall %}
   </ul>
 {% endblock %}

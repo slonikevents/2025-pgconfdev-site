@@ -9,7 +9,7 @@
 {% block side %}{% endblock %}
 
 {# Used to record the active time period and to do column-to-room conversion #}
-{% set ns = namespace(a="R", b="A", c="B", d="M") %}
+{% set ns = namespace() %}
 
 {#
   Called to emit a labeled period in the "time" column. For example, this call:
@@ -101,57 +101,96 @@
   <h1>Ongoing Activities</h1>
 
   <h2>Community Booth</h2>
-  <p>The Community Booth is a dedicated space where you can meet with various PostgreSQL community members and participate in informal sessions throughout the conference.</p>
+
+  <p>The Community Booth is a dedicated space where you can meet with various
+    PostgreSQL community members and participate in informal sessions throughout
+    the conference.</p>
 
   <h3><time datetime="2025-05-14">Wednesday, May 14<sup>th</sup></time></h3>
   <ul class="schedule">
-    <h4 class="wide" style="grid-area: a;">Community Booth</h4>
-    {%- set ns.a = "Community Booth" %}
-
     {{ time("10:00", "11:30") }}
 
-    {% call item("a / c", class="talk", link=438) -%}
-      Build Postgres on your laptop<br><small>(Andrey Borodin)</small><br>
-      <small class="description">If you wanted to start hacking on Postgres source code - bring your laptop, let's do it together. I'll give some simple ideas if you do not know where to start.</small>
+    {% call item("a / d", class="talk", link=438) -%}
+      Build Postgres on your laptop<br>
+      <small>(Andrey Borodin)</small><br>
+      <small class="description">
+        If you wanted to start hacking on Postgres source code - bring your
+        laptop, let's do it together. I'll give some simple ideas if you do not
+        know where to start.
+      </small>
+    {%- endcall %}
+
+    {{ time("11:30", "13:00") }}
+
+    {% call item("a / d", class="talk", link=438) -%}
+      Talking about talking<br>
+      <small>(Karrie Jex, Dian Fay, Andrey Borodin)</small><br>
+      <small class="description">
+        Come and talk to us about any aspect of speaking at conferences: Have an
+        idea for a talk in your head and want to turn it into an abstract? Want
+        someone to listen to you rehearse your talk? Need some encouragement to
+        submit your first ever talk? Wondering if you should submit a lightning
+        talk? (Spoiler: yes, you should). Want some help transforming your
+        current work into a talk? There will be experienced speakers and
+        selection committee members on hand to help.
+      </small>
     {%- endcall %}
 
     {{ time("15:00", "16:30") }}
 
-    {% call item("a / c", class="talk", link=438) -%}
-      PgUS Volunteer Recruiting<br>
+    {% call item("a / d", class="talk", link=438) -%}
+      PGDG Volunteer Opportunities<br>
       <small>(Stacey Haysler)</small><br>
-      <small class="description">Interested in volunteering for PgUS, but don't know where to start? Meet us at the Community Booth to find out the many opportunities we have for becoming involved, and sign up! You do not have to live in the US to be a PgUS member and volunteer!</small>
+      <small class="description">
+        Interested in volunteering for the PostgreSQL Project, but don't know
+        where to start? Meet us at the Community Booth to find out the many
+        opportunities for becoming involved! While there is plenty of code to
+        write, there are multiple roles which don't require any technical
+        knowledge at all. Whatever your skills and interests, we have a role for
+        you!
+      </small>
     {%- endcall %}
 
     {{ time("16:30", "17:30") }}
 
-    {% call item("a / c", class="talk", link=438) -%}
+    {% call item("a / d", class="talk", link=438) -%}
       PostgreSQL Exhibition Efforts<br>
       <small>(Mark Wong)</small><br>
-      <small class="description">PostgreSQL can sometimes be seen in the exhibition halls of various events networking with other communities and passing out swag. This session covers the volunteer effort that makes this happen including:<br>
-      • planning & scheduling<br>
-      • staffing<br>
-      • budgeting<br>
-      • swag<br><br>
-      Please come to help us to better, discuss any of these topics, and get involved!</small>
+      <small class="description">
+        PostgreSQL can sometimes be seen in the exhibition halls of various
+        events networking with other communities and passing out swag. This
+        session covers the volunteer effort that makes this happen
+        including:<br>
+        <ul>
+          <li>planning & scheduling
+          <li>staffing
+          <li>budgeting
+          <li>swag
+        </ul>
+        Please come to help us to better, discuss any of these topics, and get involved!
+      </small>
     {%- endcall %}
   </ul>
 
   <h3><time datetime="2025-05-15">Thursday, May 15<sup>th</sup></time></h3>
   <ul class="schedule">
-    <h4 class="wide" style="grid-area: a;">Community Booth</h4>
-    {%- set ns.a = "Community Booth" %}
-
     {{ time("09:30", "11:00") }}
 
-    {% call item("a / c", class="talk", link=438) -%}
+    {% call item("a / d", class="talk", link=438) -%}
       Podcasting about Postgres<br>
       <small>(Claire Giordano)</small><br>
-      <small class="description">Find out what some of the most popular Postgres podcasts are—and also explore recent Talking Postgres episodes with some of the Postgres committers, that dive into why they do what they do and how they got their start.<br><br>
-      Would also love your feedback about future topics & future guests you think people would be interested in.</small>
+      <small class="description">
+        Find out what some of the most popular Postgres podcasts are—and also
+        explore recent Talking Postgres episodes with some of the Postgres
+        committers, that dive into why they do what they do and how they got
+        their start.
+        <br><br>
+        Would also love your feedback about future topics & future guests you
+        think people would be interested in.
+      </small>
     {%- endcall %}
   </ul>
 
   <h2>Poster Session</h2>
   <p>Explore the <a href="{{ "posters.html" | link }}">Poster Session</a> showcasing various PostgreSQL-related work and projects. The posters will be displayed throughout the conference, allowing attendees to view them at their convenience and engage in in-depth discussions with the authors.</p>
-{% endblock %} 
+{% endblock %}
