@@ -17,62 +17,83 @@
       text-align: left;
       text-transform: uppercase;
     }
+
+    .person > .bio {
+      padding-inline: 1rem;
+    }
   </style>
 {% endblock %}
 
 {% block main %}
-  <h1>Code of Conduct</h1>
+  {% markdown %}
+    # Code of Conduct
 
-  
-<p>
-PGConf.dev is dedicated to providing a harassment-free conference experience for everyone. We do not tolerate harassment of conference participants in any form. Sexual language and imagery is not appropriate for any conference venue, including talks.
-</p>
-<p>
+    PGConf.dev is dedicated to providing a harassment-free conference experience
+    for everyone. We do not tolerate harassment of conference participants in
+    any form. Sexual language and imagery is not appropriate for any conference
+    venue, including talks.
 
-Conference participants violating this policy may be sanctioned or expelled from the conference without a refund at the discretion of the Code Of Conduct committee.
-</p>
-<p>
-Harassment includes offensive verbal comments related to gender, sexual orientation, disability, physical appearance, race, religion, sexual images in public spaces, deliberate intimidation, stalking, following, harassing, photography or recording, sustained disruption of talks or other events, inappropriate physical contact, and unwelcome sexual attention. Participants asked to stop any harassing behavior are expected to comply immediately. Failure to comply will result in sanctions and/or ejection from the conference without a refund.
-</p>
-<p>
-If a participant engages in harassing behavior, the conference organizers will work with the Code Of Conduct Committee to decide what action to take, including but not limited to: warning the offender, expulsion from the conference with no refund, and/or referral to appropriate authorities. If you are being harassed, notice that someone else is being harassed, or have any other concerns, please contact a member of the conference staff, including anyone on the conference committee, or the Code of Conduct committee, immediately.
-</p>
-Conference staff will be happy to help participants contact venue security or local law enforcement, provide escorts, or otherwise assist those experiencing harassment to feel safe for the duration of the conference. We value your attendance. Decisions regarding appropriate assistance will be at the sole discretion of the conference committee.
-</p>
+    Conference participants violating this policy may be sanctioned or expelled
+    from the conference without a refund at the discretion of the Code Of
+    Conduct committee.
 
-<ul>
-    <li>For emergencies: 911</li>    
-    <li>PGConf.dev Conference Code of Conduct Committee email: <a href="mailto:coc2025@pgconf.dev">coc2025@pgconf.dev</a></li>
-    <li>PGConf.dev Conference Committee email: <a href="mailto:contact@pgconf.dev">contact@pgconf.dev</a></li>
-    <li>The nearest police station to the conference is PDQ 21 <address><a href="https://www.openstreetmap.org/?mlat=45.516507&mlon=-73.563567#map=19/45.516507/-73.563567">1669, rue Berri, Montréal, H2L 4E9 </a>Telephone: <telephone><a href="tel:+15142800121">514-280-0121</a></address> Available 24/7 For all things that don't require 911.</li>
-  </ul>
+    Harassment includes offensive verbal comments related to gender, sexual
+    orientation, disability, physical appearance, race, religion, sexual images
+    in public spaces, deliberate intimidation, stalking, following, harassing,
+    photography or recording, sustained disruption of talks or other events,
+    inappropriate physical contact, and unwelcome sexual attention. Participants
+    asked to stop any harassing behavior are expected to comply immediately.
+    Failure to comply will result in sanctions and/or ejection from the
+    conference without a refund.
 
-<p>
-All participants are expected to adhere to this policy at all conference venues and conference-related social events.
-</p>
+    If a participant engages in harassing behavior, the conference organizers
+    will work with the Code Of Conduct Committee to decide what action to take,
+    including but not limited to: warning the offender, expulsion from the
+    conference with no refund, and/or referral to appropriate authorities. If
+    you are being harassed, notice that someone else is being harassed, or have
+    any other concerns, please contact a member of the conference staff,
+    including anyone on the conference committee, or the Code of Conduct
+    committee, immediately.
 
- <h2>Code of Conduct Committee</h2>
+    Conference staff will be happy to help participants contact venue security
+    or local law enforcement, provide escorts, or otherwise assist those
+    experiencing harassment to feel safe for the duration of the conference. We
+    value your attendance. Decisions regarding appropriate assistance will be at
+    the sole discretion of the conference committee.
 
-  
+    - For emergencies: 911
+    - PGConf.dev Conference Code of Conduct Committee email: coc2025@pgconf.dev
+    - PGConf.dev Conference Committee email: contact@pgconf.dev
+    - The nearest police station to the conference is PDQ 21 at <address>
+        <a href="https://www.openstreetmap.org/?mlat=45.516507&mlon=-73.563567#map=19/45.516507/-73.563567">1669, rue Berri, Montréal, H2L 4E9 </a><br>
+        Telephone: <a href="tel:+15142800121">+1 514-280-0121</a>.
+      </address>
+      Available 24/7 For all things that don't require 911.
+
+    All participants are expected to adhere to this policy at all conference
+    venues and conference-related social events.
+
+    ## Code of Conduct Committee
+  {% endmarkdown %}
+
   <div class="flex">
-    <figure class="person">      
+    <figure class="person">
       <figcaption>Stacey Haysler</figcaption>
       <div class="bio">
-      By day, I'm the CFO and COO of PGX, Inc., a Postgres-only consultancy in San Francisco, California. I'm also the President of the U.S. PostgreSQL Association (PgUS), a nonprofit dedicated to the advancement of PostgreSQL through education and advocacy. I'm an organizer of the San Francisco Bay Area PostgreSQL Users Group. At conferences in the US and Europe, you'll often find me at the registration desk. I'm also the creator of the original PostgreSQL Community Code of Conduct, and was the first Chair of the Community CoC Committee for three years. By night, I sleep, since that's a lot to do every day!
+        By day, I'm the CFO and COO of PGX, Inc., a Postgres-only consultancy in San Francisco, California. I'm also the President of the U.S. PostgreSQL Association (PgUS), a nonprofit dedicated to the advancement of PostgreSQL through education and advocacy. I'm an organizer of the San Francisco Bay Area PostgreSQL Users Group. At conferences in the US and Europe, you'll often find me at the registration desk. I'm also the creator of the original PostgreSQL Community Code of Conduct, and was the first Chair of the Community CoC Committee for three years. By night, I sleep, since that's a lot to do every day!
       </div>
     </figure>
-    <figure class="person">      
+    <figure class="person">
       <figcaption>Masahiko Sawada</figcaption>
       <div class="bio">
-      Masahiko Sawada is a PostgreSQL major contributor and committer, focusing on replication and vacuum. He works as a software engineer for AWS on upstream PostgreSQL. He has been in the PostgreSQL community since 2013.
+        Masahiko Sawada is a PostgreSQL major contributor and committer, focusing on replication and vacuum. He works as a software engineer for AWS on upstream PostgreSQL. He has been in the PostgreSQL community since 2013.
       </div>
     </figure>
-    <figure class="person">      
+    <figure class="person">
       <figcaption>Floor Drees</figcaption>
       <div class="bio">
-       Floor is a Principal Program Manager at EDB. She previously worked in Developer Relations roles at Aiven, Grafana Labs, and Microsoft. She organizes PGDay Lowlands (September 12, in Rotterdam), is a member of the PostgreSQL Code of Conduct Committee, and a member of the PostgreSQL Europe Diversity Committee. She's a member of DevOpsDays Core (current Co-chair) and organizes the DevOpsDays Amsterdam conference. Approach with chicken/dinosaur content.
+        Floor is a Principal Program Manager at EDB. She previously worked in Developer Relations roles at Aiven, Grafana Labs, and Microsoft. She organizes PGDay Lowlands (September 12, in Rotterdam), is a member of the PostgreSQL Code of Conduct Committee, and a member of the PostgreSQL Europe Diversity Committee. She's a member of DevOpsDays Core (current Co-chair) and organizes the DevOpsDays Amsterdam conference. Approach with chicken/dinosaur content.
       </div>
     </figure>
   </div>
-
-{%endblock%}
+{% endblock %}
