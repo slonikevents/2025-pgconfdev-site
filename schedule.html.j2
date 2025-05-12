@@ -215,7 +215,9 @@
       <time>08:45</time>&ndash;<time>09:00</time>
     </li>
 
-    {% call item("a / c", room="Regence B2C") -%} Opening {%- endcall %}
+    {% call item("a / c", room="Regence B2C") -%}
+      <strong>Opening</strong>
+    {%- endcall %}
 
     {{ time("09:00", "09:50") }}
 
@@ -498,7 +500,9 @@
 
     {{ time("09:00", "10:00") }}
 
-    {% call item("a", link=348) -%} Unconference Organizing {%- endcall %}
+    {% call item("a / c", room="Regence B2C", link=348) -%}
+      Unconference Organizing
+    {%- endcall %}
 
     {{ time("10:00", "10:30") }}
 
@@ -528,16 +532,14 @@
 
     {{ time("15:30", "16:00") }}
 
+    {% call item("a / c", room="Regence B2C") -%}
+      <strong>Closing</strong>
+    {%- endcall %}
+
+    {{ time("16:00", "16:30") }}
+
     {% call item("a / c", class="social", room="Foyer") -%}
       Coffee
     {%- endcall %}
-
-    {{ time("16:00", "17:00") }}
-
-    {% call item("a / c", link=348) -%} Unconference {%- endcall %}
-
-    {{ time("17:00", "17:30") }}
-
-    {% call item("a") -%} Closing Remarks {%- endcall %}
   </ul>
 {% endblock %}
