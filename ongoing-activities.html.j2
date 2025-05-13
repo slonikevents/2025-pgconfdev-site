@@ -189,6 +189,16 @@
         think people would be interested in.
       </small>
     {%- endcall %}
+    
+    {{ time("11:00", "12:30") }}
+
+    {% call item("a / d", class="talk", link=438) -%}
+      Let's review your patch<br>
+      <small>(Thomas Munro)</small><br>
+      <small class="description">
+        Just like lightning talk, but lightning review.
+      </small>
+    {%- endcall %}
   </ul>
 
   <h2>Poster Session</h2>
