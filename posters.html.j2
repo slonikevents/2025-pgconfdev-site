@@ -10,42 +10,22 @@
       margin: 2rem 0;
     }
 
-    .poster-item {
-      border: 1px solid var(--mute-border-color);
+    figure {
       border-radius: var(--border-radius);
+      border: var(--border-width) solid var(--mute-border-color);
+      margin-bottom: 0;
+      overflow: auto;
       padding: 1rem;
-      text-align: center;
     }
 
-    .poster-item iframe {
-      width: 100%;
+    figure > iframe {
       height: 400px;
-      border: none;
-      margin-bottom: 1rem;
+      width: 100%;
     }
 
-    .poster-item h3 {
-      margin: 0.5rem 0;
-      font-size: 1.2rem;
-    }
-
-    .poster-item p {
-      margin: 0.5rem 0;
+    figure > figcaption {
       color: var(--mute-color);
-    }
-
-    .poster-item a {
-      display: inline-block;
-      margin-top: 0.5rem;
-      padding: 0.5rem 1rem;
-      background-color: var(--primary-background-color);
-      color: white;
-      text-decoration: none;
-      border-radius: var(--border-radius);
-    }
-
-    .poster-item a:hover {
-      background-color: var(--primary-hover-background-color);
+      margin-block: 1rem 0;
     }
   </style>
 {% endblock %}
@@ -58,125 +38,158 @@
   </p>
 
   <div class="poster-grid">
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/Vacuum-statistics.pdf" | link }}" type="application/pdf"></iframe>
-      <h3>Vacuum Statistics</h3>
-      <p>Monitoring and analyzing vacuum operations</p>
-      <a href="{{ "static/posters/Vacuum-statistics.pdf" | link }}" target="_blank">Download PDF</a>
-    </div>
+      <figcaption>
+        <h4>Vacuum Statistics</h4>
+        <p>Monitoring and analyzing vacuum operations</p>
+        <a role="button" href="{{ "static/posters/Vacuum-statistics.pdf" | link }}" target="_blank">Download PDF</a>
+      </figcaption>
+    </figure>
 
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/Extended-TOAST-pointer-poster.pdf" | link }}" type="application/pdf"></iframe>
-      <h3>Extended TOAST Pointer</h3>
-      <p>Improving large object handling</p>
-      <a href="{{ "static/posters/Extended-TOAST-pointer-poster.pdf" | link }}" target="_blank">Download PDF</a>
-    </div>
+      <figcaption>
+        <h4>Extended TOAST Pointer</h4>
+        <p>Improving large object handling</p>
+        <a role="button" href="{{ "static/posters/Extended-TOAST-pointer-poster.pdf" | link }}" target="_blank">Download PDF</a>
+      </figcaption>
+    </figure>
 
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/poster_incremental_view_maintenance.pdf" | link }}" type="application/pdf"></iframe>
-      <h3>Incremental View Maintenance</h3>
-      <p>A Fast Method for Updating Materialized Views</p>
-      <a href="{{ "static/posters/poster_incremental_view_maintenance.pdf" | link }}" target="_blank">Download PDF</a>
-    </div>
+      <figcaption>
+        <h4>Incremental View Maintenance</h4>
+        <p>A Fast Method for Updating Materialized Views</p>
+        <a role="button" href="{{ "static/posters/poster_incremental_view_maintenance.pdf" | link }}" target="_blank">Download PDF</a>
+      </figcaption>
+    </figure>
 
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/PgUS Diversity Committee Poster PgConfDev 2025.pdf" | link }}" type="application/pdf"></iframe>
-      <h3>PgUS Diversity Committee</h3>
-      <p>Promoting diversity and inclusion in the PostgreSQL community</p>
-      <a href="{{ "static/posters/PgUS Diversity Committee Poster PgConfDev 2025.pdf" | link }}" target="_blank">Download PDF</a>
-    </div>
+      <figcaption>
+        <h4>PgUS Diversity Committee</h4>
+        <p>Promoting diversity and inclusion in the PostgreSQL community</p>
+        <a role="button" href="{{ "static/posters/PgUS Diversity Committee Poster PgConfDev 2025.pdf" | link }}" target="_blank">Download PDF</a>
+      </figcaption>
+    </figure>
 
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/pdot-poster.pdf" | link }}" type="application/pdf"></iframe>
-      <h3>PDOT</h3>
-      <p>PostgreSQL Development and Operations Tool</p>
-      <a href="{{ "static/posters/pdot-poster.pdf" | link }}" target="_blank">Download PDF</a>
-    </div>
+      <figcaption>
+        <h4>PDOT</h4>
+        <p>PostgreSQL Development and Operations Tool</p>
+        <a role="button" href="{{ "static/posters/pdot-poster.pdf" | link }}" target="_blank">Download PDF</a>
+      </figcaption>
+    </figure>
 
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/PostgreSQL_diversity_posterA2.pdf" | link }}" type="application/pdf"></iframe>
-      <h3>PostgreSQL Diversity</h3>
-      <p>Exploring diversity and inclusion in the PostgreSQL community</p>
-      <a href="{{ "static/posters/PostgreSQL_diversity_posterA2.pdf" | link }}" target="_blank">Download PDF</a>
-    </div>
+      <figcaption>
+        <h4>PostgreSQL Diversity</h4>
+        <p>Exploring diversity and inclusion in the PostgreSQL community</p>
+        <a role="button" href="{{ "static/posters/PostgreSQL_diversity_posterA2.pdf" | link }}" target="_blank">Download PDF</a>
+      </figcaption>
+    </figure>
 
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/pigsty-poster-pgcon.dev2025.pdf" | link }}" type="application/pdf"></iframe>
-      <h3>Pigsty</h3>
-      <p>PostgreSQL deployment and management tool</p>
-      <a href="{{ "static/posters/pigsty-poster-pgcon.dev2025.pdf" | link }}" target="_blank">Download PDF</a>
-    </div>
+      <figcaption>
+        <h4>Pigsty</h4>
+        <p>PostgreSQL deployment and management tool</p>
+        <a role="button" href="{{ "static/posters/pigsty-poster-pgcon.dev2025.pdf" | link }}" target="_blank">Download PDF</a>
+      </figcaption>
+    </figure>
 
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/STIR-poster.pdf" | link }}" type="application/pdf"></iframe>
-      <h3>STIR</h3>
-      <p>Much faster reindexing</p>
-      <a href="{{ "static/posters/STIR-poster.pdf" | link }}" target="_blank">Download PDF</a>
-    </div>
+      <figcaption>
+        <h4>STIR</h4>
+        <p>Much faster reindexing</p>
+        <a role="button" href="{{ "static/posters/STIR-poster.pdf" | link }}" target="_blank">Download PDF</a>
+      </figcaption>
+    </figure>
 
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/logging-query-plan-poster.pdf" | link }}" type="application/pdf"></iframe>
-      <h3>Query Plan Logging</h3>
-      <p>Advanced query plan logging and analysis</p>
-      <a href="{{ "static/posters/logging-query-plan-poster.pdf" | link }}" target="_blank">Download PDF</a>
-    </div>
+      <figcaption>
+        <h4>Query Plan Logging</h4>
+        <p>Advanced query plan logging and analysis</p>
+        <a role="button" href="{{ "static/posters/logging-query-plan-poster.pdf" | link }}" target="_blank">Download PDF</a>
+      </figcaption>
+    </figure>
 
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/XMLCanonicalize-Poster-Jim.pdf" | link }}" type="application/pdf"></iframe>
-      <h3>XML Canonicalization</h3>
-      <p>XML canonicalization in PostgreSQL</p>
-      <a href="{{ "static/posters/XMLCanonicalize-Poster-Jim.pdf" | link }}" target="_blank">Download PDF</a>
-    </div>
+      <figcaption>
+        <h4>XML Canonicalization</h4>
+        <p>XML canonicalization in PostgreSQL</p>
+        <a role="button" href="{{ "static/posters/XMLCanonicalize-Poster-Jim.pdf" | link }}" target="_blank">Download PDF</a>
+      </figcaption>
+    </figure>
 
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/pgconf2025.jianhe.poster.pdf" | link }}" type="application/pdf"></iframe>
-      <h3>Jian He's Posters</h3>
-      <p>Two nice small patches for a review</p>
-      <a href="{{ "static/posters/pgconf2025.jianhe.poster.pdf" | link }}" target="_blank">Download PDF</a>
-    </div>
+      <figcaption>
+        <h4>Jian He's Posters</h4>
+        <p>Two nice small patches for a review</p>
+        <a role="button" href="{{ "static/posters/pgconf2025.jianhe.poster.pdf" | link }}" target="_blank">Download PDF</a>
+      </figcaption>
+    </figure>
 
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/pgconf-dev-2025-poster-kou.pdf" | link }}" type="application/pdf"></iframe>
-      <h3>Kou's Poster</h3>
-      <p>Better COPY with different formats</p>
-      <a href="{{ "static/posters/pgconf-dev-2025-poster-kou.pdf" | link }}" target="_blank">Download PDF</a>
-    </div>
+      <figcaption>
+        <h4>Kou's Poster</h4>
+        <p>Better COPY with different formats</p>
+        <a role="button" href="{{ "static/posters/pgconf-dev-2025-poster-kou.pdf" | link }}" target="_blank">Download PDF</a>
+      </figcaption>
+    </figure>
 
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/nmisch-pgconfdev2025-poster.pdf" | link }}" type="application/pdf"></iframe>
-      <h3>Noah Misch's Poster</h3>
-      <p>A fix needing attention</p>
-      <a href="{{ "static/posters/nmisch-pgconfdev2025-poster.pdf" | link }}" target="_blank">Download PDF</a>
-    </div>
+      <figcaption>
+        <h4>Noah Misch's Poster</h4>
+        <p>A fix needing attention</p>
+        <a role="button" href="{{ "static/posters/nmisch-pgconfdev2025-poster.pdf" | link }}" target="_blank">Download PDF</a>
+      </figcaption>
+    </figure>
 
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/mooncake_pgconf.pdf" | link }}" type="application/pdf"></iframe>
-      <h3>pg_mooncake v0.2 🥮</h3>
-      <p>Extension for fast analytics on 'up-to-date' tables</p>
-      <a href="{{ "static/posters/mooncake_pgconf.pdf" | link }}" target="_blank">Download PDF</a>
-    </div>
+      <figcaption>
+        <h4>pg_mooncake v0.2 🥮</h4>
+        <p>Extension for fast analytics on 'up-to-date' tables</p>
+        <a role="button" href="{{ "static/posters/mooncake_pgconf.pdf" | link }}" target="_blank">Download PDF</a>
+      </figcaption>
+    </figure>
 
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/PGDV-Volunteer-Poster-PgConfDev-2025.pdf" | link }}" type="application/pdf"></iframe>
-      <h3>PGDV Volunteer</h3>
-      <p>I Want to Work on Postgres, But I Don't Know Where to Start!</p>
-      <a href="{{ "static/posters/PGDV-Volunteer-Poster-PgConfDev-2025.pdf" | link }}" target="_blank">Download PDF</a>
-    </div>
+      <figcaption>
+        <h4>PGDV Volunteer</h4>
+        <p>I Want to Work on Postgres, But I Don't Know Where to Start!</p>
+        <a role="button" href="{{ "static/posters/PGDV-Volunteer-Poster-PgConfDev-2025.pdf" | link }}" target="_blank">Download PDF</a>
+      </figcaption>
+    </figure>
 
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/WAL-Compression-poster.pdf" | link }}" type="application/pdf"></iframe>
-      <h3>WAL Compression</h3>
-      <p>Work-in-progress to make WAL leaner</p>
-      <a href="{{ "static/posters/WAL-Compression-poster.pdf" | link }}" target="_blank">Download PDF</a>
-    </div>
+      <figcaption>
+        <h4>WAL Compression</h4>
+        <p>Work-in-progress to make WAL leaner</p>
+        <a role="button" href="{{ "static/posters/WAL-Compression-poster.pdf" | link }}" target="_blank">Download PDF</a>
+      </figcaption>
+    </figure>
 
-    <div class="poster-item">
+    <figure>
       <iframe src="{{ "static/posters/PWI_Poster_PGConf.Dev_2025.jpg" | link }}" type="application/pdf"></iframe>
-      <h3>Postgres Women India</h3>
-      <p>A year of growth and achievements</p>
-      <a href="{{ "static/posters/PWI_Poster_PGConf.Dev_2025.jpg" | link }}" target="_blank">Download Poster</a>
-    </div>
-
+      <figcaption>
+        <h4>Postgres Women India</h4>
+        <p>A year of growth and achievements</p>
+        <a role="button" href="{{ "static/posters/PWI_Poster_PGConf.Dev_2025.jpg" | link }}" target="_blank">Download Poster</a>
+      </figcaption>
+    </figure>
   </div>
 
   <p style="text-align: center; margin-top: 2rem;">
