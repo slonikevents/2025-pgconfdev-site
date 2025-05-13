@@ -100,6 +100,10 @@
 {% block main %}
   <h1>Schedule</h1>
 
+  <div class="ongoing-activities">
+     <p>Don't forget to check out the <a href="{{ "ongoing-activities.html" | link }}">ongoing activities</a> throughout the conference, including the Community Booth and Poster Session!</p>
+  </div>
+
   <h2><time datetime="2025-05-13">Tuesday, May 13<sup>th</sup></time></h2>
   <ul class="schedule" style="grid-template-columns: auto repeat(3, 1rem 1fr);">
     <h4 class="wide" style="grid-area: a;">Cartier A</h4>
@@ -176,10 +180,6 @@
       Social Run (and Dinner)
     {%- endcall %}
   </ul>
-
-  <div class="ongoing-activities">
-     <p>Don't forget to check out the <a href="{{ "ongoing-activities.html" | link }}">ongoing activities</a> throughout the conference, including the Community Booth and Poster Session!</p>
-  </div>
 
   <h2><time datetime="2025-05-14">Wednesday, May 14<sup>th</sup></time></h2>
   <ul class="schedule">
