@@ -78,7 +78,7 @@
       <li><a href="{{ "schedule.html" | link }}">Schedule</a>
       <li><a href="{{ "sponsors.html" | link }}">Sponsors</a>
       <li><a href="{{ "social.html" | link }}">Social</a>
-      <li><a href="{{ "sponsor-levels.html" | link }}">Sponsorship Opportunities</a>
+      {# <li><a href="{{ "sponsor-levels.html" | link }}">Sponsorship Opportunities</a> #}
       <li><a href="{{ "about.html" | link }}">About</a>
       <li><a href="{{ "contact.html" | link }}">Contact</a>
 
@@ -94,10 +94,13 @@
 
 {% block side %}
   <aside>
+    {#
     <h4><a href="{{ "sponsor-levels.html" | link }}">Sponsorship</a></h4>
+
     <p>Support the PostgreSQL developers community!
     <p>For great exposure to the global PostgreSQL community, see our
       <a href="{{ "sponsor-levels.html" | link }}">sponsorship opportunities</a>.
+    #}
 
     <h4><a href="{{ "sponsors.html" | link }}">Gold Sponsors</a></h4>
     {% for sponsor in gold %}
@@ -113,8 +116,10 @@
       </a>
     {% endfor %}
 
+    {#
     <p>Want your logo here? Check out all our
       <a href="{{ "sponsor-levels.html" | link }}">sponsorship opportunities</a>.
+    #}
   </aside>
 {% endblock %}
 
@@ -129,8 +134,8 @@
       <li><a href="{{ "registration.html" | link }}">Registration</a>
       <li><a href="{{ "sponsors.html" | link }}">Sponsors</a>
       <li><a href="{{ "social.html" | link }}">Social</a>
-      <li><a href="{{ "sponsor-levels.html" | link }}">Sponsorship Opportunities</a>
-      <li><a href="{{ "cfp.html" | link }}">Call for Papers</a>
+      {# <li><a href="{{ "sponsor-levels.html" | link }}">Sponsorship Opportunities</a> #}
+      {# <li><a href="{{ "cfp.html" | link }}">Call for Papers</a> #}
       <li><a href="{{ "about.html" | link }}">About</a>
       <li><a href="{{ "/coc" | link }}">Code of Conduct</a>
       <li><a href="{{ "contact.html" | link }}">Contact</a>
