@@ -41,14 +41,25 @@
     position: unset;
   }
 
+  body > footer {
+    background-color: #033452;
+  }
+
   body > main {
     grid-area: main / main / side / side;
     max-width: 800px;
   }
+
+  .logo > img {
+    height: 100%;
+    margin-top: 1rem;
+    min-height: 20rem;
+    object-fit: cover;
+  }
 </style>
 
 <header>
-  <div style="margin-top: 1rem;">
+  <div class="logo">
     <img src="{{ "static/vancouver.svg" | link }}" alt="Vancouver Skyline">
   </div>
 </header>
