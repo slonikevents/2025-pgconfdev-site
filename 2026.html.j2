@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en-CA"><meta charset="utf-8">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link rel="apple-touch-icon" sizes="180x180" href="{{ "static/icon/apple-touch-icon.png" | link }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ "static/icon/favicon-16x16.png" | link }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ "static/icon/favicon-32x32.png" | link }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize/modern-normalize.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700">
+<link rel="stylesheet" href="{{ "static/base.css" | link }}">
+<link rel="stylesheet" href="{{ "static/main.css" | link }}">
+
+<!-- Add the target="_blank" attribute to all external links -->
+<script>
+  window.addEventListener("DOMContentLoaded", (e) => {
+    for (const link of document.links) {
+      if (!["http:", "https:"].includes(link.protocol))
+        continue;
+      if (link.host == "" || link.host == location.host)
+        continue;
+      if (link.target != "")
+        continue;
+      link.target = "_blank";
+    }
+  });
+
+  // Also https://stackoverflow.com/q/14389566
+</script>
+
+{# Metadata #}
+<meta name="author" content="Slonik Events Canada">
+<meta name="description" content="{{ full_name }} {{ year }}">
+<meta name="viewport" content="width=device-width">
+<title>PGConf.dev 2026</title>
+
+<style>
+  body > header {
+    background-color: unset;
+    position: unset;
+  }
+
+  body > main {
+    grid-area: main / main / side / side;
+    max-width: 800px;
+  }
+</style>
+
+<header>
+  <div style="margin-top: 1rem;">
+    <img src="{{ "static/vancouver.svg" | link }}" alt="Vancouver Skyline">
+  </div>
+</header>
+
+<main>
+  <h1>PGConf.dev 2026</h1>
+  <h2 style="text-align: center;">
+    May <time datetime="2026-05-19">19</time>&ndash;<time datetime="2026-05-22">22</time>, 2026
+  </h2>
+
+  <hgroup style="text-align: center;">
+    <h3>Simon Frasier University&mdash;Vancouver</h3>
+    <h4>Vancouver, BC, Canada</h4>
+  </hgroup>
+
+  <p>We're headed back to Vancouver in 2026!
+
+  <p>PGConf.dev is where users, developers, and community organizers come
+    together to focus on <a href="https://www.postgresql.org">PostgreSQL</a>
+    development and community growth.
+
+  <p>Meet PostgreSQL contributors, learn about upcoming features, and discuss
+    development problems with PostgreSQL enthusiasts.
+</main>
+
+<footer>
+  <p>Follow us on <a href="https://twitter.com/pgconfdev"><i class="fa-brands fa-x-twitter"></i></a>
+    or <a href="https://mastodon.social/@pgconfdev" rel="me"><i class="fa-brands fa-mastodon"></i></a>
+    for up to date news about the event.
+</footer>
