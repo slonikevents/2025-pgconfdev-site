@@ -17,6 +17,13 @@
       text-align: left;
       text-transform: uppercase;
     }
+    
+    .volunteer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
   </style>
 {% endblock %}
 
@@ -59,17 +66,17 @@
 
     <figure class="person">
       <img src="static/person/Jonathan%20Katz.jpeg" alt="Jonathan Katz">
-      <figcaption>Jonathan Katz <br> <small>AWS</small><br><small>Program Committee</small></figcaption>
+      <figcaption>Jonathan Katz <br> <small>AWS</small><br></figcaption>
     </figure>
 
     <figure class="person">
       <img src="static/person/Melanie%20Plageman.jpeg" alt="Melanie Plageman">
-      <figcaption>Melanie Plageman <br> <small>Microsoft</small><br><small>Program Committee</small></figcaption>
+      <figcaption>Melanie Plageman <br> <small>Microsoft</small></figcaption>
     </figure>
 
     <figure class="person">
       <img src="static/person/Paul%20Ramsey.jpeg" alt="Paul Ramsey">
-      <figcaption>Paul Ramsey <br> <small>Crunchy Data</small><br><small>Program Committee</small></figcaption>
+      <figcaption>Paul Ramsey <br> <small>Crunchy Data</small></figcaption>
     </figure>
 
     <figure class="person">
@@ -78,37 +85,63 @@
     </figure>
   </div>
 
-  ## Volunteers
+
+  ## Program Committee
+
   <div class="flex">
     <figure class="person">
       <div style="width: 200px;"></div>
-      <figcaption>Amit Kapila<br><small>Fujitsu</small><br><small>Program Committee</small></figcaption>
+      <figcaption>Amit Kapila<br><small>Fujitsu</small></figcaption>
     </figure>
+    <figure class="person">
+      <img src="static/person/Jonathan%20Katz.jpeg" alt="Jonathan Katz">
+      <figcaption>Jonathan Katz <br> <small>AWS</small></figcaption>      
+    </figure>
+    <figure class="person">      
+      <figcaption>Noah Misch<br><small>Google</small></figcaption>
+      </figure>
+    <figure class="person">
+      <img src="static/person/Melanie%20Plageman.jpeg" alt="Melanie Plageman">
+      <figcaption>Melanie Plageman <br> <small>Microsoft</small></figcaption>
+    </figure>
+    <figure class="person">
+      <img src="static/person/Paul%20Ramsey.jpeg" alt="Paul Ramsey">
+      <figcaption>Paul Ramsey <br> <small>Crunchy Data</small></figcaption>
+    </figure>
+  </div>
 
+  ## Code of Conduct Commiteee
+  
+  <div class="flex">
+  <figure class="person">
+      <img src="{{ "/static/person/Stacey%20Haysler.jpeg" | link }}" alt="Stacey Haysler">
+      <figcaption>Stacey Haysler<br><small>PGX Inc.</small></figcaption>
+    </figure>
     <figure class="person">
       <img src="{{ "/static/person/Karen%20Jex.jpeg" | link }}" alt="Karen Jex">
       <figcaption>Karen Jex<br><small>Crunchy Data</small><br><small>Code of Conduct Committee</small></figcaption>
     </figure>
-
-    <figure class="person">
-      <div style="width: 200px;"></div>
-      <figcaption>Gwen Shapira<br><small>Nile</small></figcaption>
-    </figure>
-
     <figure class="person">
       <img src="{{ "/static/person/Masahiko%20Sawada.png" | link }}" alt="Masahiko Sawada">
-      <figcaption>Masahiko Sawada<br><small>AWS</small><br><small>Code of Conduct Committee</small></figcaption>
-    </figure>
+      <figcaption>Masahiko Sawada<br><small>AWS</small></figcaption>
+    </figure>    
+  </div>
 
-    <figure class="person">
-      <div style="width: 200px;"></div>
-      <figcaption>Noah Misch<br><small>Google</small><br><small>Program Committee</small></figcaption>
-    </figure>
+  ## Volunteers
 
-    <figure class="person">
-      <img src="{{ "/static/person/Stacey%20Haysler.jpeg" | link }}" alt="Stacey Haysler">
-      <figcaption>Stacey Haysler<br><small>PGX Inc.</small><br><small>Code of Conduct Committee</small></figcaption>
+  <div class="flex">
+    <figure class="person">      
+      <figcaption>Claire Giordano<br><small>Microsoft</small><br>Social Media</br></figcaption>
     </figure>
+    <figure class="person">      
+      <figcaption>Gwen Shapira<br><small>Nile</small><br>Sponsorships</br></figcaption>
+    </figure>    
+  </div>
+
+  <div class="volunteer-grid">
+  {% for volunteer in volunteers %}
+  <div>{{ volunteer }}</div>
+  {% endfor %}    
   </div>
 
   ## Volunteering

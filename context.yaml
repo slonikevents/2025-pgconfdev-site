@@ -210,3 +210,10 @@ schedule:
   link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/444/
 - name: "Vector search is now boring, but PostgreSQL has ways to go (Jonathan Katz)"
   link: https://www.pgevents.ca/events/pgconfdev2025/schedule/session/446/
+
+volunteers:
+  - David Benoit
+  - Fedor Dikarev
+  - Hari Kiran
+  - Chioma Onyekpere
+  - Yogesh Sharma
