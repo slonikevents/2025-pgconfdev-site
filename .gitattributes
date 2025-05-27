@@ -9,6 +9,7 @@
 /context.yaml site-ignore
 /requirements.txt site-ignore
 /tasks.py site-ignore
+/video-intro/** site-ignore
 
 /base.html.j2 site-ignore
 
