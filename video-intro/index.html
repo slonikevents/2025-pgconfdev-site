@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<!--
+  This page is used to generate the static image that should appear before each
+  uploaded video.
+
+  1. Open this page in a browser and enable Responsive Design Mode
+  2. Set the resolution to match the video (e.g. 1920 x 1080)
+  3. Take a screenshot of the viewport (not the entire browser window)
+  4. Generate a static video from the screenshot using ffmpeg
+
+  For example, this ffmpeg invocation will generate a 10 second video with mute
+  audio:
+
+  ffmpeg -y -hide_banner -loglevel info \
+    -stream_loop -1 -t 10 -i static.png \
+    -f lavfi -i anullsrc=r=48000 \
+    -c:v libx264 -pix_fmt yuv420p -s 1920x1080 -r 30 \
+    -c:a aac -b:a 320k -ar 48000 -ac 2 \
+    -shortest static.mp4
+-->
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    font-size: 12px;
+  }
+
+  body {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 4rem;
+    gap: 1.5em 4em;
+    justify-content: center;
+    margin: 3rem;
+  }
+
+  header {
+    font-family: Montserrat;
+    font-size: 8rem;
+    font-weight: 700;
+  }
+
+  header > img {
+    bottom: calc(-13em / 64);
+    height: 1.25em;
+    position: relative;
+    vertical-align: baseline;
+    width: auto;
+  }
+
+  body > img {
+    height: 3.5em;
+  }
+</style>
+
+<header>
+  <img src="PGConfDev.svg"> 2025 Video Sponsors
+</header>
+<img src="AWS.svg">
+<img src="Google.svg">
+<img src="EDB.svg">
+<img src="Microsoft.svg">
+<img src="Huawei.svg" style="height: 6em;">
