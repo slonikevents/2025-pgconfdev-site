@@ -567,3 +567,20 @@ button:focus-visible,
   opacity: 0.5;
   pointer-events: none;
 }
+
+div#lastyear-banner {
+      text-align: center;
+}
+div#lastyear-banner-content {
+  display: inline-block;
+  background-color: #f2dede;
+  color: #616161;
+  text-align: center;
+  padding: 1rem 1rem 1rem 1rem;
+  margin-top: 1rem;
+  border-radius: 1.5rem;
+  font-size: 150%;
+  font-weight: bold;
+  text-transform:capitalize;
+}
+  
